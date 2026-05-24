@@ -1,0 +1,24 @@
+{
+  "name": "project-portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "verify": "npm run lint && npm run build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.4",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "lucide": "^1.16.0"
+  }
+}
