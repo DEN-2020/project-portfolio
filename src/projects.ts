@@ -36,6 +36,9 @@ import nizamPortalRu2 from './assets/screenshots/nizam-portal-ru-2.png';
 import nizamPortalRu3 from './assets/screenshots/nizam-portal-ru-3.png';
 import profitCalcImg from './assets/screenshots/profit-calc.png';
 import robloxSpaceImg from './assets/screenshots/roblox-space.png';
+import secondImg1 from './assets/screenshots/second-1.png';
+import secondImg2 from './assets/screenshots/second-2.png';
+import secondImg3 from './assets/screenshots/second-3.png';
 import tvImg from './assets/screenshots/tv.jpg';
 import videogenEn1 from './assets/screenshots/videogen-en-1.png';
 import videogenEn2 from './assets/screenshots/videogen-en-2.png';
@@ -505,6 +508,72 @@ export const projects: Project[] = [
       ru: [
         'Создан удобный читательский интерфейс с мгновенной навигацией и нулевыми задержками.',
         'Идеальная адаптивность от компактных смартфонов до больших настольных экранов.',
+      ],
+    },
+  },
+
+  {
+    slug: 'second-coworking',
+    name: {
+      en: 'Second (Smart Coworking & Space ERP)',
+      ru: 'Second (Коворкинг & ERP недвижимости)',
+    },
+    category: 'web-platforms',
+    type: 'app',
+    visibility: 'private',
+    demoStatus: 'ready',
+    thumbnail: {
+      en: secondImg1,
+      ru: secondImg1,
+    },
+    screenshots: {
+      en: [secondImg1, secondImg2, secondImg3],
+      ru: [secondImg1, secondImg2, secondImg3],
+    },
+    badge: {
+      en: 'Enterprise React 19 ERP',
+      ru: 'ERP на React 19 & Vite',
+    },
+    localFolder: 'Second',
+    summary: {
+      en: 'Commercial space management ERP with interactive SVG floor plan zoning, real-time occupancy scheduling, financial forecasting, and tenant partner portals.',
+      ru: 'ERP-система управления коммерческими пространствами и коворкингами: интерактивная карта этажей (Floor Plan), календарь занятости, юнит-экономика и кабинет арендатора.',
+    },
+    purpose: {
+      en: 'An enterprise platform designed for coworking hubs, commercial real estate operators, and retail clusters to streamline spatial leasing, booth assignments, cash flow analytics, and CCTV security in a unified multilingual web application.',
+      ru: 'Корпоративная веб-платформа для операторов коворкингов, торговых центров и смарт-офисов: автоматизация зонирования помещений, распределение торговых мест (будок), анализ денежных потоков и интеграция с CCTV-камерами.',
+    },
+    features: {
+      en: [
+        'Interactive Floor Plan: visual floor mapping, zone partitioning, and trade booth allocation with status badges.',
+        'Occupancy Calendar & Booking Engine: real-time lease scheduling, customer check-in, and reservation timelines.',
+        'Financial Modeling & Unit Economics: cash flow analysis, income/expense tracking, scenario testing, and PnL reporting.',
+        'Partner Portal & CCTV Integration: tenant self-service dashboard, document exchange, and live IP camera monitoring.',
+      ],
+      ru: [
+        'Интерактивная карта этажей (Floor Plan): визуальная разметка зон, закрепление торговых мест и цветовая индикация статусов.',
+        'Календарь занятости и бронирование: онлайн-учет аренды, регистрация резидентов и таймлайны использования пространств.',
+        'Финансовое моделирование и юнит-экономика: аналитика Cash Flow, учет доходов/расходов, сценарное планирование и PnL-отчеты.',
+        'Кабинет партнера и видеонаблюдение: дашборд арендатора, обмен документами и мониторинг потоков с IP-камер.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'Engineered with React 19, TypeScript, Vite, Tailwind CSS v4, Zustand state management, and Oxlint.',
+        'Data visualization built with Recharts, form validation via Zod, and full internationalization (i18next).',
+      ],
+      ru: [
+        'Стек: React 19, TypeScript, Vite, Tailwind CSS v4, стейт-менеджер Zustand и линтер Oxlint.',
+        'Графика и аналитика на Recharts, строгая валидация схем через Zod и мультиязычность i18next.',
+      ],
+    },
+    stack: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Vite', 'Zustand', 'Recharts', 'i18next'],
+    outcomes: {
+      en: [
+        'Unified property leasing, tenant billing, and floor allocation into a sub-second reactive interface.',
+      ],
+      ru: [
+        'Объединение управления арендой, биллинга резидентов и планировок в единый быстрый интерфейс.',
       ],
     },
   },
@@ -1134,6 +1203,71 @@ export const projects: Project[] = [
       ru: [
         'Активное ежедневное использование в семье с мгновенным обновлением баланса на смартфонах и планшетах.',
         'Пример современной реактивной архитектуры с геймификацией и дружелюбным мобильным UX.',
+      ],
+    },
+  },
+
+  {
+    slug: 'kids-tracker-android',
+    name: {
+      en: 'Kids Tracker Android Native App',
+      ru: 'Kids Tracker (Нативное Android-приложение)',
+    },
+    category: 'mobile-apps',
+    type: 'app',
+    visibility: 'public',
+    demoStatus: 'ready',
+    thumbnail: {
+      en: kidsTrackerEn1,
+      ru: kidsTrackerEn1,
+    },
+    screenshots: {
+      en: [kidsTrackerEn1, kidsTrackerEn2, kidsTrackerEn3],
+      ru: [kidsTrackerEn1, kidsTrackerEn2, kidsTrackerEn3],
+    },
+    badge: {
+      en: 'Kotlin & Jetpack Compose',
+      ru: 'Kotlin & Jetpack Compose',
+    },
+    repo: 'DEN-2020/kids-tracker-android',
+    githubUrl: 'https://github.com/DEN-2020/kids-tracker-android',
+    summary: {
+      en: 'Native Android companion application for Kids Tracker built with Kotlin, Jetpack Compose, and Firebase Firestore real-time synchronization.',
+      ru: 'Нативное мобильное Android-приложение для Kids Tracker на базе Kotlin, Jetpack Compose и Firebase Firestore.',
+    },
+    purpose: {
+      en: 'Delivers a native Android experience for parents and kids, providing home screen widgets, low-latency Firebase sync, native animations, and offline-first state persistence.',
+      ru: 'Обеспечивает нативный мобильный опыт под Android: быстрая синхронизация с Firebase Firestore, плавные анимации Material You и оффлайн-кэширование.',
+    },
+    features: {
+      en: [
+        'Modern Jetpack Compose UI adhering to Material 3 design guidelines.',
+        'Real-time synchronization with cloud Firestore collections shared with the PWA web client.',
+        'PIN security gate for parent settings and custom coin award granting.',
+        'Offline data caching enabling uninterrupted task checking when disconnected.',
+      ],
+      ru: [
+        'Современный интерфейс на Jetpack Compose по гайдлайнам Material 3.',
+        'Синхронизация в реальном времени с базой Firebase Firestore совместно с веб-версией PWA.',
+        'Защита родительских настроек PIN-кодом и начисление виртуальных монет.',
+        'Оффлайн-кэширование данных для работы без постоянного подключения к сети.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'Built with Kotlin, Android Gradle Plugin, Jetpack Compose, Coroutines/Flow, and Firebase Android SDK.',
+      ],
+      ru: [
+        'Стек: Kotlin, Jetpack Compose, Kotlin Coroutines, StateFlow, Gradle Kotlin DSL, Firebase Android SDK.',
+      ],
+    },
+    stack: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Firebase Firestore', 'Coroutines', 'Material 3'],
+    outcomes: {
+      en: [
+        'Expanded Kids Tracker into the native Android ecosystem with instantaneous push sync and smooth 120Hz scrolling.',
+      ],
+      ru: [
+        'Расширение экосистемы Kids Tracker в нативный Android с плавной работой и синхронизацией.',
       ],
     },
   },

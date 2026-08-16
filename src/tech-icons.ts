@@ -532,6 +532,46 @@ export const getTechIcon = (tech: string): string => {
     </svg>`;
   }
 
+  // 63. Kotlin (Official Kotlin K Geometry)
+  if (t.includes('kotlin')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <path d="M22 2H2v20h20L12 12l10-10zM12 12L2 2v20l10-10z" fill="#7f52ff"/>
+    </svg>`;
+  }
+
+  // 64. Jetpack Compose (Compose Spiral Logo)
+  if (t.includes('compose') || t.includes('jetpack')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <circle cx="12" cy="12" r="10" fill="#4285f4"/>
+      <path d="M7 8h10v3H7zm0 5h7v3H7z" fill="#ffffff"/>
+    </svg>`;
+  }
+
+  // 65. HTML5 Canvas / 2D Rendering
+  if (t.includes('canvas')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#f59e0b">
+      <rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="#f59e0b" stroke-width="2"/>
+      <path d="M7 16l4-8 3 6 3-4" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>`;
+  }
+
+  // 66. Recharts / Analytics Charts
+  if (t.includes('recharts') || t.includes('chart')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#22c55e">
+      <path d="M3 20h18M6 16v-4M12 16V8M18 16v-9" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+    </svg>`;
+  }
+
+  // 67. Zustand State Management
+  if (t.includes('zustand')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#eab308">
+      <circle cx="12" cy="12" r="9" fill="#78350f"/>
+      <circle cx="9" cy="10" r="1.5" fill="#fef08a"/>
+      <circle cx="15" cy="10" r="1.5" fill="#fef08a"/>
+      <ellipse cx="12" cy="14" rx="2.5" ry="1.5" fill="#fef08a"/>
+    </svg>`;
+  }
+
   // Default fallback code tag icon
   return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="16 18 22 12 16 6"></polyline>
