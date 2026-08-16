@@ -483,6 +483,55 @@ export const getTechIcon = (tech: string): string => {
     </svg>`;
   }
 
+  // 58. FastAPI (Teal Circle with Lightning Bolt)
+  if (t.includes('fastapi')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <circle cx="12" cy="12" r="10" fill="#059669"/>
+      <path d="M13 3L6 14h6l-1 7 7-11h-6l1-7z" fill="#ffffff"/>
+    </svg>`;
+  }
+
+  // 59. OpenCV (3-Color Vision Ring Logo)
+  if (t.includes('opencv')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <circle cx="12" cy="7" r="4.5" fill="none" stroke="#ef4444" stroke-width="2"/>
+      <circle cx="7" cy="15.5" r="4.5" fill="none" stroke="#22c55e" stroke-width="2"/>
+      <circle cx="17" cy="15.5" r="4.5" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    </svg>`;
+  }
+
+  // 60. Telegram (Official Telegram Paper Plane)
+  if (t.includes('telegram')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <circle cx="12" cy="12" r="10" fill="#24A1DE"/>
+      <path d="M5.5 11.5l11-4.5-3 11-3.5-3.5-2.5 1.5.5-3.5 6-5.5-7.5 4.5z" fill="#ffffff"/>
+    </svg>`;
+  }
+
+  // 61. Audio Ducking / Audio Fader
+  if (t.includes('ducking') || t.includes('audio ducking')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#10b981">
+      <rect x="4" y="10" width="3" height="10" rx="1.5" fill="#10b981"/>
+      <rect x="10.5" y="4" width="3" height="16" rx="1.5" fill="#10b981"/>
+      <rect x="17" y="13" width="3" height="7" rx="1.5" fill="#10b981"/>
+    </svg>`;
+  }
+
+  // 62. Tailscale (Official 9-dot grid)
+  if (t.includes('tailscale')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <circle cx="6" cy="6" r="2.2" fill="#ffffff"/>
+      <circle cx="12" cy="6" r="2.2" fill="#ffffff"/>
+      <circle cx="18" cy="6" r="2.2" fill="#475569"/>
+      <circle cx="6" cy="12" r="2.2" fill="#ffffff"/>
+      <circle cx="12" cy="12" r="2.2" fill="#ffffff"/>
+      <circle cx="18" cy="12" r="2.2" fill="#ffffff"/>
+      <circle cx="6" cy="18" r="2.2" fill="#475569"/>
+      <circle cx="12" cy="18" r="2.2" fill="#ffffff"/>
+      <circle cx="18" cy="18" r="2.2" fill="#ffffff"/>
+    </svg>`;
+  }
+
   // Default fallback code tag icon
   return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="16 18 22 12 16 6"></polyline>

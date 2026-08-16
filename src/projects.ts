@@ -727,8 +727,8 @@ export const projects: Project[] = [
   {
     slug: 'volumepilot',
     name: {
-      en: 'VolumePilot Desktop Utility',
-      ru: 'VolumePilot (Аудио-утилита Windows)',
+      en: 'VolumePilot (Auto Audio Ducking)',
+      ru: 'VolumePilot (Авто-приглушение звука)',
     },
     category: 'audio-media',
     type: 'tooling',
@@ -743,54 +743,54 @@ export const projects: Project[] = [
       ru: [volumepilotImg, volumepilotImg, volumepilotImg],
     },
     badge: {
-      en: 'Windows .NET App',
-      ru: 'Приложение для Windows',
+      en: 'Windows .NET Ducking',
+      ru: 'Авто-дакинг для Windows',
     },
     repo: 'DEN-2020/VolumePilot',
     githubUrl: 'https://github.com/DEN-2020/VolumePilot',
     summary: {
-      en: 'Intelligent real-time Windows audio stabilizer utilizing WASAPI DSP filters to balance quiet dialogue and suppress sudden loud sound spikes.',
-      ru: 'Интеллектуальный стабилизатор звука для Windows на базе WASAPI DSP для выравнивания тихих диалогов и сглаживания громких звуков.',
+      en: 'Intelligent Windows background utility that automatically ducks background music, media, or game volume whenever you speak into your microphone and smoothly restores it on silence.',
+      ru: 'Интеллектуальная утилита для Windows, которая автоматически приглушает фоновую музыку, YouTube или игры в момент, когда вы говорите в микрофон, и плавно восстанавливает громкость при молчании.',
     },
     purpose: {
-      en: 'A high-performance system tray utility for Windows that eliminates the need to constantly adjust volume during movies, streams, and gaming sessions. It acts as an intelligent automatic gain controller (AGC) and dynamic peak limiter directly at the Windows audio endpoint layer.',
-      ru: 'Системная утилита в трее Windows, устраняющая необходимость вручную регулировать громкость при просмотре фильмов, стримов и в играх. Выполняет автоматическую регулировку усиления (AGC) и пиковое лимитирование на уровне аудио-эндпоинта Windows.',
+      en: 'A high-performance system tray utility built for streamers, podcasters, gamers, and remote workers. Monitors the default input microphone in real time via low-latency WASAPI, automatically attenuating target applications (or master volume) and restoring levels using finely tuned Attack, Hold, and Release parameters.',
+      ru: 'Высокопроизводительная утилита для системного трея Windows, созданная для стримеров, подкастеров, геймеров и звонков. Отслеживает активность микрофона через низколатентный WASAPI, автоматически приглушает выбранные приложения (или Master Volume) и плавно восстанавливает громкость с гибкой настройкой времени атаки, удержания (Hold) и затухания.',
     },
     features: {
       en: [
-        'Real-time RMS volume level analysis with configurable attack, release, and lookahead window parameters.',
-        'Adaptive dialogue boost raising quiet whispers while softly clamping loud explosions and sound effects.',
-        'Global hotkey management for instant mode toggling (Night Mode, Gaming, Movie, Voice Clarity).',
-        'Lightweight system tray background service with zero UI lag and minimal memory footprint (< 15 MB).',
+        'Targeted Ducking: selectively duck individual background apps (Spotify, Chrome, Discord) or the entire System Master Volume.',
+        'Low-latency WASAPI input monitoring capturing microphone voice thresholds with zero CPU overhead.',
+        'Customizable dynamics envelope with precise millisecond controls for Attack, Hold, and Release curves.',
+        'Silent System Tray operation with quick profile toggles, Inno Setup installer, and zero-privilege local execution.',
       ],
       ru: [
-        'Анализ уровня громкости RMS в реальном времени с настраиваемыми параметрами атаки и спада.',
-        'Адаптивное усиление тихой речи с мягким ограничением внезапных взрывов и спецэффектов.',
-        'Глобальные горячие клавиши для быстрого переключения профилей (Ночной режим, Игры, Кино, Голос).',
-        'Работа в фоновом режиме в системном трее с минимальным потреблением ОЗУ (< 15 МБ).',
+        'Целевой дакинг: приглушение отдельных приложений (Spotify, Браузер, Discord) или общего системного звука Master Volume.',
+        'Быстрый WASAPI-мониторинг голоса с мгновенным определением порога срабатывания без нагрузки на процессор.',
+        'Точная настройка огибающей звука: миллисекундный контроль времени атаки (Attack), удержания (Hold) и восстановления (Release).',
+        'Фоновая работа в системном трее Windows, собственный инсталлятор Inno Setup и полная локальная конфиденциальность.',
       ],
     },
     technicalNotes: {
       en: [
-        'Written in C# and .NET with low-level Windows CoreAudio API and WASAPI loopback capture integration.',
-        'Implements custom double-precision floating-point DSP algorithms for lossless audio dynamics processing.',
-        'Engineered for ultra-low latency (< 5ms buffer delay) with zero perceptible audio-video desync.',
+        'Developed in C# and .NET with direct Windows CoreAudio API and WASAPI audio endpoint session hooks.',
+        'Real-time thread-safe audio level polling and per-session volume curve interpolation.',
+        'Packaged as a standalone self-contained portable executable and Inno Setup Windows installer.',
       ],
       ru: [
-        'Разработано на C# и .NET с интеграцией низкоуровневых Windows CoreAudio API и WASAPI Loopback.',
-        'Собственные алгоритмы цифровой обработки сигналов (DSP) с плавающей точкой двойной точности.',
-        'Ультранизкая задержка обработки (< 5 мс), исключающая рассинхронизацию звука и видео.',
+        'Разработано на C# и .NET с прямым вызовом Windows CoreAudio API и хуками аудио-сессий WASAPI.',
+        'Потокобезопасный опрос уровня сигнала в реальном времени и интерполяция кривых громкости.',
+        'Сборка в виде автономного портативного EXE-файла и инсталлятора Inno Setup.',
       ],
     },
-    stack: ['C#', '.NET', 'WPF / WinUI', 'WASAPI Audio', 'DSP Algorithms', 'Windows Tray'],
+    stack: ['C#', '.NET', 'WPF / WinUI', 'WASAPI Audio', 'Audio Ducking', 'Windows Tray'],
     outcomes: {
       en: [
-        'Delivered rock-solid stability during continuous multi-hour streaming and gaming benchmarks.',
-        'Provides professional studio-grade dynamic range compression in an intuitive consumer desktop app.',
+        'Seamless automatic voice-over background audio ducking without needing expensive external hardware mixers.',
+        'Ultra-low memory footprint (< 15 MB) and zero perceptible latency during live streams and gaming.',
       ],
       ru: [
-        'Абсолютная стабильность при многочасовой непрерывной работе в фоновом режиме.',
-        'Студийное качество компрессии динамического диапазона в простом интерфейсе для Windows.',
+        'Идеальное автоматическое приглушение звука при разговоре без необходимости покупать дорогие микшерные пульты.',
+        'Минимальное потребление памяти (< 15 МБ) и нулевая задержка во время прямых трансляций и игр.',
       ],
     },
   },
@@ -821,8 +821,8 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/DEN-2020/VolumePilot-Site',
     siteUrl: 'https://volumepilot.netlify.app/',
     summary: {
-      en: 'Modern showcase landing page for the VolumePilot audio stabilizer featuring interactive waveform animations, feature breakdowns, and direct downloads.',
-      ru: 'Промо-сайт для утилиты VolumePilot с интерактивной анимацией аудио-волн, описанием преимуществ и ссылкой на загрузку.',
+      en: 'Modern showcase landing page for the VolumePilot audio ducking utility featuring interactive waveform animations, feature breakdowns, and direct downloads.',
+      ru: 'Промо-сайт для утилиты VolumePilot с интерактивной анимацией аудио-волн, описанием преимуществ авто-дакинга и ссылкой на загрузку.',
     },
     purpose: {
       en: 'Created to present VolumePilot to international users with high-impact visual design, dynamic audio equalizer effects, clear feature comparisons, and one-click installer downloads.',
@@ -830,13 +830,13 @@ export const projects: Project[] = [
     },
     features: {
       en: [
-        'Interactive audio waveform visualizer demonstrating real-time dynamic range normalization.',
-        'Before/After interactive comparison sliders demonstrating audio spike smoothing.',
+        'Interactive audio waveform visualizer demonstrating real-time dynamic audio ducking normalization.',
+        'Before/After interactive comparison sliders demonstrating background audio suppression while talking.',
         'Responsive layout optimized for high conversion on mobile, tablet, and desktop viewports.',
         'Automated release pipeline linking GitHub Release binaries to direct download buttons.',
       ],
       ru: [
-        'Интерактивный визуализатор аудио-волны, демонстрирующий выравнивание громкости.',
+        'Интерактивный визуализатор аудио-волны, демонстрирующий выравнивание громкости при разговоре.',
         'Интерактивное сравнение «До и После» со сглаживанием резких перепадов звука.',
         'Адаптивная верстка с высокой конверсией на смартфонах и десктопах.',
         'Прямая интеграция кнопок скачивания со сборками релизов на GitHub Releases.',
@@ -866,8 +866,8 @@ export const projects: Project[] = [
   {
     slug: 'nightvoice',
     name: {
-      en: 'NightVoice Audio & Web Engine',
-      ru: 'NightVoice (Аудио-процессинг & Веб)',
+      en: 'NightVoice (Loudness Stabilization & Web)',
+      ru: 'NightVoice (Стабилизатор звука & Веб)',
     },
     category: 'audio-media',
     type: 'tooling',
@@ -882,48 +882,50 @@ export const projects: Project[] = [
       ru: [nightvoiceImg, nightvoiceImg, nightvoiceImg],
     },
     badge: {
-      en: 'Audio DSP Suite',
-      ru: 'Аудио DSP система',
+      en: 'DSP Compression & Astro',
+      ru: 'DSP компрессия & Astro',
     },
     repo: 'DEN-2020/NightVoice',
     githubUrl: 'https://github.com/DEN-2020/NightVoice',
     summary: {
-      en: 'Audio DSP processing ecosystem and companion web interfaces for dynamic voice enhancement, night listening, and speech intelligibility.',
-      ru: 'Экосистема цифровой обработки звука и веб-интерфейсы для улучшения разборчивости речи и комфортного ночного прослушивания.',
+      en: 'System-wide loudness stabilization and dynamic range compression for Windows (0% AI, pure DSP) with official Astro multilingual documentation portal in 6 languages.',
+      ru: 'Системная стабилизация громкости и динамическая компрессия для Windows (без ИИ, чистый DSP) с официальным сайтом на Astro на 6 языках.',
     },
     purpose: {
-      en: 'Engineered to solve voice clarity issues in media playback. Employs multiband frequency shaping, lookahead compression, and speech-frequency boosting algorithms.',
-      ru: 'Разработано для решения проблемы неразборчивой речи в фильмах и подкастах с помощью многополосной эквализации и алгоритмов выделения голосового спектра.',
+      en: 'Engineered to solve voice clarity and volume spike issues in media playback. Employs 100% mathematical DSP algorithms (Soft, Night, Strong, Custom compression modes) without AI overhead, paired with a modern Astro web portal translated into English, Russian, German, Spanish, French, and Finnish.',
+      ru: 'Разработано для устранения резких перепадов громкости и улучшения разборчивости речи в фильмах и видео. Использует чистые математические DSP-алгоритмы (режимы Soft, Night, Strong, Custom) без ИИ-задержек в связке с мультиязычным веб-порталом на Astro на 6 языках (EN, RU, DE, ES, FR, FI).',
     },
     features: {
       en: [
-        'Speech Bandwidth Isolation boosting 1kHz-4kHz speech harmonics while attenuating sub-bass rumbles.',
-        'Fast-acting peak limiter preventing digital audio clipping and headphone fatigue.',
-        'Modular web architecture facilitating cross-platform audio DSP control.',
+        'System-wide Windows dynamic range compression balancing loud explosions and quiet dialogue.',
+        'Preset modes (Soft, Night, Strong, Custom) with instant system tray profile switching.',
+        'Official multilingual Astro website translated into 6 languages with interactive audio before/after player.',
+        'Zero-AI real-time audio pipeline ensuring 100% privacy and zero latency.',
       ],
       ru: [
-        'Выделение голосового диапазона частот 1-4 кГц с подавлением низкочастотного гула.',
-        'Быстрый пиковый лимитер для предотвращения клиппинга и искажений звука.',
-        'Модульная архитектура для управления аудио-профилями через веб-интерфейс.',
+        'Системная динамическая компрессия Windows: выравнивание громких спецэффектов и тихой речи.',
+        'Готовые пресеты (Soft, Night, Strong, Custom) с быстрым переключением из системного трея.',
+        'Официальный многоязычный сайт на Astro на 6 языках со встроенным интерактивным аудио-плеером «До/После».',
+        'Полная оффлайн-конфиденциальность без нейросетевых задержек (чистая DSP-математика).',
       ],
     },
     technicalNotes: {
       en: [
-        'Combines C# audio engines, Web Audio API DSP nodes, and modern web UI components.',
-        'Biquad filter cascade architecture for precise real-time frequency response manipulation.',
+        'Windows audio core written in C# with WASAPI endpoint DSP biquad filter cascades.',
+        'Web portal built with Astro, Tailwind CSS, TypeScript, and 100/100 Lighthouse performance architecture.',
       ],
       ru: [
-        'Связка алгоритмов цифровой фильтрации C# и Web Audio API Biquad-фильтров.',
-        'Каскад фильтров для точной настройки амплитудно-частотной характеристики в реальном времени.',
+        'Десктопное ядро на C# с каскадами фильтров WASAPI и цифровой компрессией.',
+        'Веб-портал на Astro, Tailwind CSS и TypeScript с наивысшей оценкой скорости Lighthouse 100/100.',
       ],
     },
-    stack: ['C#', 'Web Audio API', 'TypeScript', 'DSP Algorithms', 'AudioStabilizator'],
+    stack: ['C#', 'DSP Algorithms', 'Astro', 'TypeScript', 'i18n (AR/EN/RU)', 'Web Audio API'],
     outcomes: {
       en: [
-        'Significantly enhanced speech clarity during late-night media consumption without increasing overall volume.',
+        'Delivered crystal-clear night movie listening without waking family members or needing manual volume adjustments.',
       ],
       ru: [
-        'Существенное повышение разборчивости диалогов в ночное время без увеличения общей громкости.',
+        'Комфортный ночной просмотр фильмов без постоянной ручной регулировки громкости пультом.',
       ],
     },
   },
@@ -931,8 +933,8 @@ export const projects: Project[] = [
   {
     slug: 'videogen',
     name: {
-      en: 'VIDEOGEN Automated Studio',
-      ru: 'VIDEOGEN (Автоматизированная видеостудия)',
+      en: 'Local VideoGen (AI Video Studio)',
+      ru: 'Local VideoGen (AI-Видеостудия)',
     },
     category: 'audio-media',
     type: 'pipeline',
@@ -947,54 +949,54 @@ export const projects: Project[] = [
       ru: [videogenEn1, videogenEn2, videogenEn3],
     },
     badge: {
-      en: 'AI Video Pipeline',
-      ru: 'AI-видеогенератор',
+      en: 'FastAPI & OpenCV Studio',
+      ru: 'FastAPI & OpenCV студия',
     },
     repo: 'DEN-2020/VIDEOGEN',
     githubUrl: 'https://github.com/DEN-2020/VIDEOGEN',
     summary: {
-      en: 'End-to-end automated content generation studio pipeline utilizing Python, FFmpeg GPU acceleration, AI voice synthesis, and dynamic subtitle burning.',
-      ru: 'Автоматизированный программный комплекс для создания видеоконтента с ИИ-озвучкой, субтитрами и FFmpeg GPU рендерингом.',
+      en: 'Local-first automated video studio with FastAPI backend, React dashboard, Ollama script drafts, OpenCV scene/motion detection, and FFmpeg GPU rendering.',
+      ru: 'Локальная студия генерации коротких видео с бэкендом на FastAPI, дашбордом на React, сценариями Ollama, детекцией сцен OpenCV и рендером FFmpeg GPU.',
     },
     purpose: {
-      en: 'A fully automated production pipeline designed to transform raw script text into complete, edited, captioned, and voiceover-synced videos ready for YouTube Shorts, Reels, and TikTok with zero manual editing.',
-      ru: 'Автоматический конвейер генерации видеороликов: превращает текстовые сценарии в готовые видео с закадровым голосом ИИ, динамическими анимированными субтитрами и видеорядом для YouTube Shorts и Reels.',
+      en: 'An end-to-end production workflow designed for creating factual, educational, and narrative short-form videos (Shorts/Reels) with rights review, AI script generation, OpenCV scene segmentation, voice synthesis, dynamic subtitles, and direct Telegram publishing.',
+      ru: 'Комплексный конвейер для создания коротких познавательных и сюжетных видео (Shorts/Reels): генерация сценариев через Ollama, нарезка и анализ сцен через OpenCV, синтез речи, анимированные субтитры и прямая публикация через Telegram Bot API.',
     },
     features: {
       en: [
-        'Multi-track timeline assembler syncing background video clips, background music, and synthesized voiceover.',
-        'Word-level subtitle synchronization with custom animations, colors, and font styles burned directly via FFmpeg.',
-        'Web management dashboard (Vite + React) for job queuing, script editing, and live video previews.',
-        'Hardware-accelerated GPU encoding (NVENC / CUDA) rendering 1080x1920 video at over 4x real-time speed.',
+        'Storyboard & EDL engine mapping script segments to video scenes via Ollama embeddings and OpenCV motion metrics.',
+        'Hardware-accelerated FFmpeg 1080x1920 portrait rendering with visual styles (clean, documentary, cinematic, archive).',
+        'Voice synthesis integration with Silero RU, Piper, and optional F5-TTS neural voice lab.',
+        'Fact-checking and rights-clearing approval gate blocking publication of unverified video assets.',
+        'Direct Telegram Bot API upload sharing finished MP4 videos straight into target channels.',
       ],
       ru: [
-        'Многодорожечный монтажный движок: сведение видеоряда, фоновой музыки и голосовой дорожки.',
-        'Пословная синхронизация анимированных субтитров (Word-by-word) с наложением через FFmpeg.',
-        'Веб-интерфейс управления (Vite + React) для редактирования сценариев, очереди задач и превью роликов.',
-        'Аппаратный GPU-рендеринг (NVIDIA NVENC / CUDA) со скоростью более 4x от реального времени.',
+        'Слой раскадровки (EDL): привязка фрагментов текста к видеоряду через эмбеддинги Ollama и детекцию сцен OpenCV.',
+        'Аппаратный рендеринг FFmpeg (1080x1920) со стилями монтажа (документальный, кинематографичный, архивный).',
+        'Голосовой синтез на базе Silero RU, Piper и экспериментального модуля F5-TTS.',
+        'Шлюз проверки прав и фактов (Approval Gate) для контроля качества перед публикацией.',
+        'Прямая отправка готового MP4 в Telegram через встроенный Telegram Bot API.',
       ],
     },
     technicalNotes: {
       en: [
-        'Backend built with Python, FastAPI/Uvicorn, FFmpeg libav filters, and text-to-speech API adapters.',
-        'Frontend built with React 19, TypeScript, and Vite for real-time rendering status polling.',
-        'Asynchronous task worker model managing background rendering pipelines without blocking the web API.',
+        'FastAPI backend with SQLite database for edit decision lists, transcripts, assets, and audit logs.',
+        'React 19 & Vite frontend dashboard with interactive video player and still-frame preview generator.',
+        'Modular OpenCV and scenedetect pipelines extracting scene quality and motion metrics.',
       ],
       ru: [
-        'Бэкенд на Python (FastAPI/Uvicorn) с прямым вызовом фильтров FFmpeg и генераторов речи.',
-        'Фронтенд на React 19, TypeScript и Vite для мониторинга очереди и прогресса генерации.',
-        'Асинхронные воркеры для фонового рендеринга без блокировки основного API сервера.',
+        'Бэкенд на FastAPI с базой SQLite для хранения монтажных листов (EDL), транскриптов и очередей рендера.',
+        'Фронтенд на React 19 и Vite с дашбордом управления и предпросмотром стоп-кадров.',
+        'Пайплайн OpenCV и PySceneDetect для анализа динамики и качества видео-фрагментов.',
       ],
     },
-    stack: ['Python', 'React 19', 'TypeScript', 'FFmpeg GPU', 'Vite', 'AI Voice Synthesis'],
+    stack: ['Python', 'FastAPI', 'React 19', 'FFmpeg GPU', 'OpenCV', 'Ollama / LLMs', 'Telegram Bot API'],
     outcomes: {
       en: [
-        'Reduced 1-minute video production time from 30 minutes of manual editing down to under 15 seconds automated.',
-        'Successfully batch-rendered hundreds of short-form videos with 100% audio-caption synchronization accuracy.',
+        'Automated the complete short-form video lifecycle from URL ingestion to final Telegram publishing in under 60 seconds.',
       ],
       ru: [
-        'Сокращение времени производства 1-минутного ролика с 30 минут ручного монтажа до 15 секунд автоматики.',
-        'Успешная пакетная генерация сотен видео с идеальной синхронизацией субтитров и голоса.',
+        'Полная автоматизация создания вертикальных видеороликов от анализа темы до отправки в Telegram за 60 секунд.',
       ],
     },
   },
@@ -1305,10 +1307,10 @@ export const projects: Project[] = [
       en: 'Quant Research',
       ru: 'Квант-исследование',
     },
-    localFolder: 'BTCUSDT_Edge_Research',
+    localFolder: 'btcusdt-edge-research-audit-20260504',
     summary: {
-      en: 'Quantitative algorithmic trading research framework for backtesting, volatility analysis, statistical arbitrage, and execution edge verification.',
-      ru: 'Исследовательский комплекс для количественного анализа рынка BTC/USDT, бэктестинга стратегий, расчета волатильности и мат-ожидания.',
+      en: 'Quantitative research framework analyzing 2.67M+ 1m clean OHLCV candles (2021–2026) and Binance Futures tick data with cost sensitivity and MFE distribution modeling.',
+      ru: 'Количественный исследовательский комплекс: анализ базы из 2.67+ млн минутных свечей (2021–2026) и тиковых данных Binance Futures с учетом проскальзывания и комиссий.',
     },
     purpose: {
       en: 'A high-grade quantitative research framework in Python that ingests historical tick and 1m Kline data to model risk-adjusted returns, maximum drawdown boundaries, Sharpe ratios, and fee-drag optimizations on BTC/USDT pairs.',
@@ -1316,27 +1318,29 @@ export const projects: Project[] = [
     },
     features: {
       en: [
-        'Walk-forward backtesting engine with slippage models, maker/taker fee factoring, and leverage risk.',
-        'Statistical distribution analysis measuring kurtosis, volatility clusters, and mean reversion windows.',
-        'Automated HTML/PDF equity curve, drawdown chart, and monthly returns heatmap report generator.',
+        'Multi-timeframe diagnostic scans (5m, 15m, 30m, 1h, 4h, 1D) evaluating gross and net edge signals.',
+        'Realistic cost viability gates (0.20%, 0.30%, 0.40%, 0.50% round-trip friction) testing strategy survivability.',
+        'Maximum Favorable Excursion (MFE) distribution analysis and volatility cluster tracking.',
+        'Memory-efficient Parquet data pipelines processing over 2.67 million candles in seconds.',
       ],
       ru: [
-        'Движок бэктестинга Walk-Forward с точным учетом проскальзывания и комиссий биржи.',
-        'Статистический анализ кластеров волатильности и окон возврата к среднему значению.',
-        'Автогенерация интерактивных отчетов с кривыми доходности, просадками и тепловой картой PnL.',
+        'Мультитаймфреймовые диагностические сканы (5м, 15м, 30м, 1ч, 4ч, 1D) для оценки торговых сигналов.',
+        'Проверка на реалистичных комиссиях биржи (0.20%–0.50% round-trip) для отсева иллюзорных стратегий.',
+        'Анализ распределения MFE (Maximum Favorable Excursion) и кластеров волатильности.',
+        'Оптимизированные пайплайны Parquet для мгновенной обработки более 2.67 млн свечей.',
       ],
     },
     technicalNotes: {
       en: [
-        'Built with Python, Pandas, NumPy, Vectorized calculation pipelines, and Matplotlib/Plotly visuals.',
-        'Optimized for memory efficiency processing gigabytes of historical tick datasets in seconds.',
+        'Built with Python, Pandas, NumPy, PyArrow Parquet pipelines, and Vectorized calculation models.',
+        'Automated deep research diagnostic exports with sanitized data packets for independent auditing.',
       ],
       ru: [
-        'Стек: Python, Pandas, NumPy, векторные вычисления и визуализация на Plotly/Matplotlib.',
-        'Оптимизирован для обработки гигабайтных массивов тиковых данных за секунды.',
+        'Стек: Python, Pandas, NumPy, PyArrow Parquet и векторные вычисления.',
+        'Автоматизированный экспорт пакетов глубокого аудита для верификации гипотез.',
       ],
     },
-    stack: ['Python', 'Pandas', 'NumPy', 'Quantitative Modeling', 'Backtesting Engine', 'Trading Math'],
+    stack: ['Python', 'Pandas', 'NumPy', 'Parquet Datasets', 'Quantitative Modeling', 'Binance Futures'],
     outcomes: {
       en: [
         'Identified mathematically sound risk parameters and execution edges across multiple market regimes.',
@@ -1422,8 +1426,8 @@ export const projects: Project[] = [
   {
     slug: 'vpn-proxy-tunnel',
     name: {
-      en: 'Home Gateway & Tailscale Proxy',
-      ru: 'Home Gateway (WireGuard & Tailscale VPN)',
+      en: 'Home Gateway & Tailscale Exit Node',
+      ru: 'Home Gateway (Tailscale Exit Node VPN)',
     },
     category: 'research-infra',
     type: 'tooling',
@@ -1438,39 +1442,39 @@ export const projects: Project[] = [
       ru: [vpnProxyImg, vpnProxyImg, vpnProxyImg],
     },
     badge: {
-      en: 'Mesh VPN Infra',
-      ru: 'Сетевая инфраструктура',
+      en: 'Tailscale Exit Node',
+      ru: 'Tailscale VPN шлюз',
     },
-    localFolder: 'VPN-PROXy',
+    localFolder: 'VPN_PROXY',
     summary: {
-      en: 'Private encrypted mesh VPN and smart proxy routing infrastructure built on WireGuard, Tailscale, and automated health monitoring scripts.',
-      ru: 'Защищенный зашифрованный mesh-туннель и интеллектуальный прокси-маршрутизатор на базе WireGuard и Tailscale.',
+      en: 'Encrypted mesh VPN infrastructure configuring home workstation as a Tailscale Exit Node with automated PowerShell connection and health scripts.',
+      ru: 'Защищенная mesh-инфраструктура с настройкой домашнего ПК как шлюза Tailscale Exit Node и автоматизацией на PowerShell.',
     },
     purpose: {
-      en: 'Provides resilient, encrypted, low-latency remote access between developer workstations, home test servers, cloud instances, and mobile devices across multiple geographies with automated failover.',
-      ru: 'Обеспечивает защищенный, зашифрованный удаленный доступ с низкой задержкой между рабочими станциями, серверами и мобильными устройствами в разных локациях.',
+      en: 'Provides secure, encrypted remote internet routing for developer laptops and gaming clients located in other regions to route all traffic through the home IP address without port forwarding, preserving native application compatibility (Roblox, banking, internal dev servers).',
+      ru: 'Обеспечивает защищенное шифрованное туннелирование трафика удаленных рабочих станций и игровых клиентов из других стран через домашний IP-адрес без проброса портов, сохраняя полную совместимость с нативными приложениями (клиент Roblox, банкинг, локальные серверы разработки).',
     },
     features: {
       en: [
-        'Mesh topology connecting dev nodes directly with WireGuard kernel-level peer-to-peer encryption.',
-        'Split-tunneling traffic routing directing internal microservices securely while preserving direct Internet speeds.',
-        'Automated connection health probes with background auto-reconnect and DNS leak prevention.',
+        'Tailscale Exit Node routing tunnel redirecting all outbound TCP/UDP traffic under home IP.',
+        'Automated PowerShell management scripts (enable-exit-node.ps1, connect-remote.ps1, check-ip.ps1).',
+        'Direct WireGuard peer-to-peer encryption with automatic NAT traversal and zero port-forwarding requirements.',
       ],
       ru: [
-        'Mesh-топология с прямым P2P-шифрованием между рабочими узлами на уровне ядра WireGuard.',
-        'Раздельное туннелирование (Split-tunneling) для доступа к микросервисам без замедления интернета.',
-        'Автоматический мониторинг доступности узлов с автопереподключением и защитой от утечек DNS.',
+        'Туннелирование всего исходящего трафика через Tailscale Exit Node под домашним IP-адресом.',
+        'Автоматизированные скрипты управления на PowerShell (enable-exit-node.ps1, connect-remote.ps1, check-ip.ps1).',
+        'Прямое шифрование WireGuard P2P с автоматическим обходом NAT без необходимости проброса портов.',
       ],
     },
     technicalNotes: {
       en: [
-        'Configured with Tailscale subnet routers, WireGuard configuration profiles, and PowerShell orchestration.',
+        'Configured with Tailscale subnet routers, Windows service auto-startup, and PowerShell CLI wrappers.',
       ],
       ru: [
-        'Настройка маршрутизации подсетей Tailscale, конфигов WireGuard и скриптов PowerShell.',
+        'Настройка шлюзов подсетей Tailscale, автозапуск системной службы Windows и CLI-обертки PowerShell.',
       ],
     },
-    stack: ['WireGuard', 'Tailscale', 'Mesh VPN', 'Network Routing', 'Proxy Middleware', 'PowerShell'],
+    stack: ['Tailscale', 'WireGuard', 'Mesh VPN', 'Exit Node Routing', 'PowerShell', 'Windows Service'],
     outcomes: {
       en: [
         'Zero-downtime secure remote engineering environment accessible securely from anywhere in the world.',
