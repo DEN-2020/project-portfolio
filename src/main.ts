@@ -59,7 +59,7 @@ const savedLang = (localStorage.getItem('portfolio_lang') as Language) || 'ru';
 const state: AppState = {
   language: savedLang === 'en' || savedLang === 'ru' ? savedLang : 'ru',
   viewMode: 'grouped',
-  visibilityMode: 'all',
+  visibilityMode: 'public',
   categoryFilter: 'all',
   statusFilter: 'all',
   query: '',
@@ -100,6 +100,11 @@ const getStatusInfo = (p: Project, lang: Language) => {
 const getVisibleProjects = (): Project[] => {
   const lang = state.language;
   return projects.filter((p) => {
+    // Public mode is the safe default. Private/local entries are optional
+    // case-study summaries and never expose source links or local paths.
+    if (state.visibilityMode === 'public' && p.visibility !== 'public') {
+      return false;
+    }
     // Category filter
     if (state.categoryFilter !== 'all' && p.category !== state.categoryFilter) {
       return false;
@@ -168,8 +173,8 @@ const renderProjectCard = (p: Project) => {
   const lang = state.language;
   const t = translations[lang];
   const statusInfo = getStatusInfo(p, lang);
-  const isDevMode = state.visibilityMode === 'all';
   const isPrivate = p.visibility === 'private' || p.visibility === 'local-only';
+  const hasPublicSource = !isPrivate && Boolean(p.repo && p.githubUrl);
   const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
 
   return `
@@ -227,26 +232,17 @@ const renderProjectCard = (p: Project) => {
           <div>
             <h3 class="project-card__title">${escapeHtml(p.name[lang])}</h3>
             ${
-              !isPrivate && p.repo
+              hasPublicSource && p.repo
                 ? `<a class="project-card__repo-link" href="https://github.com/${escapeHtml(p.repo)}" target="_blank" rel="noreferrer">
                     <i data-lucide="git-branch"></i> ${escapeHtml(p.repo)}
                   </a>`
-                : `<span class="project-card__repo-link"><i data-lucide="lock"></i> ${t.statusPrivate}</span>`
+                : `<span class="project-card__repo-link"><i data-lucide="lock"></i> ${t.privateRepoBtn}</span>`
             }
           </div>
         </div>
 
         <p class="project-card__summary">${escapeHtml(p.summary[lang])}</p>
         <p class="project-card__purpose">${escapeHtml(p.purpose[lang])}</p>
-
-        ${
-          isDevMode && p.localFolder
-            ? `<div class="dev-meta-strip">
-                <i data-lucide="folder"></i>
-                <span>${t.localPathLabel} <strong>${escapeHtml(p.localFolder)}</strong></span>
-              </div>`
-            : ''
-        }
 
         ${renderCompanionStrip(p, lang)}
 
@@ -286,14 +282,20 @@ const renderProjectCard = (p: Project) => {
         <!-- Actions pinned to bottom -->
         <div class="project-card__actions">
           ${
-            isPrivate
+            !hasPublicSource
               ? `
                 <button class="card-btn" disabled title="Private repository / Code not public">
                   <i data-lucide="lock"></i> ${t.privateRepoBtn}
                 </button>
-                <button class="card-btn" disabled title="Proprietary system">
-                  <i data-lucide="shield"></i> ${t.proprietaryBtn}
-                </button>
+                ${
+                  p.siteUrl
+                    ? `<a class="card-btn card-btn--primary" href="${escapeHtml(p.siteUrl)}" target="_blank" rel="noreferrer">
+                        <i data-lucide="external-link"></i> ${t.liveDemoBtn}
+                      </a>`
+                    : `<button class="card-btn" disabled title="Public demo is not available">
+                        <i data-lucide="shield"></i> ${t.proprietaryBtn}
+                      </button>`
+                }
               `
               : `
                 ${
@@ -427,11 +429,12 @@ const render = () => {
   document.documentElement.lang = lang;
 
   const visible = getVisibleProjects();
-  const liveCount = projects.filter((p) => p.demoStatus === 'live' || p.demoStatus === 'ready').length;
-  const webPlatformsCount = projects.filter((p) => p.category === 'web-platforms').length;
-  const calculatorsCount = projects.filter((p) => p.category === 'calculators').length;
-  const audioMediaCount = projects.filter((p) => p.category === 'audio-media').length;
-  const aiGameCount = projects.filter((p) => p.category === 'ai-3d-gamedev' || p.category === 'mobile-apps').length;
+  const modeProjects = state.visibilityMode === 'public' ? projects.filter((p) => p.visibility === 'public') : projects;
+  const liveCount = modeProjects.filter((p) => p.demoStatus === 'live' || p.demoStatus === 'ready').length;
+  const webPlatformsCount = modeProjects.filter((p) => p.category === 'web-platforms').length;
+  const calculatorsCount = modeProjects.filter((p) => p.category === 'calculators').length;
+  const audioMediaCount = modeProjects.filter((p) => p.category === 'audio-media').length;
+  const aiGameCount = modeProjects.filter((p) => p.category === 'ai-3d-gamedev' || p.category === 'mobile-apps').length;
 
   app.innerHTML = `
     <!-- Top Navigation -->
@@ -459,9 +462,9 @@ const render = () => {
         </div>
 
         <!-- Visibility Mode Switcher -->
-        <div class="mode-toggle" title="Switch between Local Workspace view and Public Portfolio preview">
+        <div class="mode-toggle" title="Switch between public projects and closed-source case studies">
           <button class="mode-toggle__btn ${state.visibilityMode === 'all' ? 'mode-toggle__btn--active mode-dev' : ''}" type="button" data-visibility="all">
-            <i data-lucide="hard-drive"></i>
+            <i data-lucide="layers"></i>
             <span>${t.devModeBtn}</span>
           </button>
           <button class="mode-toggle__btn ${state.visibilityMode === 'public' ? 'mode-toggle__btn--active' : ''}" type="button" data-visibility="public">
@@ -476,6 +479,11 @@ const render = () => {
         </a>
       </div>
     </header>
+
+    <div class="portfolio-boundary-note">
+      <i data-lucide="shield-check"></i>
+      <span>${t.portfolioBoundaryNote}</span>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -508,7 +516,7 @@ const render = () => {
 
     <!-- Stats Bar -->
     <section class="stats-grid" aria-label="Portfolio statistics">
-      ${renderStatBox(projects.length, t.statTotalProjects, 'database', 'emerald')}
+      ${renderStatBox(modeProjects.length, t.statTotalProjects, 'database', 'emerald')}
       ${renderStatBox(liveCount, t.statLiveReady, 'globe', 'cyan')}
       ${renderStatBox(webPlatformsCount, t.statWebPlatforms, 'layout-grid', 'emerald')}
       ${renderStatBox(calculatorsCount, t.statFintechTools, 'calculator', 'amber')}
@@ -557,14 +565,14 @@ const render = () => {
         <button class="filter-tab ${state.categoryFilter === 'all' ? 'filter-tab--active' : ''}" type="button" data-category="all">
           <i data-lucide="layers"></i>
           <span>${t.allCategoriesTab}</span>
-          <span class="filter-tab__count">${projects.length}</span>
+          <span class="filter-tab__count">${modeProjects.length}</span>
         </button>
         ${CATEGORIES.map(
           (cat) => `
           <button class="filter-tab ${state.categoryFilter === cat.id ? 'filter-tab--active' : ''}" type="button" data-category="${cat.id}">
             <i data-lucide="${cat.icon}"></i>
             <span>${escapeHtml(cat.title[lang])}</span>
-            <span class="filter-tab__count">${projects.filter((p) => p.category === cat.id).length}</span>
+            <span class="filter-tab__count">${modeProjects.filter((p) => p.category === cat.id).length}</span>
           </button>
         `,
         ).join('')}

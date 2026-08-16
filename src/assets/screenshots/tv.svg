@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Private media integration test architecture</title>
+  <desc id="desc">A neutral diagram of JavaScript provider modules, a local Node proxy, and a test player.</desc>
+  <rect width="1200" height="675" fill="#0b1018"/>
+  <text x="70" y="92" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="38" font-weight="700">MEDIA INTEGRATION TESTS</text>
+  <text x="70" y="132" fill="#5eead4" font-family="Arial, sans-serif" font-size="21">PRIVATE JAVASCRIPT / NODE.JS CASE STUDY</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g><rect x="100" y="235" width="270" height="150" rx="20" fill="#16202d" stroke="#5eead4"/><text x="235" y="295" fill="#fff" font-size="25">Provider modules</text><text x="235" y="335" fill="#a8b4c5" font-size="18">link parsing experiments</text></g>
+    <g><rect x="465" y="235" width="270" height="150" rx="20" fill="#16202d" stroke="#60a5fa"/><text x="600" y="295" fill="#fff" font-size="25">Local Node proxy</text><text x="600" y="335" fill="#a8b4c5" font-size="18">request handoff</text></g>
+    <g><rect x="830" y="235" width="270" height="150" rx="20" fill="#16202d" stroke="#c084fc"/><text x="965" y="295" fill="#fff" font-size="25">Test player</text><text x="965" y="335" fill="#a8b4c5" font-size="18">local playback checks</text></g>
+    <path d="M370 310h95m270 0h95" stroke="#64748b" stroke-width="5"/>
+  </g>
+  <text x="70" y="550" fill="#94a3b8" font-family="Arial, sans-serif" font-size="21">Architecture illustration — not a production streaming dashboard</text>
+</svg>

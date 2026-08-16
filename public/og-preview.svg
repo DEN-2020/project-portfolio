@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">DEN-2020 software engineering portfolio</title>
+  <desc id="description">A dark portfolio preview with selected public projects and private case-study summaries.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#151b24"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f81f7"/>
+      <stop offset="1" stop-color="#a371f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <circle cx="1080" cy="90" r="250" fill="#2f81f7" opacity=".08"/>
+  <circle cx="1080" cy="610" r="340" fill="#a371f7" opacity=".06"/>
+  <rect x="72" y="68" width="1056" height="494" rx="30" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <rect x="112" y="114" width="158" height="44" rx="22" fill="#161b22" stroke="#3b82f6"/>
+  <circle cx="137" cy="136" r="7" fill="#3b82f6"/>
+  <text x="155" y="143" fill="#c9d1d9" font-family="Arial, sans-serif" font-size="19" font-weight="700">DEN-2020</text>
+  <text x="112" y="260" fill="#f0f6fc" font-family="Arial, sans-serif" font-size="62" font-weight="800">Software Engineering</text>
+  <text x="112" y="333" fill="url(#accent)" font-family="Arial, sans-serif" font-size="62" font-weight="800">Portfolio</text>
+  <text x="116" y="400" fill="#8b949e" font-family="Arial, sans-serif" font-size="25">Selected public projects and scoped private case studies</text>
+  <g transform="translate(116 462)">
+    <rect width="202" height="48" rx="12" fill="#16273d" stroke="#2f81f7"/>
+    <text x="24" y="31" fill="#79c0ff" font-family="Arial, sans-serif" font-size="20" font-weight="700">PUBLIC PROJECTS</text>
+    <rect x="220" width="252" height="48" rx="12" fill="#211b2f" stroke="#8957e5"/>
+    <text x="244" y="31" fill="#d2a8ff" font-family="Arial, sans-serif" font-size="20" font-weight="700">PRIVATE SUMMARIES</text>
+  </g>
+</svg>

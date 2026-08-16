@@ -239,6 +239,29 @@ svg {
   transition: all 0.2s ease;
 }
 
+.portfolio-boundary-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px auto 0;
+  padding: 8px 14px;
+  max-width: min(900px, calc(100% - 32px));
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  background: rgba(16, 185, 129, 0.06);
+  color: var(--ink-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+
+.portfolio-boundary-note svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(--accent-emerald);
+}
+
 .topbar__link:hover {
   background: var(--bg-surface-hover);
   border-color: rgba(255, 255, 255, 0.18);

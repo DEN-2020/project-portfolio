@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Sanitized BTC/USDT research packet architecture</title>
+  <desc id="desc">A neutral architecture diagram showing historical data, diagnostics, sanitized export, and independent review.</desc>
+  <rect width="1200" height="675" fill="#07111f"/>
+  <text x="70" y="92" fill="#e5eefb" font-family="Arial, sans-serif" font-size="38" font-weight="700">BTC/USDT RESEARCH AUDIT</text>
+  <text x="70" y="132" fill="#7dd3fc" font-family="Arial, sans-serif" font-size="21">SANITIZED EVIDENCE PACKET · PRIVATE CASE STUDY</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g><rect x="70" y="245" width="230" height="130" rx="18" fill="#0f2337" stroke="#38bdf8"/><text x="185" y="300" fill="#fff" font-size="24">Historical data</text><text x="185" y="337" fill="#9fb3c8" font-size="18">OHLCV · tick samples</text></g>
+    <g><rect x="350" y="245" width="230" height="130" rx="18" fill="#0f2337" stroke="#34d399"/><text x="465" y="300" fill="#fff" font-size="24">Diagnostics</text><text x="465" y="337" fill="#9fb3c8" font-size="18">cost · MFE · regimes</text></g>
+    <g><rect x="630" y="245" width="230" height="130" rx="18" fill="#0f2337" stroke="#a78bfa"/><text x="745" y="300" fill="#fff" font-size="24">Sanitized export</text><text x="745" y="337" fill="#9fb3c8" font-size="18">no secrets · no raw data</text></g>
+    <g><rect x="910" y="245" width="220" height="130" rx="18" fill="#0f2337" stroke="#fbbf24"/><text x="1020" y="300" fill="#fff" font-size="24">Review</text><text x="1020" y="337" fill="#9fb3c8" font-size="18">evidence, not promotion</text></g>
+    <path d="M300 310h50m230 0h50m230 0h50" stroke="#64748b" stroke-width="5"/>
+  </g>
+  <text x="70" y="560" fill="#94a3b8" font-family="Arial, sans-serif" font-size="21">No live trading configuration · No invented dashboard metrics · No financial-performance claims</text>
+</svg>

@@ -5,6 +5,7 @@ export interface TranslationDict {
   brandTag: string;
   devModeBtn: string;
   publicModeBtn: string;
+  portfolioBoundaryNote: string;
   githubBtn: string;
   heroEyebrow: string;
   heroTitlePrefix: string;
@@ -26,7 +27,6 @@ export interface TranslationDict {
   noProjectsFound: string;
   noProjectsHint: string;
   resetFiltersBtn: string;
-  localPathLabel: string;
   architectureHeading: string;
   capabilitiesHeading: string;
   techArchHeading: string;
@@ -58,8 +58,9 @@ export const translations: Record<Language, TranslationDict> = {
   ru: {
     brandTitle: 'DEN-2020',
     brandTag: 'Портфолио',
-    devModeBtn: 'Все проекты (Dev-режим)',
-    publicModeBtn: 'Публичное портфолио',
+    devModeBtn: 'Все кейсы',
+    publicModeBtn: 'Только публичные',
+    portfolioBoundaryNote: 'Закрытые кейсы содержат только обзор. Код, данные и локальная среда не публикуются.',
     githubBtn: 'GitHub',
     heroEyebrow: 'FULL-STACK · FINTECH · AUDIO DSP · AI 3D',
     heroTitlePrefix: 'Веб-системы, ',
@@ -82,7 +83,6 @@ export const translations: Record<Language, TranslationDict> = {
     noProjectsFound: 'Проекты не найдены',
     noProjectsHint: 'Попробуйте изменить поисковый запрос или сбросить фильтры.',
     resetFiltersBtn: 'Сбросить фильтры',
-    localPathLabel: 'Локально:',
     architectureHeading: 'Архитектура и возможности',
     capabilitiesHeading: 'Ключевые возможности',
     techArchHeading: 'Техническая архитектура',
@@ -94,10 +94,10 @@ export const translations: Record<Language, TranslationDict> = {
     preparingBtn: 'В разработке',
     localSourceBtn: 'Локальный проект',
     footerBrand: 'Инженерное портфолио DEN-2020',
-    footerModeDev: '🖥️ Полный рабочий каталог (Dev View)',
-    footerModePublic: '🌐 Публичный режим витрины',
+    footerModeDev: '🔒 Публичная витрина: открытые и закрытые кейсы',
+    footerModePublic: '🌐 Только проекты с публичной витриной',
     statusLive: 'Работает онлайн',
-    statusReady: 'Задеплоен / Готов',
+    statusReady: 'Готово / MVP',
     statusSource: 'Открытый код',
     statusPreparing: 'В подготовке',
     statusInternal: 'Внутренний инструмент',
@@ -112,8 +112,9 @@ export const translations: Record<Language, TranslationDict> = {
   en: {
     brandTitle: 'DEN-2020',
     brandTag: 'Portfolio Pro',
-    devModeBtn: 'All Projects (Dev View)',
-    publicModeBtn: 'Public Portfolio',
+    devModeBtn: 'All Case Studies',
+    publicModeBtn: 'Public Only',
+    portfolioBoundaryNote: 'Private case studies are summaries only. Source code, data, and local environments are not published.',
     githubBtn: 'GitHub',
     heroEyebrow: 'FULL-STACK · FINTECH · AUDIO DSP · AI 3D',
     heroTitlePrefix: 'Production Web Systems, ',
@@ -136,7 +137,6 @@ export const translations: Record<Language, TranslationDict> = {
     noProjectsFound: 'No projects matched your criteria',
     noProjectsHint: 'Try searching for a different keyword or reset the category filter.',
     resetFiltersBtn: 'Reset all filters',
-    localPathLabel: 'Local:',
     architectureHeading: 'Architecture & Features',
     capabilitiesHeading: 'Key Capabilities',
     techArchHeading: 'Technical Architecture',
@@ -148,10 +148,10 @@ export const translations: Record<Language, TranslationDict> = {
     preparingBtn: 'Preparing',
     localSourceBtn: 'Local / Source',
     footerBrand: 'DEN-2020 Engineering Portfolio',
-    footerModeDev: '🖥️ Local Workspace (All Projects)',
-    footerModePublic: '🌐 Public Portfolio Preview',
+    footerModeDev: '🔒 Public showcase: open and closed-source case studies',
+    footerModePublic: '🌐 Projects with a public showcase only',
     statusLive: 'Live Demo',
-    statusReady: 'Deployed / Ready',
+    statusReady: 'Ready / MVP',
     statusSource: 'Source Available',
     statusPreparing: 'Demo Preparing',
     statusInternal: 'Internal Tooling',

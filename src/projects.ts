@@ -1,11 +1,11 @@
 import asistApiImg1 from './assets/screenshots/asist-api-1.png';
 import asistApiImg2 from './assets/screenshots/asist-api-2.png';
 import asistApiImg3 from './assets/screenshots/asist-api-3.png';
-import btcusdtImg from './assets/screenshots/btcusdt-research.jpg';
+import btcusdtImg from './assets/screenshots/btcusdt-research.svg';
 import calcEnImg from './assets/screenshots/calc-en.png';
 import calcRuImg from './assets/screenshots/calc-ru.png';
 import carCalcImg from './assets/screenshots/car-calc.png';
-import hunyuan3dImg from './assets/screenshots/hunyuan3d.png';
+import hunyuan3dImg from './assets/screenshots/hunyuan3d.svg';
 import kidsTrackerEn1 from './assets/screenshots/kids-tracker-en-1.png';
 import kidsTrackerEn2 from './assets/screenshots/kids-tracker-en-2.png';
 import kidsTrackerEn3 from './assets/screenshots/kids-tracker-en-3.png';
@@ -35,17 +35,19 @@ import nizamPortalRu1 from './assets/screenshots/nizam-portal-ru-1.png';
 import nizamPortalRu2 from './assets/screenshots/nizam-portal-ru-2.png';
 import nizamPortalRu3 from './assets/screenshots/nizam-portal-ru-3.png';
 import profitCalcImg from './assets/screenshots/profit-calc.png';
-import robloxSpaceImg from './assets/screenshots/roblox-space.png';
+import robloxSpace1 from './assets/screenshots/roblox-space-1.png';
+import robloxSpace2 from './assets/screenshots/roblox-space-2.png';
+import robloxSpace3 from './assets/screenshots/roblox-space-3.png';
 import secondImg1 from './assets/screenshots/second-1.png';
 import secondImg2 from './assets/screenshots/second-2.png';
 import secondImg3 from './assets/screenshots/second-3.png';
-import tvImg from './assets/screenshots/tv.jpg';
+import tvImg from './assets/screenshots/tv.svg';
 import videogenEn1 from './assets/screenshots/videogen-en-1.png';
 import videogenEn2 from './assets/screenshots/videogen-en-2.png';
 import videogenEn3 from './assets/screenshots/videogen-en-3.png';
 import volumepilotSiteImg from './assets/screenshots/volumepilot-site.png';
 import volumepilotImg from './assets/screenshots/volumepilot.png';
-import vpnProxyImg from './assets/screenshots/vpn-proxy.jpg';
+import vpnProxyImg from './assets/screenshots/vpn-proxy.svg';
 
 export type Language = 'ru' | 'en';
 export type DemoStatus = 'live' | 'source' | 'preparing' | 'internal' | 'ready';
@@ -166,7 +168,6 @@ export interface Project {
   repo?: string;
   githubUrl?: string;
   siteUrl?: string;
-  localFolder?: string;
   companion?: CompanionLink;
   badge?: Record<Language, string>;
 }
@@ -195,10 +196,7 @@ export const projects: Project[] = [
       en: 'Live Marketplace',
       ru: 'Работает онлайн',
     },
-    repo: 'DEN-2020/hurghada-marketplace',
-    githubUrl: 'https://github.com/DEN-2020/hurghada-marketplace',
     siteUrl: 'https://nabiora.com/en/egypt',
-    localFolder: 'Marketplace / Marketplace-admin',
     companion: {
       label: {
         en: 'Dedicated Admin Dashboard',
@@ -211,54 +209,50 @@ export const projects: Project[] = [
       },
     },
     summary: {
-      en: 'High-concurrency multilingual classifieds marketplace for goods, real estate, vehicles, jobs, and local services in Egypt.',
-      ru: 'Высоконагруженный многоязычный маркетплейс объявлений для товаров, недвижимости, транспорта, услуг и работы в Египте.',
+      en: 'Multilingual classifieds marketplace for goods, real estate, vehicles, jobs, services, and local businesses in Egypt.',
+      ru: 'Многоязычный маркетплейс объявлений для товаров, недвижимости, транспорта, услуг, работы и локального бизнеса в Египте.',
     },
     purpose: {
-      en: 'Nabiora Marketplace is an end-to-end commerce platform tailored for the Hurghada and Red Sea region. It connects local businesses, expats, and residents across Russian, English, and Arabic locales with high-speed search, category filtering, user listings, and structured deal workflows.',
-      ru: 'Полнофункциональная платформа электронной коммерции для региона Хургады и Красного моря. Объединяет экспатов, местных жителей и бизнес на русском, английском и арабском языках с быстрым гео-поиском и системой объявлений.',
+      en: 'A production marketplace for the Hurghada and Red Sea region with geographic and category routes, listings, search, moderation, messaging, and Russian, English, and Arabic interfaces.',
+      ru: 'Рабочий маркетплейс для Хургады и региона Красного моря с географическими и категорийными маршрутами, объявлениями, поиском, модерацией, сообщениями и интерфейсами на русском, английском и арабском языках.',
     },
     features: {
       en: [
         'Tri-lingual localized catalog (RU / EN / AR) with full bidirectional RTL/LTR layout rendering.',
         'Structured vertical categories: Real Estate, Auto/Marine, Electronics, Jobs, and Verified Services.',
-        'Client-side image processing pipeline with WebP conversion, auto-orientation, and multi-resolution thumb generation.',
-        'User dashboard with listing lifecycle management (Publish, Promote, Archive), analytics, and direct chat.',
-        'PWA architecture enabling instant page caching, offline browse capability, and mobile app-like installation.',
+        'Listing lifecycle management covering moderation, revisions, expiry, renewal, archive, favorites, and messages.',
+        'Responsive image variants and private-media handling backed by Supabase Storage when production data mode is enabled.',
+        'Installable PWA shell with a service worker and controlled caching strategy.',
       ],
       ru: [
         'Трехъязычный локализованный каталог (RU / EN / AR) с поддержкой RTL/LTR-интерфейса.',
         'Структурированные категории: Недвижимость, Авто/Яхты, Электроника, Вакансии и Проверенные услуги.',
-        'Клиентский пайплайн сжатия изображений WebP, автоповорота и генерации превью.',
-        'Личный кабинет продавца: управление жизненным циклом объявлений, статистика просмотров и чат.',
-        'PWA-архитектура с кэшированием страниц, работой в оффлайне и установкой на домашний экран.',
+        'Жизненный цикл объявлений: модерация, правки, срок действия, продление, архив, избранное и сообщения.',
+        'Адаптивные варианты изображений и приватные медиа через Supabase Storage при включённом production-режиме данных.',
+        'Устанавливаемая PWA-оболочка с service worker и контролируемой стратегией кэширования.',
       ],
     },
     technicalNotes: {
       en: [
-        'Frontend built with React 18, TypeScript, Tailwind CSS, Vite, and modular component hierarchy.',
-        'Robust multi-language routing with automated locale detection and fallback state management.',
-        'Companion admin portal (Marketplace-admin) with granular role-based access control (RBAC), moderation queues, and audit logging.',
-        'API layer designed with structured request throttling, input sanitization, and scalable JSON schema validation.',
+        'Next.js 16 App Router and React 19 with Server Components, TypeScript, Tailwind CSS 4, and Zod validation.',
+        'OpenNext deployment target for Cloudflare Workers; Supabase provides PostgreSQL, Auth, Storage, and RLS in production data mode.',
+        'The application also runs safely against mock data when production backend variables are not configured.',
       ],
       ru: [
-        'Фронтенд: React 18, TypeScript, Tailwind CSS, Vite и модульная компонентная архитектура.',
-        'Роутинг с автоопределением языка и синхронизацией состояния между вкладками.',
-        'Система администрирования Marketplace-admin с ролевым доступом (RBAC), очередями модерации и аудитом действий.',
-        'API-слой с валидацией схем данных, защитой от спама и оптимизированным временем отклика.',
+        'Next.js 16 App Router и React 19 с Server Components, TypeScript, Tailwind CSS 4 и валидацией Zod.',
+        'Целевой деплой через OpenNext на Cloudflare Workers; в production-режиме Supabase предоставляет PostgreSQL, Auth, Storage и RLS.',
+        'Без настроенного production-бэкенда приложение безопасно работает на демонстрационных данных.',
       ],
     },
-    stack: ['React', 'TypeScript', 'Node.js', 'Tailwind CSS', 'PWA', 'i18n (AR/EN/RU)'],
+    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'Supabase', 'Cloudflare Workers', 'PWA'],
     outcomes: {
       en: [
-        'Successfully launched in production serving multi-language communities across Egypt.',
-        'Achieved sub-second initial page load times and 98+ Google Lighthouse Performance score.',
-        'Reduced image payload bandwidth by over 65% using adaptive client-side WebP compression.',
+        'Public marketplace routes are live for Egypt with RU, EN, and AR localization.',
+        'Production and mock data modes are separated so local development does not require access to production services.',
       ],
       ru: [
-        'Успешный запуск в продакшен для многоязычного сообщества в Египте.',
-        'Время первой отрисовки менее 1 секунды, оценка Google Lighthouse Performance 98+.',
-        'Снижение нагрузки на сеть на 65% за счет адаптивного сжатия WebP на клиенте.',
+        'Публичные маршруты маркетплейса для Египта работают с локализацией RU, EN и AR.',
+        'Production- и mock-режимы данных разделены: локальная разработка не требует доступа к боевым сервисам.',
       ],
     },
   },
@@ -285,70 +279,50 @@ export const projects: Project[] = [
       en: 'Live Portal',
       ru: 'Работает онлайн',
     },
-    repo: 'DEN-2020/hurghada-community',
-    githubUrl: 'https://github.com/DEN-2020/hurghada-community',
     siteUrl: 'https://community.nabiora.com/en',
-    localFolder: 'Community / Community-admin',
-    companion: {
-      label: {
-        en: 'Community Admin & CMS',
-        ru: 'CMS-панель сообщества',
-      },
-      type: 'admin',
-      note: {
-        en: 'Custom content management system for community events and verified guides',
-        ru: 'Кастомная CMS для модерации событий и городских гайдов',
-      },
-    },
     summary: {
-      en: 'Content & community hub for expats and travelers in Egypt featuring verified city guides, business directories, and event calendars.',
-      ru: 'Информационный портал и каталог экспертных услуг для экспатов и туристов в Хургаде с афишей событий и гайдами.',
+      en: 'SSR community portal for Egypt with a moderated forum, multilingual guides, directory foundations, and practical city tools.',
+      ru: 'SSR-портал сообщества в Египте с модерируемым форумом, многоязычными гайдами, основой каталога и городскими инструментами.',
     },
     purpose: {
-      en: 'A high-speed, SEO-optimized community portal aggregating verified business listings, medical emergency contacts, expat legal guides, housing advice, and curated local events in the Red Sea governorate.',
-      ru: 'Скоростной SEO-оптимизированный городской портал с проверенными компаниями, контактами экстренных служб, юридическими гайдами по ВНЖ, аренде и афишей мероприятий.',
+      en: 'A standalone community service for community.nabiora.com. It combines server-rendered forum routes, Markdown/MDX guides, profile onboarding, moderation, and weather/currency tool pages.',
+      ru: 'Самостоятельный сервис для community.nabiora.com: серверный форум, Markdown/MDX-гайды, онбординг профилей, модерация и страницы инструментов погоды и валют.',
     },
     features: {
       en: [
-        'Curated business directory with category filters, geo-tagging, direct WhatsApp integration, and user reviews.',
-        'Dynamic interactive event calendar with recurring schedules, RSVP counters, and ticket booking links.',
-        'Rich markdown-driven knowledge base with multilingual legal, visa, transport, and residency guides.',
-        'Full-text search engine across articles, tags, and organization listings with instant predictive suggestions.',
-        'OpenGraph & Twitter Cards meta-tag generator for viral social sharing in messaging apps and social media.',
+        'Moderated forum with published, pending, hidden, and locked content states enforced by RLS.',
+        'Markdown/MDX guide collection and stable multilingual routes in RU, EN, and AR with RTL support.',
+        'Profile onboarding with user-selected public names and safe avatar options.',
+        'Server-side weather and currency tools with public snapshot refresh jobs.',
       ],
       ru: [
-        'Каталог проверенных заведений и специалистов с гео-привязкой, прямым переходом в WhatsApp и отзывами.',
-        'Интерактивная афиша городских событий с фильтрацией по датам и категориям.',
-        'База знаний и гайдов по визам, медицине, аренде и быту в Египте на нескольких языках.',
-        'Мгновенный полнотекстовый поиск по статьям, тегам и компаниям с подсказками.',
-        'Автогенерация OpenGraph мета-тегов для корректного отображения превью в Telegram и соцсетях.',
+        'Модерируемый форум со статусами published, pending, hidden и locked, которые контролируются через RLS.',
+        'Коллекция Markdown/MDX-гайдов и стабильные маршруты RU, EN и AR с поддержкой RTL.',
+        'Онбординг профиля с выбранным пользователем публичным именем и безопасными вариантами аватара.',
+        'Серверные инструменты погоды и валют с обновлением публичных снимков по расписанию.',
       ],
     },
     technicalNotes: {
       en: [
-        'Engineered with Astro & React islands architecture for zero-JS baseline HTML rendering and peak SEO performance.',
-        'Tailwind CSS design system featuring custom typography scales, dark/light contrast optimization, and responsive mobile drawers.',
-        'Decoupled CMS architecture (Community-admin) allowing editors to publish scheduled articles and moderate submissions.',
-        'Automated static site generation (SSG) pipelines with dynamic incremental rehydration.',
+        'Astro 7 SSR with strict TypeScript and the Cloudflare adapter; React is limited to interactive islands.',
+        'Supabase Database and Auth with role checks, RPC-based moderation, and row-level security.',
+        'The current scope intentionally excludes chat, ratings, realtime, file uploads, and notifications.',
       ],
       ru: [
-        'Архитектура: Astro + React острова (Islands Architecture) для максимальной скорости и SEO.',
-        'Дизайн-система Tailwind CSS с поддержкой адаптивных меню и контрастной типографики.',
-        'Отдельная CMS (Community-admin) для публикации статей по расписанию и модерации заявок.',
-        'Статическая генерация страниц (SSG) с динамической гидратацией интерактивных виджетов.',
+        'Astro 7 SSR со строгим TypeScript и Cloudflare-адаптером; React используется только для интерактивных островов.',
+        'Supabase Database и Auth с проверкой ролей, RPC-модерацией и Row Level Security.',
+        'Текущий scope намеренно не включает чат, рейтинги, realtime, загрузку файлов и уведомления.',
       ],
     },
-    stack: ['Astro', 'React', 'TypeScript', 'Tailwind CSS', 'SSR', 'SEO Optimization'],
+    stack: ['Astro 7', 'React 19', 'TypeScript', 'Supabase', 'Cloudflare Workers', 'SSR', 'i18n (AR/EN/RU)'],
     outcomes: {
       en: [
-        'Top rankings across local search keywords for Red Sea community guides and business lookups.',
-        'Near-perfect 100/100 Google Lighthouse SEO and Accessibility scores.',
-        'Zero layout shifts (CLS < 0.01) and instant First Contentful Paint (< 400ms).',
+        'Delivered a self-contained community portal with explicit data and authentication boundaries.',
+        'Added automated type, build, RLS, integration, and Lighthouse verification workflows.',
       ],
       ru: [
-        'Лидирующие позиции в поисковой выдаче по запросам экспатов и туристов в Хургаде.',
-        'Оценка 100/100 в Google Lighthouse по SEO, Accessibility и Best Practices.',
-        'Мгновенный первый рендер страницы (FCP < 400ms) при нулевом сдвиге макета (CLS < 0.01).',
+        'Создан самостоятельный портал сообщества с явными границами данных и аутентификации.',
+        'Добавлены автоматические проверки типов, сборки, RLS, интеграции и Lighthouse.',
       ],
     },
   },
@@ -361,7 +335,7 @@ export const projects: Project[] = [
     },
     category: 'web-platforms',
     type: 'site',
-    visibility: 'public',
+    visibility: 'private',
     demoStatus: 'ready',
     thumbnail: {
       en: nabioraRealestateEn1,
@@ -372,16 +346,13 @@ export const projects: Project[] = [
       ru: [nabioraRealestateRu1, nabioraRealestateRu2, nabioraRealestateRu3],
     },
     badge: {
-      en: 'Agency Portal',
-      ru: 'Платформа агентства',
+      en: 'Local MVP',
+      ru: 'Локальный MVP',
     },
-    repo: 'DEN-2020/hurghada-real-estate',
-    githubUrl: 'https://github.com/DEN-2020/hurghada-real-estate',
-    localFolder: 'RealEstate / RealEstate-admin',
     companion: {
       label: {
-        en: 'RealEstate CRM & Admin',
-        ru: 'CRM и панель управления',
+        en: 'Integrated CRM & Admin',
+        ru: 'Встроенные CRM и админ-панель',
       },
       type: 'admin',
       note: {
@@ -390,52 +361,48 @@ export const projects: Project[] = [
       },
     },
     summary: {
-      en: 'Premium real estate agency portal featuring interactive property filters, mortgage calculators, currency toggles, and high-res galleries.',
-      ru: 'Портал агентства зарубежной недвижимости с интерактивным фильтром объектов, ипотечным калькулятором и мультивалютными ценами.',
+      en: 'Local real-estate agency MVP with multilingual property catalog, filters, lead capture, CRM-lite, and an integrated admin area.',
+      ru: 'Локальный MVP агентства недвижимости с многоязычным каталогом, фильтрами, сбором лидов, CRM-lite и встроенной админ-панелью.',
     },
     purpose: {
-      en: 'Developed for an international real estate agency operating in Egypt. Provides high-end property listings, compound master plans, developer profiles, installment plan calculators, and multi-currency price indexing (USD, EUR, EGP, RUB).',
-      ru: 'Разработано для агентства зарубежной недвижимости в Египте. Предоставляет каталог вилл и апартаментов, планы жилых комплексов, расчет рассрочки и автоконвертацию валют (USD, EUR, EGP, RUB).',
+      en: 'A self-contained demonstration system for an agency in Egypt. Public catalog pages and internal workflows run locally against seeded demo data; no production deployment or remote database is connected.',
+      ru: 'Самостоятельная демонстрационная система для агентства в Египте. Каталог и внутренние процессы работают локально на тестовых данных; production-деплой и удалённая база не подключены.',
     },
     features: {
       en: [
         'Multi-parameter property search: price range, district, compound, delivery date, bedrooms, and beachfront status.',
-        'Dynamic financial widget: down payment, interest rate, and installment schedule calculation.',
-        'Live currency converter with automatic foreign exchange rate synchronization.',
-        'High-resolution photo lightbox gallery with touch swipe, floor plans, and video tour embeds.',
-        'Integrated inquiry capture form with automatic lead forwarding to agent WhatsApp and CRM.',
+        'Property and project pages with responsive galleries and demonstration inventory.',
+        'Lead capture connected to a local CRM-lite pipeline with stages, notes, and tasks.',
+        'Integrated admin workflows for property CRUD, publishing, and availability management.',
       ],
       ru: [
         'Многокритериальный фильтр: ценовой диапазон, район, застройщик, срок сдачи, спальни и первая линия.',
-        'Встроенный финансовый калькулятор первоначального взноса и графиков рассрочки.',
-        'Конвертер валют в реальном времени с пересчетом стоимости за м².',
-        'Полноэкранная галерея с планами планировок, видеотурами и свайпом на мобильных.',
-        'Форма захвата лидов с мгновенной маршрутизацией заявок агентам в WhatsApp и CRM.',
+        'Страницы объектов и проектов с адаптивными галереями и демонстрационным каталогом.',
+        'Сбор лидов во встроенную локальную CRM-lite с этапами, заметками и задачами.',
+        'Админ-процессы для CRUD объектов, публикации и управления доступностью.',
       ],
     },
     technicalNotes: {
       en: [
-        'Engineered with Astro, React 19, TypeScript, and modern CSS Grid architecture.',
-        'Companion RealEstate-admin system for managing property availability, image sets, pricing tiers, and client requests.',
-        'Deep SEO schema markup (RealEstateListing Schema.org JSON-LD) for structured Google Search rich snippets.',
-        'Optimized responsive asset delivery with lazy loading and srcset image downscaling.',
+        'Astro 7 SSR, React 19, TypeScript, Tailwind CSS 4, and a local Cloudflare D1 database through Wrangler/Miniflare.',
+        'Authentication is intentionally absent in demo mode; the admin route must not be exposed until real authentication is implemented.',
+        'Search indexing is disabled and every seeded record is explicitly marked as demonstration data.',
       ],
       ru: [
-        'Стек: Astro, React 19, TypeScript, CSS Grid и компонентные стили.',
-        'Панель RealEstate-admin для добавления объектов, управления ценами и статусами бронирования.',
-        'Микроразметка Schema.org (RealEstateListing JSON-LD) для расширенных сниппетов в поиске.',
-        'Оптимизированная отложенная загрузка изображений с поддержкой srcset.',
+        'Astro 7 SSR, React 19, TypeScript, Tailwind CSS 4 и локальная Cloudflare D1 через Wrangler/Miniflare.',
+        'В demo-режиме авторизация намеренно отсутствует; админ-маршрут нельзя публиковать до реализации реальной аутентификации.',
+        'Индексация отключена, а все начальные записи явно помечены как демонстрационные.',
       ],
     },
-    stack: ['Astro', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO & Social Cards', 'Gallery Engine'],
+    stack: ['Astro 7', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'Cloudflare D1', 'Vitest'],
     outcomes: {
       en: [
-        'Streamlined client onboarding with instant property calculations and transparent installment models.',
-        'Delivered exceptional cross-platform UI experience across mobile devices, tablets, and 4K displays.',
+        'Built and verified a complete local MVP without connecting demo data to production infrastructure.',
+        'Separated public catalog, admin workflows, and CRM-lite responsibilities inside one repository.',
       ],
       ru: [
-        'Автоматизация подбора недвижимости для иностранных покупателей с расчетом рассрочки.',
-        'Безупречная работа интерфейса на смартфонах, планшетах и 4K-мониторах.',
+        'Собран и проверен полноценный локальный MVP без подключения демонстрационных данных к production-инфраструктуре.',
+        'Публичный каталог, админ-процессы и CRM-lite разделены внутри одного репозитория.',
       ],
     },
   },
@@ -462,52 +429,48 @@ export const projects: Project[] = [
       en: 'Live Health Portal',
       ru: 'Работает онлайн',
     },
-    repo: 'DEN-2020/nizam-al-tayyibat',
-    githubUrl: 'https://github.com/DEN-2020/nizam-al-tayyibat',
     siteUrl: 'https://verdant-dusk-c3c590.netlify.app/',
     summary: {
-      en: 'Modern holistic health & nutritional wellness portal featuring interactive dietary protocols, recipe libraries, and health advice.',
-      ru: 'Информационно-методический портал о здоровом питании, фитотерапии и методиках восстановления организма.',
+      en: 'Interactive informational wellness portal with nutrition content, recipe tools, onboarding, and responsive reading interfaces.',
+      ru: 'Интерактивный информационный wellness-портал с материалами о питании, рецептами, онбордингом и адаптивным интерфейсом чтения.',
     },
     purpose: {
-      en: 'A scientific wellness portal designed to educate users on natural nutrition, fasting protocols, detox regimens, and holistic wellness principles through structured guides, ingredient indexes, and responsive reading interfaces.',
-      ru: 'Научно-популярный портал о здоровом образе жизни, системах правильного питания, фитотерапии и детокс-программах со структурированными статьями и удобным чтением на любых устройствах.',
+      en: 'A content-focused prototype that organizes nutrition and lifestyle materials into structured guides and interactive tools. Its content is informational and is not a substitute for medical advice.',
+      ru: 'Контентный прототип, который организует материалы о питании и образе жизни в виде гайдов и интерактивных инструментов. Материалы носят информационный характер и не заменяют медицинскую консультацию.',
     },
     features: {
       en: [
-        'Interactive nutrition & herbal catalog with search, health tag filtering, and evidence-based descriptions.',
+        'Interactive nutrition and ingredient catalog with search and tag filtering.',
         'Adaptive reading mode with customizable typography, dark/light themes, and progress indicators.',
-        'Dietary phase planner helping users structure multi-week holistic wellness transformations.',
+        'Dietary phase planner and interactive plate constructor.',
         'Automated bookmarking system utilizing localStorage for offline recipe and article saving.',
       ],
       ru: [
-        'Интерактивный каталог продуктов и трав с поиском по показаниям и свойствам.',
+        'Интерактивный каталог продуктов и ингредиентов с поиском и фильтрами.',
         'Режим комфортного чтения с адаптивной типографикой, темной темой и индикатором прогресса.',
-        'Планировщик этапов питания для поэтапного перехода на сбалансированный рацион.',
+        'Планировщик этапов питания и интерактивный конструктор тарелки.',
         'Система сохранения избранных статей и рецептов в локальное хранилище браузера.',
       ],
     },
     technicalNotes: {
       en: [
         'Built with React, TypeScript, Tailwind CSS, Lucide icons, and modern responsive flex/grid layouts.',
-        'Zero-dependency client-side search engine providing sub-millisecond filtering across long-form medical articles.',
-        'Deployed with automated CI/CD continuous deployment pipeline on Netlify with automated asset optimization.',
+        'Client-side navigation and filtering across structured informational sections.',
+        'The current public demo is deployed on Netlify; its source repository remains private.',
       ],
       ru: [
         'Стек: React, TypeScript, Tailwind CSS, Lucide Icons и адаптивная верстка.',
-        'Клиентский поисковый движок с мгновенной фильтрацией без нагрузки на сервер.',
-        'Автоматизированный CI/CD пайплайн сборки и деплоя на Netlify с кэшированием ассетов.',
+        'Клиентская навигация и фильтрация по структурированным информационным разделам.',
+        'Текущая публичная демо-версия размещена на Netlify; репозиторий исходников остаётся закрытым.',
       ],
     },
-    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Responsive UI', 'Modern CSS'],
+    stack: ['React 19', 'TypeScript', 'Vite 6', 'Tailwind CSS 4', 'Responsive UI'],
     outcomes: {
       en: [
-        'Delivered an elegant, distraction-free reading experience with sub-second page transitions.',
-        'Maintains 100% responsive fidelity from small mobile screens up to ultra-wide desktop monitors.',
+        'Delivered a responsive public prototype with reusable content and interactive tool components.',
       ],
       ru: [
-        'Создан удобный читательский интерфейс с мгновенной навигацией и нулевыми задержками.',
-        'Идеальная адаптивность от компактных смартфонов до больших настольных экранов.',
+        'Создан адаптивный публичный прототип с переиспользуемыми контентными и интерактивными компонентами.',
       ],
     },
   },
@@ -534,7 +497,6 @@ export const projects: Project[] = [
       en: 'Enterprise React 19 ERP',
       ru: 'ERP на React 19 & Vite',
     },
-    localFolder: 'Second',
     summary: {
       en: 'Commercial space management ERP with interactive SVG floor plan zoning, real-time occupancy scheduling, financial forecasting, and tenant partner portals.',
       ru: 'ERP-система управления коммерческими пространствами и коворкингами: интерактивная карта этажей (Floor Plan), календарь занятости, юнит-экономика и кабинет арендатора.',
@@ -609,8 +571,8 @@ export const projects: Project[] = [
       ru: 'PWA-комплекс для спотового и фьючерсного трейдинга, риск-менеджмента, сложного процента и симуляций Монте-Карло.',
     },
     purpose: {
-      en: 'An all-in-one financial modeling suite built for quantitative traders and investors. Solves complex liquidation formulas, margin requirements, position sizing, slippage risk, and long-term asset growth with zero server latency.',
-      ru: 'Универсальный аналитический комплекс для трейдеров и инвесторов. Мгновенно рассчитывает цены ликвидации, маржинальные требования, размер позиции с учетом риска и сложные проценты с нулевой задержкой.',
+      en: 'An all-in-one client-side financial modeling suite for traders and investors. It covers liquidation formulas, margin requirements, position sizing, strategy scenarios, and long-term asset growth without a calculation backend.',
+      ru: 'Клиентский аналитический комплекс для трейдеров и инвесторов: цены ликвидации, маржинальные требования, размер позиции, сценарии стратегий и сложный процент без отдельного расчётного бэкенда.',
     },
     features: {
       en: [
@@ -645,12 +607,12 @@ export const projects: Project[] = [
     stack: ['JavaScript', 'HTML5', 'CSS3', 'PWA', 'Trading Math', 'GitHub Pages'],
     outcomes: {
       en: [
-        'Zero calculation latency: all formulas evaluate in under 2 milliseconds on user input change.',
-        'PWA installation verified across iOS Safari, Android Chrome, and Windows/macOS desktop browsers.',
+        'Keeps the calculation engine lightweight and independent of a remote backend.',
+        'Provides an installable offline-capable interface through a manifest and service worker.',
       ],
       ru: [
-        'Мгновенный отклик: все математические расчеты выполняются менее чем за 2 миллисекунды.',
-        'Успешная установка в качестве PWA-приложения на iOS, Android и десктопные ОС.',
+        'Расчётное ядро остаётся лёгким и не зависит от удалённого бэкенда.',
+        'Manifest и service worker обеспечивают устанавливаемый интерфейс с поддержкой оффлайн-запуска.',
       ],
     },
   },
@@ -681,25 +643,25 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/DEN-2020/car-calc',
     siteUrl: 'https://den-2020.github.io/car-calc/',
     summary: {
-      en: 'Comprehensive automotive total cost of ownership (TCO) calculator factoring loan amortization, fuel, insurance, maintenance, and depreciation.',
-      ru: 'Комплексный калькулятор совокупной стоимости владения автомобилем (TCO): автокредит, топливо, страховка, ТО и амортизация.',
+      en: 'Multilingual car-finance calculator for loan amortization, balloon payments, fees, insurance, maintenance, taxes, and other recurring costs.',
+      ru: 'Многоязычный автокалькулятор для кредита, остаточного платежа, комиссий, страховки, обслуживания, налогов и других регулярных расходов.',
     },
     purpose: {
-      en: 'A specialized financial utility designed to calculate the real, true cost of car ownership per month and per kilometer, uncovering hidden expenses such as tire wear, insurance, depreciation, and loan interest.',
-      ru: 'Специализированный инструмент для расчета реальной стоимости владения автомобилем в месяц и на 1 километр пробега с учетом скрытых расходов на обслуживание, страховку, резину и проценты по кредиту.',
+      en: 'A specialized browser utility that combines financing schedules with configurable upfront and recurring expenses to show the total cost over the selected loan period.',
+      ru: 'Браузерный инструмент, объединяющий график финансирования с настраиваемыми разовыми и регулярными расходами для расчёта общей стоимости за выбранный срок кредита.',
     },
     features: {
       en: [
         'Detailed loan calculator supporting standard annuity and balloon payment schedules.',
-        'Fuel & mileage tracker computing cost per kilometer and monthly fuel budget dynamically.',
-        'Recurring maintenance, insurance (CASCO/OSAGO), seasonal tires, and parking expense aggregator.',
-        'Multi-currency toggle (USD, EUR, RUB, EGP, AED) with real-time numeric formatting.',
+        'Configurable upfront fees and recurring tax, insurance, service, and other expenses.',
+        'Summary of principal, interest, balloon payment, and total ownership-period costs.',
+        'Multilingual interface with locale-aware labels and number formatting.',
       ],
       ru: [
         'Детальный кредитный калькулятор с поддержкой аннуитета и остаточного платежа (Balloon).',
-        'Расчет расходов на топливо: динамический расчет стоимости 1 км пути и ежемесячного бюджета на бензин.',
-        'Учет регулярных расходов: ТО, страховка (ОСАГО/КАСКО), сезонная резина, налог и парковка.',
-        'Переключатель валют (USD, EUR, RUB, EGP, AED) с адаптивным форматированием чисел.',
+        'Настраиваемые разовые комиссии и регулярные расходы на налог, страховку, обслуживание и другие статьи.',
+        'Сводка основного долга, процентов, остаточного платежа и совокупных расходов за срок кредита.',
+        'Многоязычный интерфейс с локализованными подписями и форматированием чисел.',
       ],
     },
     technicalNotes: {
@@ -717,12 +679,10 @@ export const projects: Project[] = [
     stack: ['JavaScript', 'HTML5', 'CSS3', 'PWA', 'GitHub Pages'],
     outcomes: {
       en: [
-        'Empowers car buyers with complete transparency into lifetime vehicle ownership costs.',
-        'Lightweight bundle (< 50 KB total size) ensuring immediate start on any mobile connection.',
+        'Combines financing and recurring expenses in one transparent calculation flow.',
       ],
       ru: [
-        'Наглядная визуализация реальной стоимости владения автомобилем без скрытых переплат.',
-        'Ультралегкий размер сборки (< 50 КБ) для моментальной загрузки даже при слабом интернете.',
+        'Объединяет финансирование и регулярные расходы в одном прозрачном сценарии расчёта.',
       ],
     },
   },
@@ -784,10 +744,10 @@ export const projects: Project[] = [
     stack: ['JavaScript', 'HTML5', 'CSS3', 'Trading Math'],
     outcomes: {
       en: [
-        'Enables error-free risk calculation within seconds during high-volatility market events.',
+        'Consolidates frequently used spot and perpetual-futures formulas in one lightweight interface.',
       ],
       ru: [
-        'Предотвращает ошибки в расчете размера позиции в моменты высокой волатильности рынка.',
+        'Объединяет часто используемые формулы для спота и бессрочных фьючерсов в одном лёгком интерфейсе.',
       ],
     },
   },
@@ -801,7 +761,7 @@ export const projects: Project[] = [
     },
     category: 'audio-media',
     type: 'tooling',
-    visibility: 'public',
+    visibility: 'private',
     demoStatus: 'ready',
     thumbnail: {
       en: volumepilotImg,
@@ -815,8 +775,6 @@ export const projects: Project[] = [
       en: 'Windows .NET Ducking',
       ru: 'Авто-дакинг для Windows',
     },
-    repo: 'DEN-2020/VolumePilot',
-    githubUrl: 'https://github.com/DEN-2020/VolumePilot',
     summary: {
       en: 'Intelligent Windows background utility that automatically ducks background music, media, or game volume whenever you speak into your microphone and smoothly restores it on silence.',
       ru: 'Интеллектуальная утилита для Windows, которая автоматически приглушает фоновую музыку, YouTube или игры в момент, когда вы говорите в микрофон, и плавно восстанавливает громкость при молчании.',
@@ -828,13 +786,13 @@ export const projects: Project[] = [
     features: {
       en: [
         'Targeted Ducking: selectively duck individual background apps (Spotify, Chrome, Discord) or the entire System Master Volume.',
-        'Low-latency WASAPI input monitoring capturing microphone voice thresholds with zero CPU overhead.',
+        'Low-latency WASAPI input monitoring for microphone activity and configurable trigger thresholds.',
         'Customizable dynamics envelope with precise millisecond controls for Attack, Hold, and Release curves.',
         'Silent System Tray operation with quick profile toggles, Inno Setup installer, and zero-privilege local execution.',
       ],
       ru: [
         'Целевой дакинг: приглушение отдельных приложений (Spotify, Браузер, Discord) или общего системного звука Master Volume.',
-        'Быстрый WASAPI-мониторинг голоса с мгновенным определением порога срабатывания без нагрузки на процессор.',
+        'Низколатентный WASAPI-мониторинг микрофона с настраиваемым порогом срабатывания.',
         'Точная настройка огибающей звука: миллисекундный контроль времени атаки (Attack), удержания (Hold) и восстановления (Release).',
         'Фоновая работа в системном трее Windows, собственный инсталлятор Inno Setup и полная локальная конфиденциальность.',
       ],
@@ -854,12 +812,12 @@ export const projects: Project[] = [
     stack: ['C#', '.NET', 'WPF / WinUI', 'WASAPI Audio', 'Audio Ducking', 'Windows Tray'],
     outcomes: {
       en: [
-        'Seamless automatic voice-over background audio ducking without needing expensive external hardware mixers.',
-        'Ultra-low memory footprint (< 15 MB) and zero perceptible latency during live streams and gaming.',
+        'Provides automatic voice-over background audio ducking without requiring an external hardware mixer.',
+        'Processes microphone levels locally without recording voice or uploading audio and telemetry.',
       ],
       ru: [
-        'Идеальное автоматическое приглушение звука при разговоре без необходимости покупать дорогие микшерные пульты.',
-        'Минимальное потребление памяти (< 15 МБ) и нулевая задержка во время прямых трансляций и игр.',
+        'Автоматически приглушает фон при разговоре без необходимости использовать внешний аппаратный микшер.',
+        'Обрабатывает уровни микрофона локально, не записывая голос и не отправляя аудио или телеметрию.',
       ],
     },
   },
@@ -886,8 +844,6 @@ export const projects: Project[] = [
       en: 'Live Landing Page',
       ru: 'Работает онлайн',
     },
-    repo: 'DEN-2020/VolumePilot-Site',
-    githubUrl: 'https://github.com/DEN-2020/VolumePilot-Site',
     siteUrl: 'https://volumepilot.netlify.app/',
     summary: {
       en: 'Modern showcase landing page for the VolumePilot audio ducking utility featuring interactive waveform animations, feature breakdowns, and direct downloads.',
@@ -902,32 +858,32 @@ export const projects: Project[] = [
         'Interactive audio waveform visualizer demonstrating real-time dynamic audio ducking normalization.',
         'Before/After interactive comparison sliders demonstrating background audio suppression while talking.',
         'Responsive layout optimized for high conversion on mobile, tablet, and desktop viewports.',
-        'Automated release pipeline linking GitHub Release binaries to direct download buttons.',
+        'Download and product-information calls to action for the desktop utility.',
       ],
       ru: [
         'Интерактивный визуализатор аудио-волны, демонстрирующий выравнивание громкости при разговоре.',
         'Интерактивное сравнение «До и После» со сглаживанием резких перепадов звука.',
         'Адаптивная верстка с высокой конверсией на смартфонах и десктопах.',
-        'Прямая интеграция кнопок скачивания со сборками релизов на GitHub Releases.',
+        'Кнопки загрузки и понятные блоки с информацией о десктопной утилите.',
       ],
     },
     technicalNotes: {
       en: [
-        'Developed with modern HTML5, CSS3 animations, and vanilla JavaScript for 60fps canvas visualizer performance.',
-        'Continuous automated build and deployment workflow managed via Netlify.',
+        'Developed with React 19, TypeScript, Vite 6, Tailwind CSS 4, and Motion.',
+        'Built and deployed as a static marketing site on Netlify.',
       ],
       ru: [
-        'Стек: современный HTML5, CSS3-анимации и чистый JavaScript с 60 FPS на Canvas.',
-        'Автоматический деплой и CDN-кэширование через платформу Netlify.',
+        'Стек: React 19, TypeScript, Vite 6, Tailwind CSS 4 и Motion.',
+        'Статическая сборка и размещение промо-сайта на Netlify.',
       ],
     },
-    stack: ['HTML5', 'CSS3', 'JavaScript', 'Web Audio API', 'Responsive CSS'],
+    stack: ['React 19', 'TypeScript', 'Vite 6', 'Tailwind CSS 4', 'Motion', 'Netlify'],
     outcomes: {
       en: [
-        'Delivers a polished product presentation with sub-second page loading and high visual engagement.',
+        'Provides a dedicated public product presentation separate from the private desktop source repository.',
       ],
       ru: [
-        'Привлекательная презентация продукта с моментальной загрузкой и плавной анимацией.',
+        'Даёт продукту отдельную публичную витрину без публикации закрытого исходного кода десктопного приложения.',
       ],
     },
   },
@@ -954,8 +910,8 @@ export const projects: Project[] = [
       en: 'DSP Compression & Astro',
       ru: 'DSP компрессия & Astro',
     },
-    repo: 'DEN-2020/NightVoice',
-    githubUrl: 'https://github.com/DEN-2020/NightVoice',
+    repo: 'DEN-2020/NightVoice-Web',
+    githubUrl: 'https://github.com/DEN-2020/NightVoice-Web',
     summary: {
       en: 'System-wide loudness stabilization and dynamic range compression for Windows (0% AI, pure DSP) with official Astro multilingual documentation portal in 6 languages.',
       ru: 'Системная стабилизация громкости и динамическая компрессия для Windows (без ИИ, чистый DSP) с официальным сайтом на Astro на 6 языках.',
@@ -969,26 +925,26 @@ export const projects: Project[] = [
         'System-wide Windows dynamic range compression balancing loud explosions and quiet dialogue.',
         'Preset modes (Soft, Night, Strong, Custom) with instant system tray profile switching.',
         'Official multilingual Astro website translated into 6 languages with interactive audio before/after player.',
-        'Zero-AI real-time audio pipeline ensuring 100% privacy and zero latency.',
+        'Local DSP processing without cloud AI or audio uploads.',
       ],
       ru: [
         'Системная динамическая компрессия Windows: выравнивание громких спецэффектов и тихой речи.',
         'Готовые пресеты (Soft, Night, Strong, Custom) с быстрым переключением из системного трея.',
         'Официальный многоязычный сайт на Astro на 6 языках со встроенным интерактивным аудио-плеером «До/После».',
-        'Полная оффлайн-конфиденциальность без нейросетевых задержек (чистая DSP-математика).',
+        'Локальная DSP-обработка без облачного ИИ и отправки аудио.',
       ],
     },
     technicalNotes: {
       en: [
         'Windows audio core written in C# with WASAPI endpoint DSP biquad filter cascades.',
-        'Web portal built with Astro, Tailwind CSS, TypeScript, and 100/100 Lighthouse performance architecture.',
+        'Public documentation and marketing portal built with Astro 7 and TypeScript.',
       ],
       ru: [
         'Десктопное ядро на C# с каскадами фильтров WASAPI и цифровой компрессией.',
-        'Веб-портал на Astro, Tailwind CSS и TypeScript с наивысшей оценкой скорости Lighthouse 100/100.',
+        'Публичный документационный и промо-портал на Astro 7 и TypeScript.',
       ],
     },
-    stack: ['C#', 'DSP Algorithms', 'Astro', 'TypeScript', 'i18n (AR/EN/RU)', 'Web Audio API'],
+    stack: ['C#', 'DSP Algorithms', 'Astro 7', 'TypeScript', 'i18n (EN/RU/DE/ES/FR/FI)', 'Web Audio API'],
     outcomes: {
       en: [
         'Delivered crystal-clear night movie listening without waking family members or needing manual volume adjustments.',
@@ -1007,7 +963,7 @@ export const projects: Project[] = [
     },
     category: 'audio-media',
     type: 'pipeline',
-    visibility: 'public',
+    visibility: 'private',
     demoStatus: 'ready',
     thumbnail: {
       en: videogenEn1,
@@ -1021,8 +977,6 @@ export const projects: Project[] = [
       en: 'FastAPI & OpenCV Studio',
       ru: 'FastAPI & OpenCV студия',
     },
-    repo: 'DEN-2020/VIDEOGEN',
-    githubUrl: 'https://github.com/DEN-2020/VIDEOGEN',
     summary: {
       en: 'Local-first automated video studio with FastAPI backend, React dashboard, Ollama script drafts, OpenCV scene/motion detection, and FFmpeg GPU rendering.',
       ru: 'Локальная студия генерации коротких видео с бэкендом на FastAPI, дашбордом на React, сценариями Ollama, детекцией сцен OpenCV и рендером FFmpeg GPU.',
@@ -1062,10 +1016,10 @@ export const projects: Project[] = [
     stack: ['Python', 'FastAPI', 'React 19', 'FFmpeg GPU', 'OpenCV', 'Ollama / LLMs', 'Telegram Bot API'],
     outcomes: {
       en: [
-        'Automated the complete short-form video lifecycle from URL ingestion to final Telegram publishing in under 60 seconds.',
+        'Integrated source review, editing decisions, rendering, and optional Telegram delivery into one local workflow.',
       ],
       ru: [
-        'Полная автоматизация создания вертикальных видеороликов от анализа темы до отправки в Telegram за 60 секунд.',
+        'Объединены проверка исходников, монтажные решения, рендеринг и опциональная отправка в Telegram в одном локальном процессе.',
       ],
     },
   },
@@ -1092,42 +1046,41 @@ export const projects: Project[] = [
       en: 'Internal Media Engine',
       ru: 'Приватная медиа-система',
     },
-    localFolder: 'tv',
     summary: {
-      en: 'Automated streaming utilities, IPTV playlist parsers, stream validation engines, and EPG metadata scrapers.',
-      ru: 'Набор утилит для IPTV: парсинг плейлистов, автоматическая валидация потоков и агрегация EPG телепрограммы.',
+      en: 'Private JavaScript experiments and a small Node proxy for media-player integrations and online source resolution.',
+      ru: 'Приватные JavaScript-эксперименты и небольшой Node-прокси для интеграций медиаплеера и разрешения онлайн-источников.',
     },
     purpose: {
-      en: 'A collection of resilient Python and PowerShell media scripts for validating live HLS/MPEG-TS video streams, checking stream availability, stripping duplicate channels, and formatting standardized M3U8 playlists.',
-      ru: 'Комплекс скриптов на Python и PowerShell для автоматической проверки работоспособности HLS/MPEG-TS видеопотоков, фильтрации дубликатов каналов и сборки оптимизированных M3U8 плейлистов.',
+      en: 'A local collection of JavaScript modules used to test media-source integrations, proxy requests, player handoff, and provider-specific parsing. It is not a standalone streaming dashboard.',
+      ru: 'Локальная коллекция JavaScript-модулей для тестирования источников медиа, проксирования запросов, передачи ссылок плееру и разбора данных отдельных провайдеров. Это не отдельный стриминговый dashboard.',
     },
     features: {
       en: [
-        'Asynchronous multi-threaded stream validator probing hundreds of live endpoints in parallel.',
-        'Automated channel category classifier grouping news, sports, entertainment, and documentary channels.',
-        'M3U/M3U8 playlist generator with custom tags, logo URLs, and EPG mapping.',
+        'Provider-specific JavaScript modules for resolving media links.',
+        'Local Node proxy and test player for request and playback experiments.',
+        'Internal-only utilities with no public service or repository access.',
       ],
       ru: [
-        'Асинхронный многопоточный валидатор потоков с одновременным пингом сотен каналов.',
-        'Автоматический классификатор каналов по категориям (новости, спорт, кино, познавательное).',
-        'Генератор оптимизированных M3U/M3U8 плейлистов с логотипами и привязкой к телепрограмме.',
+        'JavaScript-модули для разрешения медиа-ссылок отдельных провайдеров.',
+        'Локальный Node-прокси и тестовый плеер для экспериментов с запросами и воспроизведением.',
+        'Только внутренние утилиты без публичного сервиса и доступа к репозиторию.',
       ],
     },
     technicalNotes: {
       en: [
-        'Developed with Python asyncio, aiohttp, FFprobe headers analysis, and PowerShell orchestration.',
+        'Implemented primarily with JavaScript and Node.js; the portfolio does not expose provider URLs or local configuration.',
       ],
       ru: [
-        'Стек: Python asyncio, aiohttp, анализ заголовков FFprobe и скрипты автоматизации PowerShell.',
+        'Основной стек — JavaScript и Node.js; портфолио не публикует URL провайдеров и локальную конфигурацию.',
       ],
     },
-    stack: ['Python', 'PowerShell', 'Streaming Protocols', 'Media APIs'],
+    stack: ['JavaScript', 'Node.js', 'Media APIs', 'Local Proxy'],
     outcomes: {
       en: [
-        'Automated playlist maintenance, eliminating dead stream links and reducing loading latency in media players.',
+        'Keeps provider-specific experiments isolated from public-facing projects.',
       ],
       ru: [
-        'Полная автоматизация очистки плейлистов от неработающих каналов с ускорением переключения.',
+        'Эксперименты с конкретными провайдерами изолированы от публичных проектов.',
       ],
     },
   },
@@ -1170,15 +1123,15 @@ export const projects: Project[] = [
       en: [
         'Live multi-device data synchronization using Firebase Firestore real-time snapshot listeners.',
         'Gamified reward marketplace where children redeem earned points for real-life privileges and rewards.',
-        'PIN-protected Parent Control mode for task creation, points adjustments, and reward approvals.',
-        'Interactive progress charts, streak counters, and celebratory particle animations upon task completion.',
+        'Parent controls for task creation, point adjustments, family settings, and reward approvals.',
+        'Progress, achievements, activity history, and child-friendly completion feedback.',
         'Full PWA installation capability on Android, iOS, and desktop with offline optimism.',
       ],
       ru: [
         'Мгновенная синхронизация между устройствами на базе Firebase Firestore в реальном времени.',
         'Магазин наград: дети могут обменивать накопленные баллы на реальные призы и активности.',
-        'Режим родительского контроля с защитой PIN-кодом для подтверждения заданий и начисления бонусов.',
-        'Интерактивная статистика, счетчик серии выполненных дней (Streak) и праздничные анимации.',
+        'Родительские инструменты для создания заданий, корректировки баллов, семейных настроек и подтверждения наград.',
+        'Прогресс, достижения, история действий и понятная детям обратная связь о выполнении.',
         'PWA-режим с установкой на домашний экран Android и iOS и оптимистичными обновлениями интерфейса.',
       ],
     },
@@ -1186,23 +1139,21 @@ export const projects: Project[] = [
       en: [
         'Built with React 19, TypeScript, Vite, Tailwind CSS, Lucide icons, and Canvas-Confetti.',
         'Backend powered by Google Firebase Firestore NoSQL real-time database and Firebase Hosting.',
-        'Privacy-focused client architecture keeping family IDs secure with client-side state isolation.',
+        'Firebase rules and family-scoped data model separate each household\'s records.',
       ],
       ru: [
         'Фронтенд: React 19, TypeScript, Vite, Tailwind CSS и библиотека анимаций частиц Canvas-Confetti.',
         'Бэкенд: NoSQL база данных Google Firebase Firestore и Firebase Hosting.',
-        'Безопасная архитектура с изолированными сессиями семейных профилей.',
+        'Firebase Rules и модель данных с family scope разделяют записи разных семей.',
       ],
     },
     stack: ['React 19', 'TypeScript', 'Firebase Firestore', 'Tailwind CSS', 'PWA', 'Android'],
     outcomes: {
       en: [
-        'Active daily family use with zero sync latency across simultaneous mobile phones and tablets.',
-        'Demonstrates mastery of modern real-time cloud data architectures and playful, accessible UX design.',
+        'Supports shared family workflows across multiple devices through Firestore snapshot synchronization.',
       ],
       ru: [
-        'Активное ежедневное использование в семье с мгновенным обновлением баланса на смартфонах и планшетах.',
-        'Пример современной реактивной архитектуры с геймификацией и дружелюбным мобильным UX.',
+        'Поддерживает совместные семейные сценарии на нескольких устройствах через Firestore snapshot-синхронизацию.',
       ],
     },
   },
@@ -1210,12 +1161,12 @@ export const projects: Project[] = [
   {
     slug: 'kids-tracker-android',
     name: {
-      en: 'Kids Tracker Android Native App',
-      ru: 'Kids Tracker (Нативное Android-приложение)',
+      en: 'Kids Tracker Android Companion',
+      ru: 'Kids Tracker (Android companion)',
     },
     category: 'mobile-apps',
     type: 'app',
-    visibility: 'public',
+    visibility: 'private',
     demoStatus: 'ready',
     thumbnail: {
       en: kidsTrackerEn1,
@@ -1226,48 +1177,46 @@ export const projects: Project[] = [
       ru: [kidsTrackerEn1, kidsTrackerEn2, kidsTrackerEn3],
     },
     badge: {
-      en: 'Kotlin & Jetpack Compose',
-      ru: 'Kotlin & Jetpack Compose',
+      en: 'Hybrid Android Scaffold',
+      ru: 'Гибридный Android scaffold',
     },
-    repo: 'DEN-2020/kids-tracker-android',
-    githubUrl: 'https://github.com/DEN-2020/kids-tracker-android',
     summary: {
-      en: 'Native Android companion application for Kids Tracker built with Kotlin, Jetpack Compose, and Firebase Firestore real-time synchronization.',
-      ru: 'Нативное мобильное Android-приложение для Kids Tracker на базе Kotlin, Jetpack Compose и Firebase Firestore.',
+      en: 'Early Android companion that embeds the existing Kids Tracker PWA and adds native device-usage tools.',
+      ru: 'Ранняя Android-версия, которая открывает существующий Kids Tracker PWA и добавляет нативные инструменты статистики устройства.',
     },
     purpose: {
-      en: 'Delivers a native Android experience for parents and kids, providing home screen widgets, low-latency Firebase sync, native animations, and offline-first state persistence.',
-      ru: 'Обеспечивает нативный мобильный опыт под Android: быстрая синхронизация с Firebase Firestore, плавные анимации Material You и оффлайн-кэширование.',
+      en: 'A separate Android scaffold for validating a hybrid WebView shell, Usage Access permission flow, foreground-app statistics, and a callable path for syncing device usage.',
+      ru: 'Отдельный Android scaffold для проверки гибридной WebView-оболочки, разрешения Usage Access, статистики активных приложений и callable-маршрута синхронизации использования устройства.',
     },
     features: {
       en: [
-        'Modern Jetpack Compose UI adhering to Material 3 design guidelines.',
-        'Real-time synchronization with cloud Firestore collections shared with the PWA web client.',
-        'PIN security gate for parent settings and custom coin award granting.',
-        'Offline data caching enabling uninterrupted task checking when disconnected.',
+        'WebView shell that opens the deployed Kids Tracker PWA as the default experience.',
+        'Native Java UI for reading today\'s foreground app usage through UsageStatsManager.',
+        'Usage Access permission flow and a callable sync path for the device_usage collection.',
+        'Single debug APK concept for parent and child modes; account linking and Play packaging remain unfinished.',
       ],
       ru: [
-        'Современный интерфейс на Jetpack Compose по гайдлайнам Material 3.',
-        'Синхронизация в реальном времени с базой Firebase Firestore совместно с веб-версией PWA.',
-        'Защита родительских настроек PIN-кодом и начисление виртуальных монет.',
-        'Оффлайн-кэширование данных для работы без постоянного подключения к сети.',
+        'WebView-оболочка, которая по умолчанию открывает опубликованный Kids Tracker PWA.',
+        'Нативный Java-интерфейс для чтения статистики активных приложений через UsageStatsManager.',
+        'Сценарий разрешения Usage Access и callable-маршрут для коллекции device_usage.',
+        'Единая debug APK-концепция для режима родителя и ребёнка; привязка аккаунта и публикация в Play ещё не завершены.',
       ],
     },
     technicalNotes: {
       en: [
-        'Built with Kotlin, Android Gradle Plugin, Jetpack Compose, Coroutines/Flow, and Firebase Android SDK.',
+        'Implemented with Java, Android SDK views, WebView, UsageStatsManager, Firebase callable functions, and Gradle Kotlin DSL.',
       ],
       ru: [
-        'Стек: Kotlin, Jetpack Compose, Kotlin Coroutines, StateFlow, Gradle Kotlin DSL, Firebase Android SDK.',
+        'Стек: Java, Android SDK Views, WebView, UsageStatsManager, Firebase callable functions и Gradle Kotlin DSL.',
       ],
     },
-    stack: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Firebase Firestore', 'Coroutines', 'Material 3'],
+    stack: ['Java', 'Android SDK', 'WebView', 'UsageStatsManager', 'Firebase', 'Gradle'],
     outcomes: {
       en: [
-        'Expanded Kids Tracker into the native Android ecosystem with instantaneous push sync and smooth 120Hz scrolling.',
+        'Verified a local debug APK and the first hybrid integration path without presenting the scaffold as a finished native app.',
       ],
       ru: [
-        'Расширение экосистемы Kids Tracker в нативный Android с плавной работой и синхронизацией.',
+        'Проверена локальная debug APK и первый гибридный интеграционный сценарий без выдачи scaffold за готовое нативное приложение.',
       ],
     },
   },
@@ -1281,7 +1230,7 @@ export const projects: Project[] = [
     },
     category: 'ai-3d-gamedev',
     type: 'pipeline',
-    visibility: 'public',
+    visibility: 'private',
     demoStatus: 'ready',
     thumbnail: {
       en: hunyuan3dImg,
@@ -1295,51 +1244,49 @@ export const projects: Project[] = [
       en: 'Docker & Blender 3D',
       ru: 'Docker & Blender 3D',
     },
-    repo: 'DEN-2020/hunyuan3d-docker',
-    githubUrl: 'https://github.com/DEN-2020/hunyuan3d-docker',
     summary: {
-      en: 'Production-ready containerized pipeline and Blender 3D bridge built on Tencent Hunyuan3D-2, adding CUDA 12 GPU acceleration, REST API server, and automated mesh processing.',
-      ru: 'Инженерный конвейер и интеграция для Blender 3D на базе генеративной нейросети Hunyuan3D-2: контейнеризация Docker CUDA 12, REST API шлюз и автоматизация генерации 3D-ассетов.',
+      en: 'Local Docker and Blender integration work around Tencent Hunyuan3D-2 with GPU support, a REST API server, and mesh-generation tooling.',
+      ru: 'Локальная Docker- и Blender-интеграция вокруг Tencent Hunyuan3D-2 с поддержкой GPU, REST API и инструментами генерации мешей.',
     },
     purpose: {
-      en: 'A production infrastructure extension and tooling suite built around the Tencent Hunyuan3D-2 generative core. Eliminates complex manual dependency installation, adds a headless REST API for automated generation queues, and connects the neural network directly into Blender 3D via a custom addon.',
-      ru: 'Инфраструктурная надстройка и инструментарий вокруг открытой нейросетевой модели Tencent Hunyuan3D-2. Устраняет сложную ручную установку зависимостей, добавляет headless REST API для фоновой генерации и связывает нейросеть напрямую с Blender 3D через кастомный аддон.',
+      en: 'A private integration repository based on the upstream open-source model. It packages the environment, exposes a local API, and provides Blender addon experiments; it is not presented as the upstream model itself.',
+      ru: 'Приватный интеграционный репозиторий на базе открытой upstream-модели. Он упаковывает окружение, добавляет локальный API и эксперименты с Blender-аддоном, не выдавая интеграцию за саму upstream-модель.',
     },
     features: {
       en: [
         'Single-image to high-density 3D textured mesh generation (GLTF, OBJ, FBX output formats).',
         'Custom direct Blender 3D addon (blender_addon.py) for generating neural meshes directly into the 3D viewport.',
-        'Headless REST API server (api_server.py) with asynchronous request queuing and batch processing.',
-        'Interactive Gradio web studio interface running on localhost:8080 for fine-tuning diffusion steps and seed parameters.',
+        'Local REST API server (api_server.py) for programmatic generation requests.',
+        'Interactive local Gradio interface for adjusting supported generation parameters.',
       ],
       ru: [
         'Генерация 3D-моделей по одной картинке с высококачественными текстурами и экспортом в форматы GLTF / OBJ / FBX.',
         'Прямой плагин для Blender 3D (blender_addon.py): генерация и импорт нейросетевых объектов сразу в сцену 3D-редактора.',
-        'Автономный REST API сервер (api_server.py): асинхронный прием запросов и пакетная обработка очередей.',
-        'Интерактивная веб-студия (Gradio Studio) на порту 8080 для настройки параметров генерации и сидов.',
+        'Локальный REST API сервер (api_server.py) для программных запросов генерации.',
+        'Интерактивный локальный интерфейс Gradio для настройки поддерживаемых параметров генерации.',
       ],
     },
     technicalNotes: {
       en: [
         'Multi-stage Dockerfile with layer optimization, PyTorch isolation, and NVIDIA Container Toolkit / CUDA 12.1+ support.',
         'Dynamic HuggingFace token authorization via .env configuration without baking secrets into Docker image layers.',
-        'GPU VRAM memory management efficiently scheduling tensor allocation across 16GB+ VRAM environments without OOM errors.',
+        'GPU memory requirements and model constraints remain dependent on the selected upstream model and generation settings.',
       ],
       ru: [
         'Многоэтапный Dockerfile с оптимизацией слоев, изоляцией PyTorch и поддержкой драйверов NVIDIA CUDA 12.1+.',
         'Безопасная работа с HuggingFace: динамическая передача токенов через .env без попадания в слои Docker-образа.',
-        'Оптимизация видеопамяти (VRAM) для стабильной работы нейросети на GPU от 16GB VRAM без сбоев.',
+        'Требования к видеопамяти зависят от выбранной upstream-модели и параметров генерации.',
       ],
     },
     stack: ['Docker', 'Python', 'PyTorch', 'CUDA', '3D Neural Synthesis', 'Blender Pipeline', 'Blender 3D'],
     outcomes: {
       en: [
         'Reduced deployment of complex 3D AI generative environments down to a single command (docker compose up --build).',
-        'Directly integrated generative AI into the standard workflow of 3D artists and game development teams.',
+        'Created a repeatable local path between image-to-3D generation and Blender import experiments.',
       ],
       ru: [
         'Сокращение развертывания сложного ИИ-окружения до одной команды (docker compose up --build).',
-        'Полная интеграция генеративного ИИ в рабочий пайплайн 3D-моделлеров и геймдев-студий.',
+        'Создан воспроизводимый локальный сценарий между image-to-3D генерацией и экспериментами импорта в Blender.',
       ],
     },
   },
@@ -1355,18 +1302,17 @@ export const projects: Project[] = [
     visibility: 'local-only',
     demoStatus: 'ready',
     thumbnail: {
-      en: robloxSpaceImg,
-      ru: robloxSpaceImg,
+      en: robloxSpace1,
+      ru: robloxSpace1,
     },
     screenshots: {
-      en: [robloxSpaceImg, robloxSpaceImg, robloxSpaceImg],
-      ru: [robloxSpaceImg, robloxSpaceImg, robloxSpaceImg],
+      en: [robloxSpace1, robloxSpace2, robloxSpace3],
+      ru: [robloxSpace1, robloxSpace2, robloxSpace3],
     },
     badge: {
       en: 'Roblox Studio Game',
       ru: 'Игра в Roblox Studio',
     },
-    localFolder: 'RobloxSpaceShooter',
     summary: {
       en: 'Vertical arcade galaxy shooter in Roblox Studio developed with Rojo 7.4.4 workflow, featuring drag-to-move ship physics, bullet-hell boss battles, and modular upgrade trees.',
       ru: 'Вертикальный космический аркадный шутер на движке Roblox Studio с разработкой через Rojo 7.4.4, кастомной физикой звездолетов, волнами противников, битвами с боссами (Bullet Hell) и древом прокачки.',
@@ -1408,11 +1354,11 @@ export const projects: Project[] = [
     stack: ['Luau', 'Roblox Studio', 'Blender 3D', 'Game Mechanics', 'VFX & Particle Systems'],
     outcomes: {
       en: [
-        'Stable 60 FPS performance with low memory footprint and optimized object pooling for high-density projectile storms.',
+        'Implemented a modular local prototype with server services, client controllers, and declarative configuration tables.',
         'Clean codebase architecture enabling frictionless integration of new weapons, ships, and boss phases via declarative Config tables.',
       ],
       ru: [
-        'Стабильные 60 FPS с оптимизированным пулингом объектов для плотных снарядных бурь без лагов.',
+        'Реализован модульный локальный прототип с серверными службами, клиентскими контроллерами и декларативными конфигами.',
         'Декларативная архитектура конфигов для легкого добавления новых кораблей, оружия и фаз боссов.',
       ],
     },
@@ -1441,7 +1387,6 @@ export const projects: Project[] = [
       en: 'Quant Research',
       ru: 'Квант-исследование',
     },
-    localFolder: 'btcusdt-edge-research-audit-20260504',
     summary: {
       en: 'Quantitative research framework analyzing 2.67M+ 1m clean OHLCV candles (2021–2026) and Binance Futures tick data with cost sensitivity and MFE distribution modeling.',
       ru: 'Количественный исследовательский комплекс: анализ базы из 2.67+ млн минутных свечей (2021–2026) и тиковых данных Binance Futures с учетом проскальзывания и комиссий.',
@@ -1477,10 +1422,10 @@ export const projects: Project[] = [
     stack: ['Python', 'Pandas', 'NumPy', 'Parquet Datasets', 'Quantitative Modeling', 'Binance Futures'],
     outcomes: {
       en: [
-        'Identified mathematically sound risk parameters and execution edges across multiple market regimes.',
+        'Produced a sanitized evidence packet for independent review without publishing live trading configuration or raw market data.',
       ],
       ru: [
-        'Определение математически обоснованных параметров риска и подтверждение эффективности стратегий.',
+        'Подготовлен очищенный пакет материалов для независимой проверки без публикации боевой конфигурации и сырых рыночных данных.',
       ],
     },
   },
@@ -1507,29 +1452,28 @@ export const projects: Project[] = [
       en: 'Unreal Engine 5 & AI',
       ru: 'Unreal Engine 5 & AI',
     },
-    localFolder: 'AssistJarvisTools',
     summary: {
-      en: 'Autonomous 3D AI assistant system integrating Unreal Engine 5 MetaHuman with real-time lip-sync, local LLM orchestration (Ollama), multi-agent dispatching, voice synthesis, and desktop/web control panels.',
-      ru: 'Автономный 3D ИИ-ассистент на базе Unreal Engine 5 MetaHuman с анимацией мимики в реальном времени (Lip-Sync), локальными LLM (Ollama), голосовым синтезом, веб-интерфейсом и нативной панелью Windows.',
+      en: 'Private Unreal Engine 5 MetaHuman assistant prototype connecting local Ollama responses, speech synthesis, OSC/WebSocket bridges, and runtime control tools.',
+      ru: 'Приватный прототип ассистента с MetaHuman в Unreal Engine 5, объединяющий локальные ответы Ollama, синтез речи, OSC/WebSocket-мосты и инструменты управления runtime.',
     },
     purpose: {
-      en: 'A next-generation embodied AI assistant platform bridging Unreal Engine 5 MetaHuman rendering with local neural intelligence. Features real-time voice speech-to-text, LLM prompt engineering, Piper/Silero speech synthesis, OSC/WebSocket audio-to-viseme lip-sync streaming, Smart Home integration, and Pixel Streaming web accessibility.',
-      ru: 'Комплексная система персонального 3D-ассистента, объединяющая фотореалистичный 3D-аватар Unreal Engine 5 MetaHuman с локальным ИИ. Включает распознавание речи, оркестрацию нейросетей через Ollama, синтез речи (Piper/Silero), синхронизацию движения губ и взгляда (Lip-Sync / Look-At), управление умным домом и веб-интерфейс через Pixel Streaming.',
+      en: 'An offline-first experimental pipeline that passes local LLM replies through Piper or Silero speech synthesis and into an open Unreal bridge for avatar animation. Home Assistant and multi-agent experiments remain private supporting components.',
+      ru: 'Экспериментальный offline-first пайплайн: ответы локальной LLM проходят через Piper или Silero и передаются в открытый Unreal-мост для анимации аватара. Эксперименты Home Assistant и мультиагентной координации остаются закрытыми вспомогательными компонентами.',
     },
     features: {
       en: [
         'Photorealistic Unreal Engine 5 MetaHuman 3D avatar with real-time facial expression solver and look-at eye tracking.',
-        'Zero-latency audio-driven Lip-Sync pipeline extracting phonemes and driving viseme blendshapes over OSC / WebSockets.',
+        'Audio-driven lip-sync experiments transferring speech and timing data through OSC and WebSockets.',
         'Offline-first local AI engine running quantized LLMs via Ollama with multi-agent tool execution.',
         'Dual-interface ecosystem: native Windows standalone runtime control panel and interactive web browser dashboard (Voice Tuning Lab).',
-        'Smart Home bridge integrating Home Assistant and Yandex Smart Home devices for automated voice execution.',
+        'Private Home Assistant and Yandex Smart Home integration experiments isolated from the public portfolio.',
       ],
       ru: [
         'Фотореалистичный 3D-аватар MetaHuman в Unreal Engine 5 с динамической мимикой и отслеживанием взгляда (Look-At).',
-        'Синхронизация речи и артикуляции (Lip-Sync): извлечение фонем и передача блендшейпов через OSC и WebSockets.',
+        'Эксперименты Lip-Sync с передачей речи и таймингов через OSC и WebSockets.',
         'Полная автономность: запуск локальных LLM через Ollama без зависимости от внешних облачных API.',
         'Двойной интерфейс управления: нативная панель управления для Windows и веб-интерфейс Voice Tuning Lab.',
-        'Интеграция с умным домом: управление сценариями через Home Assistant и Яндекс Умный Дом голосом.',
+        'Закрытые эксперименты интеграции Home Assistant и Яндекс Умного дома изолированы от публичного портфолио.',
       ],
     },
     technicalNotes: {
@@ -1547,12 +1491,12 @@ export const projects: Project[] = [
     stack: ['Unreal Engine 5', 'MetaHuman', 'Python', 'Ollama / LLMs', 'WebSockets', 'Voice DSP / TTS', 'Windows Runtime'],
     outcomes: {
       en: [
-        'Achieved seamless sub-second voice-to-3D animation response in full offline desktop environment.',
-        'Demonstrated state-of-the-art integration of 3D gaming engines with generative AI agent backends.',
+        'Established a working local message format carrying reply text, transliterated text, WAV path, and duration into the runtime bridge.',
+        'Separated editor-driven and future packaged-runtime lip-sync workflows for continued testing.',
       ],
       ru: [
-        'Мгновенный отклик: генерация речи и запуск 3D-анимации аватара менее чем за 1 секунду в оффлайн-режиме.',
-        'Флагманский пример интеграции 3D-движка Unreal Engine 5 с локальными генеративными нейросетями.',
+        'Создан рабочий локальный формат сообщения с текстом ответа, транслитерацией, путём к WAV и длительностью для runtime-моста.',
+        'Разделены editor-driven и будущий packaged-runtime сценарии Lip-Sync для дальнейшего тестирования.',
       ],
     },
   },
@@ -1579,14 +1523,13 @@ export const projects: Project[] = [
       en: 'Tailscale Exit Node',
       ru: 'Tailscale VPN шлюз',
     },
-    localFolder: 'VPN_PROXY',
     summary: {
       en: 'Encrypted mesh VPN infrastructure configuring home workstation as a Tailscale Exit Node with automated PowerShell connection and health scripts.',
       ru: 'Защищенная mesh-инфраструктура с настройкой домашнего ПК как шлюза Tailscale Exit Node и автоматизацией на PowerShell.',
     },
     purpose: {
-      en: 'Provides secure, encrypted remote internet routing for developer laptops and gaming clients located in other regions to route all traffic through the home IP address without port forwarding, preserving native application compatibility (Roblox, banking, internal dev servers).',
-      ru: 'Обеспечивает защищенное шифрованное туннелирование трафика удаленных рабочих станций и игровых клиентов из других стран через домашний IP-адрес без проброса портов, сохраняя полную совместимость с нативными приложениями (клиент Roblox, банкинг, локальные серверы разработки).',
+      en: 'A private setup for routing a trusted remote Windows device through a home Tailscale exit node without opening inbound ports. No addresses, device names, or Tailnet details are published here.',
+      ru: 'Приватная настройка маршрутизации доверенного удалённого Windows-устройства через домашний Tailscale exit node без открытия входящих портов. Адреса, имена устройств и данные Tailnet здесь не публикуются.',
     },
     features: {
       en: [
@@ -1611,10 +1554,10 @@ export const projects: Project[] = [
     stack: ['Tailscale', 'WireGuard', 'Mesh VPN', 'Exit Node Routing', 'PowerShell', 'Windows Service'],
     outcomes: {
       en: [
-        'Zero-downtime secure remote engineering environment accessible securely from anywhere in the world.',
+        'Documented a repeatable enable, connect, verify, and disable workflow while keeping network identifiers out of the portfolio.',
       ],
       ru: [
-        'Надежная и безопасная среда удаленной разработки с доступом из любой точки мира.',
+        'Описан воспроизводимый сценарий включения, подключения, проверки и отключения без публикации сетевых идентификаторов.',
       ],
     },
   },
