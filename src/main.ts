@@ -1,299 +1,653 @@
 import {
+  ArrowRight,
   Calculator,
   CheckCircle2,
   Code2,
+  Cpu,
   Database,
   ExternalLink,
+  Eye,
   Filter,
+  Folder,
+  Gamepad2,
   GitBranch,
   Globe,
+  HardDrive,
+  Languages,
+  Layers,
+  LayoutGrid,
+  Lock,
+  Maximize2,
+  Play,
+  Radio,
   Search,
   Server,
   ShieldCheck,
+  Smartphone,
   Sparkles,
+  Unlock,
+  Volume2,
   Wrench,
+  X,
   createIcons,
 } from 'lucide';
 import './style.css';
-import heroImage from './assets/portfolio-hero.png';
-import { projects, type DemoStatus, type Project, type ProjectType } from './projects';
+import {
+  CATEGORIES,
+  projects,
+  type CategoryInfo,
+  type DemoStatus,
+  type Language,
+  type Project,
+  type ProjectCategory,
+} from './projects';
+import { translations } from './translations';
+import { getTechIcon } from './tech-icons';
 
-type FilterMode = 'all' | ProjectType | DemoStatus;
-
-const app = document.querySelector<HTMLDivElement>('#app');
-
-if (!app) {
-  throw new Error('App root was not found.');
+interface AppState {
+  language: Language;
+  viewMode: 'grouped' | 'grid';
+  visibilityMode: 'all' | 'public';
+  categoryFilter: 'all' | ProjectCategory;
+  statusFilter: 'all' | DemoStatus;
+  query: string;
+  lightboxSlug: string | null;
 }
 
-const state: { filter: FilterMode; query: string } = {
-  filter: 'all',
+const savedLang = (localStorage.getItem('portfolio_lang') as Language) || 'ru';
+
+const state: AppState = {
+  language: savedLang === 'en' || savedLang === 'ru' ? savedLang : 'ru',
+  viewMode: 'grouped',
+  visibilityMode: 'all',
+  categoryFilter: 'all',
+  statusFilter: 'all',
   query: '',
+  lightboxSlug: null,
 };
 
-const typeLabels: Record<ProjectType, string> = {
-  app: 'Apps',
-  site: 'Sites',
-  calculator: 'Calculators',
-  tooling: 'Private work',
-};
+const app = document.querySelector<HTMLDivElement>('#app');
+if (!app) {
+  throw new Error('Root #app element not found');
+}
 
-const demoLabels: Record<DemoStatus, string> = {
-  live: 'Live demo',
-  source: 'Source / overview',
-  preparing: 'Demo preparing',
-};
-
-const typeIcon: Record<ProjectType, string> = {
-  app: 'code-2',
-  site: 'globe',
-  calculator: 'calculator',
-  tooling: 'wrench',
-};
-
-const demoIcon: Record<DemoStatus, string> = {
-  live: 'globe',
-  source: 'git-branch',
-  preparing: 'shield-check',
-};
-
-const escapeHtml = (value: string) =>
-  value
+const escapeHtml = (str: string) =>
+  str
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
+const getStatusInfo = (p: Project, lang: Language) => {
+  const t = translations[lang];
+  if (p.visibility === 'private' || p.visibility === 'local-only') {
+    return { label: t.statusPrivate, tone: 'internal', icon: 'lock' };
+  }
+  switch (p.demoStatus) {
+    case 'live':
+      return { label: t.statusLive, tone: 'live', icon: 'globe' };
+    case 'ready':
+      return { label: t.statusReady, tone: 'ready', icon: 'check-circle-2' };
+    case 'source':
+      return { label: t.statusSource, tone: 'source', icon: 'git-branch' };
+    case 'preparing':
+      return { label: t.statusPreparing, tone: 'preparing', icon: 'sparkles' };
+    case 'internal':
+    default:
+      return { label: t.statusInternal, tone: 'internal', icon: 'lock' };
+  }
+};
 
-const countBy = <T extends string>(items: Project[], selector: (project: Project) => T, value: T) =>
-  items.filter((project) => selector(project) === value).length;
-
-const filteredProjects = () => {
-  const normalizedQuery = state.query.trim().toLowerCase();
-
-  return projects.filter((project) => {
-    const matchesFilter =
-      state.filter === 'all' || project.type === state.filter || project.demoStatus === state.filter;
-
-    const searchText = [
-      project.name,
-      project.repo ?? '',
-      project.summary,
-      project.purpose,
-      project.features.join(' '),
-      project.technicalNotes.join(' '),
-      project.outcomes.join(' '),
-      project.stack.join(' '),
-    ]
-      .join(' ')
-      .toLowerCase();
-
-    return matchesFilter && (!normalizedQuery || searchText.includes(normalizedQuery));
+const getVisibleProjects = (): Project[] => {
+  const lang = state.language;
+  return projects.filter((p) => {
+    // Category filter
+    if (state.categoryFilter !== 'all' && p.category !== state.categoryFilter) {
+      return false;
+    }
+    // Status filter
+    if (state.statusFilter !== 'all' && p.demoStatus !== state.statusFilter) {
+      return false;
+    }
+    // Search query
+    if (state.query.trim()) {
+      const q = state.query.toLowerCase().trim();
+      const haystack = [
+        p.name[lang],
+        p.name.en,
+        p.name.ru,
+        p.summary[lang],
+        p.purpose[lang],
+        p.repo ?? '',
+        p.category,
+        p.stack.join(' '),
+        p.features[lang].join(' '),
+        p.technicalNotes[lang].join(' '),
+      ]
+        .join(' ')
+        .toLowerCase();
+      return haystack.includes(q);
+    }
+    return true;
   });
 };
 
-const statCard = (label: string, value: number | string, icon: string, tone = 'neutral') => `
-  <article class="stat stat--${tone}">
-    <span class="stat__icon"><i data-lucide="${icon}"></i></span>
-    <span>
-      <strong>${value}</strong>
-      <small>${label}</small>
-    </span>
-  </article>
+const renderStatBox = (num: number | string, label: string, icon: string, tone: string) => `
+  <div class="stat-box stat-box--${tone}">
+    <div class="stat-box__icon">
+      <i data-lucide="${icon}"></i>
+    </div>
+    <div class="stat-box__content">
+      <span class="stat-box__num">${num}</span>
+      <span class="stat-box__label">${label}</span>
+    </div>
+  </div>
 `;
 
-const pill = (label: string, tone: string, icon: string) => `
-  <span class="pill pill--${tone}">
-    <i data-lucide="${icon}"></i>
-    ${escapeHtml(label)}
-  </span>
-`;
-
-const listItems = (items: string[]) => items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
-
-const projectCard = (project: Project) => `
-  <article class="project-card" data-project="${escapeHtml(project.slug)}">
-    <div class="project-card__top">
-      <div class="project-card__icon">
-        <i data-lucide="${typeIcon[project.type]}"></i>
+const renderCompanionStrip = (project: Project, lang: Language) => {
+  if (!project.companion) return '';
+  const c = project.companion;
+  const t = translations[lang];
+  return `
+    <div class="companion-strip">
+      <div class="companion-strip__left">
+        <i data-lucide="layers"></i>
+        <span>${escapeHtml(c.label[lang])}</span>
       </div>
-      <div class="project-card__title">
-        <h2>${escapeHtml(project.name)}</h2>
-        <p>${project.repo ? escapeHtml(project.repo) : 'Selected internal work'}</p>
-      </div>
-    </div>
-
-    <div class="project-card__pills">
-      ${pill(typeLabels[project.type], 'type', typeIcon[project.type])}
-      ${pill(demoLabels[project.demoStatus], project.demoStatus, demoIcon[project.demoStatus])}
-      ${project.siteUrl ? pill('Published site', 'built', 'globe') : pill('Public-safe summary', 'disabled', 'shield-check')}
-    </div>
-
-    <p class="project-card__summary">${escapeHtml(project.summary)}</p>
-    <p class="project-card__purpose">${escapeHtml(project.purpose)}</p>
-
-    <div class="stack-list" aria-label="Technology stack">
-      ${project.stack.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}
-    </div>
-
-    <section class="inside-preview" aria-label="Project highlights">
-      <h3>Highlights</h3>
-      <ul>${listItems(project.features.slice(0, 2))}</ul>
-    </section>
-
-    <details class="project-details">
-      <summary>Project details</summary>
-      <div class="details-grid">
-        <section>
-          <h3>What it includes</h3>
-          <ul>${listItems(project.features)}</ul>
-        </section>
-        <section>
-          <h3>Technical shape</h3>
-          <ul>${listItems(project.technicalNotes)}</ul>
-        </section>
-        <section>
-          <h3>What it demonstrates</h3>
-          <ul>${listItems(project.outcomes)}</ul>
-        </section>
-      </div>
-    </details>
-
-    <div class="actions actions--public">
       ${
-        project.githubUrl
-          ? `<a class="icon-button icon-button--primary" href="${escapeHtml(project.githubUrl)}" target="_blank" rel="noreferrer" title="Open source repository">
-              <i data-lucide="git-branch"></i>
-              Source
+        c.url
+          ? `<a href="${escapeHtml(c.url)}" target="_blank" rel="noreferrer" class="project-card__repo-link">
+              <i data-lucide="external-link"></i> ${t.viewCompanion}
             </a>`
-          : `<button class="icon-button icon-button--primary" type="button" disabled title="Private work is not linked publicly">
-              <i data-lucide="shield-check"></i>
-              Private
-            </button>`
-      }
-      ${
-        project.siteUrl
-          ? `<a class="icon-button" href="${escapeHtml(project.siteUrl)}" target="_blank" rel="noreferrer" title="Open live project">
-              <i data-lucide="external-link"></i>
-              Live site
-            </a>`
-          : `<button class="icon-button" type="button" disabled title="No public live site linked">
-              <i data-lucide="globe"></i>
-              No demo
-            </button>`
+          : `<span class="companion-strip__right">${escapeHtml(c.note ? c.note[lang] : '')}</span>`
       }
     </div>
-  </article>
-`;
+  `;
+};
 
-const filterButton = (filter: FilterMode, label: string, count: number) => `
-  <button class="filter-button ${state.filter === filter ? 'filter-button--active' : ''}" type="button" data-filter="${filter}">
-    ${escapeHtml(label)}
-    <span>${count}</span>
-  </button>
-`;
+const renderProjectCard = (p: Project) => {
+  const lang = state.language;
+  const t = translations[lang];
+  const statusInfo = getStatusInfo(p, lang);
+  const isDevMode = state.visibilityMode === 'all';
+  const isPrivate = p.visibility === 'private' || p.visibility === 'local-only';
+  const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
 
-const render = () => {
-  const shown = filteredProjects();
-  const liveCount = countBy(projects, (project) => project.demoStatus, 'live');
-  const calculatorCount = countBy(projects, (project) => project.type, 'calculator');
-  const appCount = countBy(projects, (project) => project.type, 'app');
-  const publicSourceCount = projects.filter((project) => project.githubUrl).length;
-
-  app.innerHTML = `
-    <header class="hero" style="--hero-image: url('${heroImage}')">
-      <nav class="topbar" aria-label="Project portfolio navigation">
-        <a class="brand" href="#projects" aria-label="Go to projects">
-          <i data-lucide="sparkles"></i>
-          DEN-2020 Portfolio
-        </a>
-        <div class="topbar__links">
-          <a href="https://github.com/DEN-2020" target="_blank" rel="noreferrer">
-            <i data-lucide="git-branch"></i>
-            GitHub
-          </a>
+  return `
+    <article class="project-card" data-slug="${escapeHtml(p.slug)}">
+      <!-- Thumbnail Header with Interactive Hover Slider -->
+      <div class="project-card__thumb-wrap" data-lightbox="${escapeHtml(p.slug)}" data-card-slider title="${t.clickToExpand}">
+        <div class="project-card__thumb-slider">
+          ${images
+            .map(
+              (src, idx) => `
+            <img
+              class="project-card__thumb ${idx === 0 ? 'project-card__thumb--active' : ''}"
+              src="${src}"
+              alt="${escapeHtml(p.name[lang])} preview ${idx + 1}"
+              data-slide-index="${idx}"
+              loading="lazy"
+            />
+          `,
+            )
+            .join('')}
         </div>
-      </nav>
 
-      <section class="hero__content">
-        <p class="eyebrow">Selected public projects and engineering work</p>
-        <h1>Practical web apps, calculators, and tooling</h1>
-        <p class="hero__lead">
-          A compact portfolio of published projects, source repositories, static tools, and private engineering work summarized without exposing internal details.
-        </p>
-        <div class="hero__actions">
-          <a class="icon-button icon-button--primary" href="#projects">
-            <i data-lucide="filter"></i>
-            View projects
-          </a>
-          <a class="icon-button" href="https://github.com/DEN-2020" target="_blank" rel="noreferrer">
-            <i data-lucide="git-branch"></i>
-            GitHub profile
-          </a>
+        ${
+          images.length > 1
+            ? `
+          <div class="thumb-slider-dots">
+            ${images.map((_, idx) => `<span class="thumb-slider-dot ${idx === 0 ? 'thumb-slider-dot--active' : ''}" data-dot-index="${idx}"></span>`).join('')}
+          </div>
+        `
+            : ''
+        }
+
+        <div class="project-card__thumb-overlay">
+          <div class="thumb-overlay-top">
+            <span class="preview-pill preview-pill--${statusInfo.tone}">
+              <i data-lucide="${statusInfo.icon}"></i>
+              ${statusInfo.label}
+            </span>
+            ${p.badge ? `<span class="badge-featured">${escapeHtml(p.badge[lang])}</span>` : ''}
+          </div>
+          <div class="thumb-overlay-bottom">
+            <span class="badge-featured" style="background: rgba(0,0,0,0.75);">
+              ${escapeHtml(p.stack.slice(0, 2).join(' · '))}
+            </span>
+            <button class="thumb-zoom-icon" type="button" aria-label="Expand preview">
+              <i data-lucide="maximize-2"></i>
+            </button>
+          </div>
         </div>
-      </section>
-    </header>
+      </div>
 
-    <main>
-      <section class="stats" aria-label="Portfolio summary">
-        ${statCard('Portfolio entries', projects.length, 'database')}
-        ${statCard('Live demos', liveCount, 'globe', 'info')}
-        ${statCard('Public source repos', publicSourceCount, 'git-branch', 'success')}
-        ${statCard('Calculators', calculatorCount, 'calculator', 'warning')}
-        ${statCard('Applications', appCount, 'code-2', 'private')}
-      </section>
-
-      <section class="workspace" id="projects">
-        <div class="workspace__header">
+      <!-- Card Body -->
+      <div class="project-card__body">
+        <div class="project-card__head">
           <div>
-            <p class="eyebrow">Project index</p>
-            <h2>Selected Work</h2>
-          </div>
-          <div class="search-box">
-            <i data-lucide="search"></i>
-            <input id="project-search" type="search" placeholder="Search by project, stack, or description" value="${escapeHtml(state.query)}" />
+            <h3 class="project-card__title">${escapeHtml(p.name[lang])}</h3>
+            ${
+              !isPrivate && p.repo
+                ? `<a class="project-card__repo-link" href="https://github.com/${escapeHtml(p.repo)}" target="_blank" rel="noreferrer">
+                    <i data-lucide="git-branch"></i> ${escapeHtml(p.repo)}
+                  </a>`
+                : `<span class="project-card__repo-link"><i data-lucide="lock"></i> ${t.statusPrivate}</span>`
+            }
           </div>
         </div>
 
-        <div class="filters" role="tablist" aria-label="Project filter">
-          ${filterButton('all', 'All', projects.length)}
-          ${filterButton('live', 'Live', liveCount)}
-          ${filterButton('calculator', 'Calculators', calculatorCount)}
-          ${filterButton('app', 'Apps', appCount)}
-          ${filterButton('tooling', 'Tooling', countBy(projects, (project) => project.type, 'tooling'))}
+        <p class="project-card__summary">${escapeHtml(p.summary[lang])}</p>
+        <p class="project-card__purpose">${escapeHtml(p.purpose[lang])}</p>
+
+        ${
+          isDevMode && p.localFolder
+            ? `<div class="dev-meta-strip">
+                <i data-lucide="folder"></i>
+                <span>${t.localPathLabel} <strong>${escapeHtml(p.localFolder)}</strong></span>
+              </div>`
+            : ''
+        }
+
+        ${renderCompanionStrip(p, lang)}
+
+        <!-- Tech Stack Tags with Logos -->
+        <div class="stack-tags" aria-label="Technologies used">
+          ${p.stack
+            .map(
+              (item) => `
+            <span class="stack-tag">
+              ${getTechIcon(item)}
+              <span>${escapeHtml(item)}</span>
+            </span>
+          `
+            )
+            .join('')}
         </div>
 
-        <div class="project-grid" aria-live="polite">
+        <!-- Accordion Details -->
+        <details class="card-details">
+          <summary>${t.architectureHeading}</summary>
+          <div class="details-content">
+            <div class="details-block">
+              <h4>${t.capabilitiesHeading}</h4>
+              <ul>${p.features[lang].map((f) => `<li>${escapeHtml(f)}</li>`).join('')}</ul>
+            </div>
+            <div class="details-block">
+              <h4>${t.techArchHeading}</h4>
+              <ul>${p.technicalNotes[lang].map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul>
+            </div>
+            <div class="details-block">
+              <h4>${t.outcomesHeading}</h4>
+              <ul>${p.outcomes[lang].map((o) => `<li>${escapeHtml(o)}</li>`).join('')}</ul>
+            </div>
+          </div>
+        </details>
+
+        <!-- Actions pinned to bottom -->
+        <div class="project-card__actions">
           ${
-            shown.length
-              ? shown.map(projectCard).join('')
-              : `<div class="empty-state">
-                  <i data-lucide="search"></i>
-                  <h2>No projects found</h2>
-                  <p>Try another search or filter.</p>
-                </div>`
+            isPrivate
+              ? `
+                <button class="card-btn" disabled title="Private repository / Code not public">
+                  <i data-lucide="lock"></i> ${t.privateRepoBtn}
+                </button>
+                <button class="card-btn" disabled title="Proprietary system">
+                  <i data-lucide="shield"></i> ${t.proprietaryBtn}
+                </button>
+              `
+              : `
+                ${
+                  p.siteUrl
+                    ? `<a class="card-btn card-btn--primary" href="${escapeHtml(p.siteUrl)}" target="_blank" rel="noreferrer">
+                        <i data-lucide="external-link"></i> ${t.liveDemoBtn}
+                      </a>`
+                    : p.demoStatus === 'ready' && p.githubUrl
+                      ? `<a class="card-btn card-btn--primary" href="${escapeHtml(p.githubUrl)}" target="_blank" rel="noreferrer">
+                          <i data-lucide="play"></i> ${t.productionBuildBtn}
+                        </a>`
+                      : `<button class="card-btn" disabled>
+                          <i data-lucide="shield-check"></i> ${p.demoStatus === 'preparing' ? t.preparingBtn : t.localSourceBtn}
+                        </button>`
+                }
+
+                ${
+                  p.githubUrl
+                    ? `<a class="card-btn" href="${escapeHtml(p.githubUrl)}" target="_blank" rel="noreferrer">
+                        <i data-lucide="git-branch"></i> ${t.sourceRepoBtn}
+                      </a>`
+                    : `<button class="card-btn" disabled title="Private repository">
+                        <i data-lucide="lock"></i> ${t.privateBtn}
+                      </button>`
+                }
+              `
           }
         </div>
-      </section>
+      </div>
+    </article>
+  `;
+};
+
+const renderCategorySection = (cat: CategoryInfo, visibleProjects: Project[], lang: Language) => {
+  const catProjects = visibleProjects.filter((p) => p.category === cat.id);
+  if (catProjects.length === 0) return '';
+  const t = translations[lang];
+
+  return `
+    <section class="category-section" id="cat-${cat.id}">
+      <div class="category-header">
+        <div class="category-header__left">
+          <div class="category-header__icon">
+            <i data-lucide="${cat.icon}"></i>
+          </div>
+          <div>
+            <h2 class="category-header__title">${escapeHtml(cat.title[lang])}</h2>
+            <p class="category-header__subtitle">${escapeHtml(cat.subtitle[lang])}</p>
+          </div>
+        </div>
+        <span class="category-header__badge">${catProjects.length} ${catProjects.length === 1 ? t.projectCount : t.projectsCount}</span>
+      </div>
+
+      <div class="projects-grid">
+        ${catProjects.map(renderProjectCard).join('')}
+      </div>
+    </section>
+  `;
+};
+
+const renderLightboxModal = () => {
+  if (!state.lightboxSlug) return '';
+  const p = projects.find((item) => item.slug === state.lightboxSlug);
+  if (!p) return '';
+  const lang = state.language;
+  const t = translations[lang];
+  const statusInfo = getStatusInfo(p, lang);
+  const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
+
+  return `
+    <div class="lightbox-modal lightbox-modal--open" id="lightbox-container" role="dialog" aria-modal="true" aria-label="${escapeHtml(p.name[lang])} preview">
+      <div class="lightbox-content">
+        <div class="lightbox-header">
+          <div>
+            <h3 class="lightbox-title">${escapeHtml(p.name[lang])}</h3>
+            <span class="preview-pill preview-pill--${statusInfo.tone}" style="margin-top: 4px;">
+              ${statusInfo.label}
+            </span>
+          </div>
+          <button class="lightbox-close" id="lightbox-close-btn" type="button" aria-label="Close modal">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="lightbox-image-wrap">
+          <img class="lightbox-image" id="lightbox-current-img" src="${images[0]}" alt="${escapeHtml(p.name[lang])} preview" />
+        </div>
+        ${
+          images.length > 1
+            ? `
+          <div style="display: flex; justify-content: center; gap: 8px; padding: 8px 0;">
+            ${images
+              .map(
+                (_, idx) => `
+              <button class="thumb-slider-dot ${idx === 0 ? 'thumb-slider-dot--active' : ''}" data-lightbox-dot="${idx}" style="cursor: pointer; height: 6px; width: 28px;" title="Screenshot ${idx + 1}"></button>
+            `,
+              )
+              .join('')}
+          </div>
+        `
+            : ''
+        }
+        <div class="lightbox-footer">
+          <p style="font-size: 13px; color: var(--ink-secondary); max-width: 650px;">
+            ${escapeHtml(p.summary[lang])}
+          </p>
+          <div class="lightbox-links">
+            ${
+              p.siteUrl
+                ? `<a class="btn btn--primary" href="${escapeHtml(p.siteUrl)}" target="_blank" rel="noreferrer">
+                    <i data-lucide="external-link"></i> ${t.liveDemoBtn}
+                  </a>`
+                : ''
+            }
+            ${
+              p.githubUrl
+                ? `<a class="btn btn--secondary" href="${escapeHtml(p.githubUrl)}" target="_blank" rel="noreferrer">
+                    <i data-lucide="git-branch"></i> GitHub
+                  </a>`
+                : ''
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+const render = () => {
+  const lang = state.language;
+  const t = translations[lang];
+  document.documentElement.lang = lang;
+
+  const visible = getVisibleProjects();
+  const liveCount = projects.filter((p) => p.demoStatus === 'live' || p.demoStatus === 'ready').length;
+  const webPlatformsCount = projects.filter((p) => p.category === 'web-platforms').length;
+  const calculatorsCount = projects.filter((p) => p.category === 'calculators').length;
+  const audioMediaCount = projects.filter((p) => p.category === 'audio-media').length;
+  const aiGameCount = projects.filter((p) => p.category === 'ai-3d-gamedev' || p.category === 'mobile-apps').length;
+
+  app.innerHTML = `
+    <!-- Top Navigation -->
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Portfolio home">
+        <div class="brand__logo">
+          <i data-lucide="sparkles"></i>
+        </div>
+        <div>
+          <span>${t.brandTitle}</span>
+          <span style="color: var(--accent-emerald);">.portfolio</span>
+        </div>
+        <span class="brand__tag">${t.brandTag}</span>
+      </a>
+
+      <div class="topbar__actions">
+        <!-- Language Switcher RU / EN -->
+        <div class="lang-toggle" title="Switch language (RU / EN)">
+          <button class="lang-toggle__btn ${lang === 'ru' ? 'lang-toggle__btn--active' : ''}" type="button" data-lang="ru">
+            RU
+          </button>
+          <button class="lang-toggle__btn ${lang === 'en' ? 'lang-toggle__btn--active' : ''}" type="button" data-lang="en">
+            EN
+          </button>
+        </div>
+
+        <!-- Visibility Mode Switcher -->
+        <div class="mode-toggle" title="Switch between Local Workspace view and Public Portfolio preview">
+          <button class="mode-toggle__btn ${state.visibilityMode === 'all' ? 'mode-toggle__btn--active mode-dev' : ''}" type="button" data-visibility="all">
+            <i data-lucide="hard-drive"></i>
+            <span>${t.devModeBtn}</span>
+          </button>
+          <button class="mode-toggle__btn ${state.visibilityMode === 'public' ? 'mode-toggle__btn--active' : ''}" type="button" data-visibility="public">
+            <i data-lucide="globe"></i>
+            <span>${t.publicModeBtn}</span>
+          </button>
+        </div>
+
+        <a class="topbar__link" href="https://github.com/DEN-2020" target="_blank" rel="noreferrer">
+          <i data-lucide="git-branch"></i>
+          <span>${t.githubBtn}</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__badge-row">
+        <span class="hero__badge">
+          <i data-lucide="cpu"></i>
+          ${t.heroEyebrow}
+        </span>
+      </div>
+
+      <h1 class="hero__title">
+        ${t.heroTitlePrefix}<span class="hero__title-accent">${t.heroTitleAccent}</span>${t.heroTitleSuffix}
+      </h1>
+
+      <p class="hero__description">
+        ${t.heroDescription}
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#workspace">
+          <i data-lucide="layout-grid"></i>
+          ${t.exploreCatalogBtn} (${visible.length})
+        </a>
+        <a class="btn btn--secondary" href="https://github.com/DEN-2020?tab=repositories" target="_blank" rel="noreferrer">
+          <i data-lucide="external-link"></i>
+          ${t.githubReposBtn}
+        </a>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-grid" aria-label="Portfolio statistics">
+      ${renderStatBox(projects.length, t.statTotalProjects, 'database', 'emerald')}
+      ${renderStatBox(liveCount, t.statLiveReady, 'globe', 'cyan')}
+      ${renderStatBox(webPlatformsCount, t.statWebPlatforms, 'layout-grid', 'emerald')}
+      ${renderStatBox(calculatorsCount, t.statFintechTools, 'calculator', 'amber')}
+      ${renderStatBox(audioMediaCount, t.statAudioVideo, 'volume-2', 'indigo')}
+      ${renderStatBox(aiGameCount, t.statAiGames, 'gamepad-2', 'purple')}
+    </section>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace" id="workspace">
+      <!-- Controls Bar -->
+      <div class="controls-bar">
+        <div class="search-field">
+          <i data-lucide="search"></i>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="${t.searchPlaceholder}"
+            value="${escapeHtml(state.query)}"
+            autocomplete="off"
+          />
+          ${
+            state.query
+              ? `<button class="search-field__clear" id="clear-search-btn" type="button" aria-label="Clear search">
+                  <i data-lucide="x"></i>
+                </button>`
+              : ''
+          }
+        </div>
+
+        <div class="view-switches">
+          <div class="segmented-control" title="Toggle section grouping">
+            <button class="segmented-control__btn ${state.viewMode === 'grouped' ? 'segmented-control__btn--active' : ''}" type="button" data-view="grouped">
+              <i data-lucide="layers"></i>
+              <span>${t.byCategoryBtn}</span>
+            </button>
+            <button class="segmented-control__btn ${state.viewMode === 'grid' ? 'segmented-control__btn--active' : ''}" type="button" data-view="grid">
+              <i data-lucide="layout-grid"></i>
+              <span>${t.allGridBtn}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <nav class="filter-tabs" aria-label="Category filters">
+        <button class="filter-tab ${state.categoryFilter === 'all' ? 'filter-tab--active' : ''}" type="button" data-category="all">
+          <i data-lucide="layers"></i>
+          <span>${t.allCategoriesTab}</span>
+          <span class="filter-tab__count">${projects.length}</span>
+        </button>
+        ${CATEGORIES.map(
+          (cat) => `
+          <button class="filter-tab ${state.categoryFilter === cat.id ? 'filter-tab--active' : ''}" type="button" data-category="${cat.id}">
+            <i data-lucide="${cat.icon}"></i>
+            <span>${escapeHtml(cat.title[lang])}</span>
+            <span class="filter-tab__count">${projects.filter((p) => p.category === cat.id).length}</span>
+          </button>
+        `,
+        ).join('')}
+      </nav>
+
+      <!-- Projects View -->
+      <div id="projects-container">
+        ${
+          visible.length === 0
+            ? `
+              <div class="empty-state">
+                <i data-lucide="search" style="width: 48px; height: 48px;"></i>
+                <h3>${t.noProjectsFound}</h3>
+                <p>${t.noProjectsHint}</p>
+                <button class="btn btn--secondary" id="reset-filters-btn" type="button" style="margin-top: 8px;">
+                  ${t.resetFiltersBtn}
+                </button>
+              </div>
+            `
+            : state.viewMode === 'grouped' && state.categoryFilter === 'all'
+              ? CATEGORIES.map((cat) => renderCategorySection(cat, visible, lang)).join('')
+              : `
+              <div class="projects-grid">
+                ${visible.map(renderProjectCard).join('')}
+              </div>
+            `
+        }
+      </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div>
+          <strong>${t.footerBrand}</strong> · Full-Stack, FinTech & Media Systems.
+        </div>
+        <div style="display: flex; gap: 14px; align-items: center;">
+          <span>${state.visibilityMode === 'all' ? t.footerModeDev : t.footerModePublic}</span>
+          <span>·</span>
+          <a href="https://github.com/DEN-2020" target="_blank" rel="noreferrer" style="color: var(--accent-emerald);">
+            github.com/DEN-2020
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    ${renderLightboxModal()}
   `;
 
   bindEvents();
   createIcons({
     icons: {
+      ArrowRight,
       Calculator,
       CheckCircle2,
       Code2,
+      Cpu,
       Database,
       ExternalLink,
+      Eye,
       Filter,
+      Folder,
+      Gamepad2,
       GitBranch,
       Globe,
+      HardDrive,
+      Languages,
+      Layers,
+      LayoutGrid,
+      Lock,
+      Maximize2,
+      Play,
+      Radio,
       Search,
       Server,
       ShieldCheck,
+      Smartphone,
       Sparkles,
+      Unlock,
+      Volume2,
       Wrench,
+      X,
     },
     attrs: {
       'aria-hidden': 'true',
@@ -303,33 +657,158 @@ const render = () => {
 };
 
 const bindEvents = () => {
-  const searchInput = document.querySelector<HTMLInputElement>('#project-search');
-  searchInput?.addEventListener('input', (event) => {
-    const target = event.target;
-    if (target instanceof HTMLInputElement) {
-      state.query = target.value;
-      render();
-    }
-  });
-
-  document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const nextFilter = button.dataset.filter;
-      if (
-        nextFilter === 'all' ||
-        nextFilter === 'app' ||
-        nextFilter === 'site' ||
-        nextFilter === 'calculator' ||
-        nextFilter === 'tooling' ||
-        nextFilter === 'live' ||
-        nextFilter === 'source' ||
-        nextFilter === 'preparing'
-      ) {
-        state.filter = nextFilter;
+  // Language Switch
+  document.querySelectorAll<HTMLButtonElement>('[data-lang]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const selected = btn.dataset.lang as Language;
+      if (selected && selected !== state.language) {
+        state.language = selected;
+        localStorage.setItem('portfolio_lang', selected);
         render();
       }
     });
   });
+
+  // Search Input
+  const searchInput = document.querySelector<HTMLInputElement>('#search-input');
+  searchInput?.addEventListener('input', (e) => {
+    state.query = (e.target as HTMLInputElement).value;
+    render();
+    const updated = document.querySelector<HTMLInputElement>('#search-input');
+    if (updated) {
+      updated.focus();
+      updated.setSelectionRange(state.query.length, state.query.length);
+    }
+  });
+
+  // Clear Search
+  document.querySelector('#clear-search-btn')?.addEventListener('click', () => {
+    state.query = '';
+    render();
+  });
+
+  // Reset Filters
+  document.querySelector('#reset-filters-btn')?.addEventListener('click', () => {
+    state.query = '';
+    state.categoryFilter = 'all';
+    state.statusFilter = 'all';
+    render();
+  });
+
+  // Visibility Mode Switch
+  document.querySelectorAll<HTMLButtonElement>('[data-visibility]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.visibility as 'all' | 'public';
+      if (mode) {
+        state.visibilityMode = mode;
+        render();
+      }
+    });
+  });
+
+  // View Mode Switch (Grouped vs Grid)
+  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view as 'grouped' | 'grid';
+      if (view) {
+        state.viewMode = view;
+        render();
+      }
+    });
+  });
+
+  // Category Filter Tabs
+  document.querySelectorAll<HTMLButtonElement>('[data-category]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.category as 'all' | ProjectCategory;
+      if (cat) {
+        state.categoryFilter = cat;
+        render();
+      }
+    });
+  });
+
+  // Lightbox Open
+  document.querySelectorAll<HTMLElement>('[data-lightbox]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const slug = el.dataset.lightbox;
+      if (slug) {
+        state.lightboxSlug = slug;
+        render();
+      }
+    });
+  });
+
+  // Card Thumbnail Hover Slider
+  document.querySelectorAll<HTMLElement>('[data-card-slider]').forEach((wrap) => {
+    const images = wrap.querySelectorAll<HTMLImageElement>('.project-card__thumb');
+    const dots = wrap.querySelectorAll<HTMLElement>('.thumb-slider-dot');
+    if (images.length <= 1) return;
+
+    let currentIndex = 0;
+    const setActive = (index: number) => {
+      if (index === currentIndex || index < 0 || index >= images.length) return;
+      currentIndex = index;
+      images.forEach((img, i) => {
+        img.classList.toggle('project-card__thumb--active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('thumb-slider-dot--active', i === index);
+      });
+    };
+
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const progress = Math.max(0, Math.min(0.999, x / rect.width));
+      const targetIndex = Math.floor(progress * images.length);
+      setActive(targetIndex);
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      setActive(0);
+    });
+  });
+
+  // Lightbox Dot Navigation
+  document.querySelectorAll<HTMLButtonElement>('[data-lightbox-dot]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.dataset.lightboxDot);
+      const img = document.querySelector<HTMLImageElement>('#lightbox-current-img');
+      const p = projects.find((item) => item.slug === state.lightboxSlug);
+      if (!p || !img) return;
+      const lang = state.language;
+      const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
+      if (images[idx]) {
+        img.src = images[idx];
+        document.querySelectorAll('[data-lightbox-dot]').forEach((d, i) => {
+          d.classList.toggle('thumb-slider-dot--active', i === idx);
+        });
+      }
+    });
+  });
+
+  // Lightbox Close
+  document.querySelector('#lightbox-close-btn')?.addEventListener('click', () => {
+    state.lightboxSlug = null;
+    render();
+  });
+
+  document.querySelector('#lightbox-container')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      state.lightboxSlug = null;
+      render();
+    }
+  });
 };
 
+// Keyboard shortcut Esc to close modal
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && state.lightboxSlug) {
+    state.lightboxSlug = null;
+    render();
+  }
+});
+
+// Initial Render
 render();
