@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.seo-cache/
+.playwright-cli/
 
 # Editor directories and files
 .vscode/*

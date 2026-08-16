@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   Calculator,
-  CheckCircle2,
   Code2,
   Cpu,
   Database,
@@ -22,6 +21,7 @@ import {
   Radio,
   Search,
   Server,
+  Shield,
   ShieldCheck,
   Smartphone,
   Sparkles,
@@ -42,7 +42,7 @@ import {
   type ProjectCategory,
 } from './projects';
 import { translations } from './translations';
-import { getTechIcon } from './tech-icons';
+import { initAnalytics } from './analytics';
 
 interface AppState {
   language: Language;
@@ -70,6 +70,7 @@ const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) {
   throw new Error('Root #app element not found');
 }
+let iconHydrationVersion = 0;
 
 const escapeHtml = (str: string) =>
   str
@@ -169,6 +170,27 @@ const renderCompanionStrip = (project: Project, lang: Language) => {
   `;
 };
 
+const renderProjectDetails = (project: Project, lang: Language) => {
+  const t = translations[lang];
+
+  return `
+    <div class="details-content">
+      <div class="details-block">
+        <h4>${t.capabilitiesHeading}</h4>
+        <ul>${project.features[lang].map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul>
+      </div>
+      <div class="details-block">
+        <h4>${t.techArchHeading}</h4>
+        <ul>${project.technicalNotes[lang].map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul>
+      </div>
+      <div class="details-block">
+        <h4>${t.outcomesHeading}</h4>
+        <ul>${project.outcomes[lang].map((outcome) => `<li>${escapeHtml(outcome)}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `;
+};
+
 const renderProjectCard = (p: Project) => {
   const lang = state.language;
   const t = translations[lang];
@@ -182,27 +204,20 @@ const renderProjectCard = (p: Project) => {
       <!-- Thumbnail Header with Interactive Hover Slider -->
       <div class="project-card__thumb-wrap" data-lightbox="${escapeHtml(p.slug)}" data-card-slider title="${t.clickToExpand}">
         <div class="project-card__thumb-slider">
-          ${images
-            .map(
-              (src, idx) => `
-            <img
-              class="project-card__thumb ${idx === 0 ? 'project-card__thumb--active' : ''}"
-              src="${src}"
-              alt="${escapeHtml(p.name[lang])} preview ${idx + 1}"
-              data-slide-index="${idx}"
-              loading="lazy"
-            />
-          `,
-            )
-            .join('')}
+          <img
+            class="project-card__thumb project-card__thumb--active"
+            src="${images[0]}"
+            alt="${escapeHtml(p.name[lang])} preview 1"
+            data-slide-index="0"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
 
         ${
           images.length > 1
             ? `
-          <div class="thumb-slider-dots">
-            ${images.map((_, idx) => `<span class="thumb-slider-dot ${idx === 0 ? 'thumb-slider-dot--active' : ''}" data-dot-index="${idx}"></span>`).join('')}
-          </div>
+          <div class="thumb-slider-index" data-slider-current aria-hidden="true">1 / ${images.length}</div>
         `
             : ''
         }
@@ -210,10 +225,9 @@ const renderProjectCard = (p: Project) => {
         <div class="project-card__thumb-overlay">
           <div class="thumb-overlay-top">
             <span class="preview-pill preview-pill--${statusInfo.tone}">
-              <i data-lucide="${statusInfo.icon}"></i>
               ${statusInfo.label}
             </span>
-            ${p.badge ? `<span class="badge-featured">${escapeHtml(p.badge[lang])}</span>` : ''}
+            ${p.badge && p.badge[lang] !== statusInfo.label ? `<span class="badge-featured">${escapeHtml(p.badge[lang])}</span>` : ''}
           </div>
           <div class="thumb-overlay-bottom">
             <span class="badge-featured" style="background: rgba(0,0,0,0.75);">
@@ -252,7 +266,6 @@ const renderProjectCard = (p: Project) => {
             .map(
               (item) => `
             <span class="stack-tag">
-              ${getTechIcon(item)}
               <span>${escapeHtml(item)}</span>
             </span>
           `
@@ -261,22 +274,8 @@ const renderProjectCard = (p: Project) => {
         </div>
 
         <!-- Accordion Details -->
-        <details class="card-details">
+        <details class="card-details" data-project-details="${escapeHtml(p.slug)}">
           <summary>${t.architectureHeading}</summary>
-          <div class="details-content">
-            <div class="details-block">
-              <h4>${t.capabilitiesHeading}</h4>
-              <ul>${p.features[lang].map((f) => `<li>${escapeHtml(f)}</li>`).join('')}</ul>
-            </div>
-            <div class="details-block">
-              <h4>${t.techArchHeading}</h4>
-              <ul>${p.technicalNotes[lang].map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul>
-            </div>
-            <div class="details-block">
-              <h4>${t.outcomesHeading}</h4>
-              <ul>${p.outcomes[lang].map((o) => `<li>${escapeHtml(o)}</li>`).join('')}</ul>
-            </div>
-          </div>
         </details>
 
         <!-- Actions pinned to bottom -->
@@ -463,11 +462,11 @@ const render = () => {
 
         <!-- Visibility Mode Switcher -->
         <div class="mode-toggle" title="Switch between public projects and closed-source case studies">
-          <button class="mode-toggle__btn ${state.visibilityMode === 'all' ? 'mode-toggle__btn--active mode-dev' : ''}" type="button" data-visibility="all">
+          <button class="mode-toggle__btn ${state.visibilityMode === 'all' ? 'mode-toggle__btn--active mode-dev' : ''}" type="button" data-visibility="all" aria-label="${escapeHtml(t.devModeBtn)}" aria-pressed="${state.visibilityMode === 'all'}">
             <i data-lucide="layers"></i>
             <span>${t.devModeBtn}</span>
           </button>
-          <button class="mode-toggle__btn ${state.visibilityMode === 'public' ? 'mode-toggle__btn--active' : ''}" type="button" data-visibility="public">
+          <button class="mode-toggle__btn ${state.visibilityMode === 'public' ? 'mode-toggle__btn--active' : ''}" type="button" data-visibility="public" aria-label="${escapeHtml(t.publicModeBtn)}" aria-pressed="${state.visibilityMode === 'public'}">
             <i data-lucide="globe"></i>
             <span>${t.publicModeBtn}</span>
           </button>
@@ -624,44 +623,60 @@ const render = () => {
   `;
 
   bindEvents();
-  createIcons({
-    icons: {
-      ArrowRight,
-      Calculator,
-      CheckCircle2,
-      Code2,
-      Cpu,
-      Database,
-      ExternalLink,
-      Eye,
-      Filter,
-      Folder,
-      Gamepad2,
-      GitBranch,
-      Globe,
-      HardDrive,
-      Languages,
-      Layers,
-      LayoutGrid,
-      Lock,
-      Maximize2,
-      Play,
-      Radio,
-      Search,
-      Server,
-      ShieldCheck,
-      Smartphone,
-      Sparkles,
-      Unlock,
-      Volume2,
-      Wrench,
-      X,
-    },
-    attrs: {
-      'aria-hidden': 'true',
-      strokeWidth: 2,
-    },
-  });
+  const hydrationVersion = ++iconHydrationVersion;
+  const iconRoots = Array.from(
+    app.querySelectorAll<HTMLElement>(
+      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .filter-tabs, .category-header, .project-card, .empty-state, .site-footer, .lightbox',
+    ),
+  );
+  const hydrateNextIconRoot = () => {
+    if (hydrationVersion !== iconHydrationVersion) return;
+    const root = iconRoots.shift();
+    if (!root) return;
+    if (root.isConnected) {
+      createIcons({
+        root,
+        icons: {
+          ArrowRight,
+          Calculator,
+          Code2,
+          Cpu,
+          Database,
+          ExternalLink,
+          Eye,
+          Filter,
+          Folder,
+          Gamepad2,
+          GitBranch,
+          Globe,
+          HardDrive,
+          Languages,
+          Layers,
+          LayoutGrid,
+          Lock,
+          Maximize2,
+          Play,
+          Radio,
+          Search,
+          Server,
+          Shield,
+          ShieldCheck,
+          Smartphone,
+          Sparkles,
+          Unlock,
+          Volume2,
+          Wrench,
+          X,
+        },
+        attrs: {
+          'aria-hidden': 'true',
+          strokeWidth: 2,
+        },
+      });
+    }
+    requestAnimationFrame(hydrateNextIconRoot);
+  };
+  hydrateNextIconRoot();
 };
 
 const bindEvents = () => {
@@ -749,20 +764,26 @@ const bindEvents = () => {
 
   // Card Thumbnail Hover Slider
   document.querySelectorAll<HTMLElement>('[data-card-slider]').forEach((wrap) => {
-    const images = wrap.querySelectorAll<HTMLImageElement>('.project-card__thumb');
-    const dots = wrap.querySelectorAll<HTMLElement>('.thumb-slider-dot');
+    const image = wrap.querySelector<HTMLImageElement>('.project-card__thumb');
+    const counter = wrap.querySelector<HTMLElement>('[data-slider-current]');
+    const slug = wrap.closest<HTMLElement>('[data-slug]')?.dataset.slug;
+    const project = projects.find((item) => item.slug === slug);
+    if (!image || !project) return;
+
+    const lang = state.language;
+    const images = project.screenshots?.[lang]?.length
+      ? project.screenshots[lang]
+      : [project.thumbnail[lang] || project.thumbnail.en];
     if (images.length <= 1) return;
 
     let currentIndex = 0;
     const setActive = (index: number) => {
       if (index === currentIndex || index < 0 || index >= images.length) return;
       currentIndex = index;
-      images.forEach((img, i) => {
-        img.classList.toggle('project-card__thumb--active', i === index);
-      });
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('thumb-slider-dot--active', i === index);
-      });
+      image.src = images[index];
+      image.alt = `${project.name[lang]} preview ${index + 1}`;
+      image.dataset.slideIndex = String(index);
+      if (counter) counter.textContent = `${index + 1} / ${images.length}`;
     };
 
     wrap.addEventListener('mousemove', (e) => {
@@ -775,6 +796,17 @@ const bindEvents = () => {
 
     wrap.addEventListener('mouseleave', () => {
       setActive(0);
+    });
+  });
+
+  // Detailed lists are inserted only after a visitor opens a card.
+  document.querySelectorAll<HTMLDetailsElement>('[data-project-details]').forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (!details.open || details.dataset.loaded === 'true') return;
+      const project = projects.find((item) => item.slug === details.dataset.projectDetails);
+      if (!project) return;
+      details.insertAdjacentHTML('beforeend', renderProjectDetails(project, state.language));
+      details.dataset.loaded = 'true';
     });
   });
 
@@ -820,3 +852,4 @@ window.addEventListener('keydown', (e) => {
 
 // Initial Render
 render();
+initAnalytics();

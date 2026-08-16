@@ -30,3 +30,9 @@ npm run build
 The site is deployed to GitHub Pages through the workflow in `.github/workflows/pages.yml`.
 
 The portfolio intentionally avoids local paths, private repository names, secrets, internal URLs, and uncertain wording. Private work is summarized only at a high level.
+
+## Analytics
+
+Analytics is optional and disabled when no measurement ID is configured. To enable GA4, add a repository variable named `GA_MEASUREMENT_ID` with a value such as `G-XXXXXXXXXX`, then run the Pages workflow again. The measurement ID is public configuration, not a secret.
+
+The tracker loads only after explicit visitor consent, respects Do Not Track and Global Privacy Control, disables advertising signals, and is scheduled outside the critical rendering path.
