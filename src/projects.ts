@@ -1,4 +1,6 @@
-import asistApiImg from './assets/screenshots/asist-api.jpg';
+import asistApiImg1 from './assets/screenshots/asist-api-1.png';
+import asistApiImg2 from './assets/screenshots/asist-api-2.png';
+import asistApiImg3 from './assets/screenshots/asist-api-3.png';
 import btcusdtImg from './assets/screenshots/btcusdt-research.jpg';
 import calcEnImg from './assets/screenshots/calc-en.png';
 import calcRuImg from './assets/screenshots/calc-ru.png';
@@ -1356,12 +1358,12 @@ export const projects: Project[] = [
     visibility: 'private',
     demoStatus: 'internal',
     thumbnail: {
-      en: asistApiImg,
-      ru: asistApiImg,
+      en: asistApiImg1,
+      ru: asistApiImg1,
     },
     screenshots: {
-      en: [asistApiImg, asistApiImg, asistApiImg],
-      ru: [asistApiImg, asistApiImg, asistApiImg],
+      en: [asistApiImg1, asistApiImg2, asistApiImg3],
+      ru: [asistApiImg1, asistApiImg2, asistApiImg3],
     },
     badge: {
       en: 'Unreal Engine 5 & AI',
