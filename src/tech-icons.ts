@@ -442,6 +442,47 @@ export const getTechIcon = (tech: string): string => {
     </svg>`;
   }
 
+  // 53. Unreal Engine (Official Unreal U in Circle)
+  if (t.includes('unreal')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <circle cx="12" cy="12" r="10" fill="#0e1118" stroke="#ffffff" stroke-width="1.5"/>
+      <path d="M12 5.5c-3.6 0-6.5 2.9-6.5 6.5 0 2.3 1.2 4.3 3 5.4l-.8-2.2c-.7-.8-1.1-1.9-1.1-3.2 0-2.8 2.2-5 5-5s5 2.2 5 5c0 1.3-.5 2.4-1.2 3.2l-.7 2.2c1.8-1.1 3-3.1 3-5.4 0-3.6-2.9-6.5-6.7-6.5zm-2.2 7.8l2.2 3.8 2.2-3.8h-4.4z" fill="#ffffff"/>
+    </svg>`;
+  }
+
+  // 54. MetaHuman (3D Face Wireframe)
+  if (t.includes('metahuman')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#a855f7">
+      <circle cx="12" cy="11" r="7.5" fill="none" stroke="#a855f7" stroke-width="1.8"/>
+      <path d="M8.5 10a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2zM9 14.5s1 1.5 3 1.5 3-1.5 3-1.5" stroke="#a855f7" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>`;
+  }
+
+  // 55. Ollama / LLMs (Ollama Llama Head Silhouette)
+  if (t.includes('ollama') || t.includes('llm')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14">
+      <rect width="24" height="24" rx="4" fill="#ffffff"/>
+      <circle cx="9" cy="9" r="1.5" fill="#000000"/>
+      <circle cx="15" cy="9" r="1.5" fill="#000000"/>
+      <ellipse cx="12" cy="14" rx="3" ry="2" fill="#000000"/>
+    </svg>`;
+  }
+
+  // 56. Voice DSP / TTS (Microphone & Audio Wave)
+  if (t.includes('voice') || t.includes('tts') || t.includes('speech')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#38bdf8">
+      <rect x="9" y="3" width="6" height="10" rx="3" fill="#38bdf8"/>
+      <path d="M5 10a7 7 0 0014 0M12 17v4M8 21h8" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    </svg>`;
+  }
+
+  // 57. Windows Runtime (Official Windows 4-Pane Logo)
+  if (t.includes('windows runtime') || t.includes('windows')) {
+    return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="#00adef">
+      <path d="M3 5.5l7-1v6.5H3V5.5zm8-1.2l10-1.3V11H11V4.3zm0 7.7H21v8l-10-1.4V12zm-1 0v6.4l-7-1V12h7z" fill="#00adef"/>
+    </svg>`;
+  }
+
   // Default fallback code tag icon
   return `<svg class="tech-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="16 18 22 12 16 6"></polyline>
