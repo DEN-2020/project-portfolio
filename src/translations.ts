@@ -47,6 +47,11 @@ export interface TranslationDict {
   statusInternal: string;
   statusPrivate: string;
   privateRepoBtn: string;
+  sourcePublicLabel: string;
+  sourcePrivateLabel: string;
+  sourceMixedLabel: string;
+  sourceLocalLabel: string;
+  conceptPreviewLabel: string;
   proprietaryBtn: string;
   viewCompanion: string;
   clickToExpand: string;
@@ -60,14 +65,14 @@ export const translations: Record<Language, TranslationDict> = {
     brandTag: 'Портфолио',
     devModeBtn: 'Все кейсы',
     publicModeBtn: 'Только публичные',
-    portfolioBoundaryNote: 'Закрытые кейсы содержат только обзор. Код, данные и локальная среда не публикуются.',
+    portfolioBoundaryNote: 'Публичное демо и доступность исходников отмечаются отдельно. Закрытые кейсы содержат только безопасный обзор — код, данные и локальная среда не публикуются.',
     githubBtn: 'GitHub',
     heroEyebrow: 'FULL-STACK · FINTECH · AUDIO DSP · AI 3D',
     heroTitlePrefix: 'Веб-системы, ',
     heroTitleAccent: 'торговые движки',
     heroTitleSuffix: ' и медиа-пайплайны',
     heroDescription:
-      'Комплексное инженерное портфолио DEN-2020: публичные репозитории, высокопроизводительные PWA-калькуляторы, многоязычные маркетплейсы, нейросетевые 3D-пайплайны и системные десктопные утилиты.',
+      'Инженерная витрина DEN-2020: веб-платформы и дата-порталы, SEO-автоматизация, финансовые инструменты, аудио/DSP, 3D-пайплайны, игры и локальные системные утилиты.',
     exploreCatalogBtn: 'Открыть каталог',
     githubReposBtn: 'Репозитории GitHub',
     statTotalProjects: 'Всего проектов',
@@ -103,6 +108,11 @@ export const translations: Record<Language, TranslationDict> = {
     statusInternal: 'Внутренний инструмент',
     statusPrivate: 'Приватная система',
     privateRepoBtn: 'Закрытый репозиторий',
+    sourcePublicLabel: 'Публичный исходный код',
+    sourcePrivateLabel: 'Приватный исходный код',
+    sourceMixedLabel: 'Смешанная доступность кода',
+    sourceLocalLabel: 'Только локальные исходники',
+    conceptPreviewLabel: 'Концепт-иллюстрация',
     proprietaryBtn: 'Закрытый проект',
     viewCompanion: 'Связанный проект',
     clickToExpand: 'Нажмите для увеличения скриншота',
@@ -114,14 +124,14 @@ export const translations: Record<Language, TranslationDict> = {
     brandTag: 'Portfolio Pro',
     devModeBtn: 'All Case Studies',
     publicModeBtn: 'Public Only',
-    portfolioBoundaryNote: 'Private case studies are summaries only. Source code, data, and local environments are not published.',
+    portfolioBoundaryNote: 'Public demos and source-code access are labeled separately. Private case studies expose only safe summaries — code, data, and local environments are not published.',
     githubBtn: 'GitHub',
     heroEyebrow: 'FULL-STACK · FINTECH · AUDIO DSP · AI 3D',
     heroTitlePrefix: 'Production Web Systems, ',
     heroTitleAccent: 'Trading Engines',
     heroTitleSuffix: ' & Media Pipelines',
     heroDescription:
-      'Comprehensive engineering showcase of public repositories, high-performance PWA calculators, multi-language marketplace platforms, neural 3D workflows, and desktop utilities developed by DEN-2020.',
+      'Engineering showcase by DEN-2020 spanning web platforms and data portals, SEO automation, financial tools, audio/DSP, 3D pipelines, games, and local system utilities.',
     exploreCatalogBtn: 'Explore Catalog',
     githubReposBtn: 'GitHub Repositories',
     statTotalProjects: 'Total Projects',
@@ -157,6 +167,11 @@ export const translations: Record<Language, TranslationDict> = {
     statusInternal: 'Internal Tooling',
     statusPrivate: 'Private Architecture',
     privateRepoBtn: 'Private Repository',
+    sourcePublicLabel: 'Public source code',
+    sourcePrivateLabel: 'Private source code',
+    sourceMixedLabel: 'Mixed source access',
+    sourceLocalLabel: 'Local source only',
+    conceptPreviewLabel: 'Concept illustration',
     proprietaryBtn: 'Proprietary System',
     viewCompanion: 'View companion',
     clickToExpand: 'Click to view full screenshot',

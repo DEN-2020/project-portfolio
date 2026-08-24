@@ -801,7 +801,8 @@ svg {
 .thumb-overlay-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -859,6 +860,17 @@ svg {
   backdrop-filter: blur(8px);
 }
 
+.badge-concept {
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px dashed rgba(125, 211, 252, 0.75);
+  color: #bae6fd;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+}
+
 .thumb-zoom-icon {
   display: grid;
   place-items: center;
@@ -904,8 +916,37 @@ svg {
   transition: color 0.15s ease;
 }
 
+.project-card__source-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 2px;
+}
+
 .project-card__repo-link:hover {
   color: var(--accent-emerald);
+}
+
+.source-visibility {
+  cursor: default;
+}
+
+.source-visibility:hover {
+  color: var(--ink-secondary);
+}
+
+.source-visibility--public {
+  color: #6ee7b7;
+}
+
+.source-visibility--mixed {
+  color: #93c5fd;
+}
+
+.source-visibility--private,
+.source-visibility--local-only {
+  color: #cbd5e1;
 }
 
 .project-card__summary {

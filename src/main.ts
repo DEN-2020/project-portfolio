@@ -40,6 +40,7 @@ import {
   type Language,
   type Project,
   type ProjectCategory,
+  type SourceVisibility,
 } from './projects';
 import { translations } from './translations';
 import { initAnalytics } from './analytics';
@@ -98,6 +99,28 @@ const getStatusInfo = (p: Project, lang: Language) => {
   }
 };
 
+const getSourceVisibility = (project: Project): SourceVisibility => {
+  if (project.sourceVisibility) return project.sourceVisibility;
+  if (project.repo && project.githubUrl) return 'public';
+  return project.visibility === 'local-only' ? 'local-only' : 'private';
+};
+
+const getSourceInfo = (project: Project, lang: Language) => {
+  const t = translations[lang];
+  const visibility = getSourceVisibility(project);
+  switch (visibility) {
+    case 'public':
+      return { visibility, label: t.sourcePublicLabel, icon: 'unlock' };
+    case 'mixed':
+      return { visibility, label: t.sourceMixedLabel, icon: 'layers' };
+    case 'local-only':
+      return { visibility, label: t.sourceLocalLabel, icon: 'hard-drive' };
+    case 'private':
+    default:
+      return { visibility, label: t.sourcePrivateLabel, icon: 'lock' };
+  }
+};
+
 const getVisibleProjects = (): Project[] => {
   const lang = state.language;
   return projects.filter((p) => {
@@ -124,6 +147,7 @@ const getVisibleProjects = (): Project[] => {
         p.summary[lang],
         p.purpose[lang],
         p.repo ?? '',
+        getSourceVisibility(p),
         p.category,
         p.stack.join(' '),
         p.features[lang].join(' '),
@@ -195,8 +219,9 @@ const renderProjectCard = (p: Project) => {
   const lang = state.language;
   const t = translations[lang];
   const statusInfo = getStatusInfo(p, lang);
-  const isPrivate = p.visibility === 'private' || p.visibility === 'local-only';
-  const hasPublicSource = !isPrivate && Boolean(p.repo && p.githubUrl);
+  const sourceInfo = getSourceInfo(p, lang);
+  const hasPublicSource =
+    (sourceInfo.visibility === 'public' || sourceInfo.visibility === 'mixed') && Boolean(p.repo && p.githubUrl);
   const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
 
   return `
@@ -228,6 +253,7 @@ const renderProjectCard = (p: Project) => {
               ${statusInfo.label}
             </span>
             ${p.badge && p.badge[lang] !== statusInfo.label ? `<span class="badge-featured">${escapeHtml(p.badge[lang])}</span>` : ''}
+            ${p.previewKind === 'concept' ? `<span class="badge-concept">${t.conceptPreviewLabel}</span>` : ''}
           </div>
           <div class="thumb-overlay-bottom">
             <span class="badge-featured" style="background: rgba(0,0,0,0.75);">
@@ -245,13 +271,18 @@ const renderProjectCard = (p: Project) => {
         <div class="project-card__head">
           <div>
             <h3 class="project-card__title">${escapeHtml(p.name[lang])}</h3>
-            ${
-              hasPublicSource && p.repo
-                ? `<a class="project-card__repo-link" href="https://github.com/${escapeHtml(p.repo)}" target="_blank" rel="noreferrer">
-                    <i data-lucide="git-branch"></i> ${escapeHtml(p.repo)}
-                  </a>`
-                : `<span class="project-card__repo-link"><i data-lucide="lock"></i> ${t.privateRepoBtn}</span>`
-            }
+            <div class="project-card__source-row">
+              ${
+                hasPublicSource && p.repo
+                  ? `<a class="project-card__repo-link" href="https://github.com/${escapeHtml(p.repo)}" target="_blank" rel="noreferrer">
+                      <i data-lucide="git-branch"></i> ${escapeHtml(p.repo)}
+                    </a>`
+                  : ''
+              }
+              <span class="project-card__repo-link source-visibility source-visibility--${sourceInfo.visibility}">
+                <i data-lucide="${sourceInfo.icon}"></i> ${sourceInfo.label}
+              </span>
+            </div>
           </div>
         </div>
 

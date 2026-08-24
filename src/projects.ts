@@ -9,6 +9,7 @@ import hunyuan3dImg from './assets/screenshots/hunyuan3d.svg';
 import kidsTrackerEn1 from './assets/screenshots/kids-tracker-en-1.png';
 import kidsTrackerEn2 from './assets/screenshots/kids-tracker-en-2.png';
 import kidsTrackerEn3 from './assets/screenshots/kids-tracker-en-3.png';
+import kineticFitConcept from './assets/screenshots/kineticfit-concept.webp';
 import marketplaceEn1 from './assets/screenshots/marketplace-en-1.png';
 import marketplaceEn2 from './assets/screenshots/marketplace-en-2.png';
 import marketplaceEn3 from './assets/screenshots/marketplace-en-3.png';
@@ -35,12 +36,14 @@ import nizamPortalRu1 from './assets/screenshots/nizam-portal-ru-1.png';
 import nizamPortalRu2 from './assets/screenshots/nizam-portal-ru-2.png';
 import nizamPortalRu3 from './assets/screenshots/nizam-portal-ru-3.png';
 import profitCalcImg from './assets/screenshots/profit-calc.png';
+import robloxAssetPipelineConcept from './assets/screenshots/roblox-asset-pipeline-concept.webp';
 import robloxSpace1 from './assets/screenshots/roblox-space-1.png';
 import robloxSpace2 from './assets/screenshots/roblox-space-2.png';
 import robloxSpace3 from './assets/screenshots/roblox-space-3.png';
 import secondImg1 from './assets/screenshots/second-1.png';
 import secondImg2 from './assets/screenshots/second-2.png';
 import secondImg3 from './assets/screenshots/second-3.png';
+import seoStudioConcept from './assets/screenshots/seo-studio-concept.webp';
 import tvImg from './assets/screenshots/tv.svg';
 import videogenEn1 from './assets/screenshots/videogen-en-1.png';
 import videogenEn2 from './assets/screenshots/videogen-en-2.png';
@@ -48,11 +51,14 @@ import videogenEn3 from './assets/screenshots/videogen-en-3.png';
 import volumepilotSiteImg from './assets/screenshots/volumepilot-site.png';
 import volumepilotImg from './assets/screenshots/volumepilot.png';
 import vpnProxyImg from './assets/screenshots/vpn-proxy.svg';
+import worldDebtClockConcept from './assets/screenshots/world-debt-clock-concept.webp';
 
 export type Language = 'ru' | 'en';
 export type DemoStatus = 'live' | 'source' | 'preparing' | 'internal' | 'ready';
 export type ProjectType = 'app' | 'site' | 'calculator' | 'tooling' | 'game' | 'pipeline' | 'ecosystem';
 export type ProjectVisibility = 'public' | 'private' | 'local-only';
+export type SourceVisibility = 'public' | 'private' | 'mixed' | 'local-only';
+export type PreviewKind = 'actual' | 'concept';
 export type ProjectCategory =
   | 'web-platforms'
   | 'calculators'
@@ -156,7 +162,9 @@ export interface Project {
   category: ProjectCategory;
   type: ProjectType;
   visibility: ProjectVisibility;
+  sourceVisibility?: SourceVisibility;
   demoStatus: DemoStatus;
+  previewKind?: PreviewKind;
   thumbnail: Record<Language, string>;
   screenshots?: Record<Language, string[]>;
   summary: Record<Language, string>;
@@ -476,6 +484,74 @@ export const projects: Project[] = [
   },
 
   {
+    slug: 'world-debt-clock',
+    name: {
+      en: 'World Debt Clock',
+      ru: 'World Debt Clock (Мировой долг)',
+    },
+    category: 'web-platforms',
+    type: 'site',
+    visibility: 'public',
+    sourceVisibility: 'private',
+    demoStatus: 'live',
+    previewKind: 'concept',
+    thumbnail: {
+      en: worldDebtClockConcept,
+      ru: worldDebtClockConcept,
+    },
+    screenshots: {
+      en: [worldDebtClockConcept],
+      ru: [worldDebtClockConcept],
+    },
+    badge: {
+      en: '183 Country Profiles',
+      ru: '183 профиля стран',
+    },
+    siteUrl: 'https://world-debt-clock.pages.dev/',
+    summary: {
+      en: 'Public government-debt explorer with IMF-based modeled estimates, an interactive map, country profiles, and historical context.',
+      ru: 'Публичный обозреватель государственного долга с модельными оценками на базе данных МВФ, интерактивной картой, профилями стран и историческим контекстом.',
+    },
+    purpose: {
+      en: 'A static, high-performance data portal covering 183 generated country pages. Live counters are clearly labeled modeled estimates rather than official real-time readings.',
+      ru: 'Высокопроизводительный статический дата-портал со 183 сгенерированными страницами стран. Счётчики явно обозначены как модельные оценки, а не официальные данные реального времени.',
+    },
+    features: {
+      en: [
+        'Interactive global map and country comparison views.',
+        'Generated country profiles with government timelines and historical context.',
+        'Scheduled IMF snapshot refresh and automatic page regeneration.',
+        'Search discovery files including sitemap.xml, robots.txt, and llms.txt.',
+      ],
+      ru: [
+        'Интерактивная карта мира и сравнение показателей стран.',
+        'Генерируемые профили стран с хронологией правительств и историческим контекстом.',
+        'Обновление снимка данных МВФ по расписанию и автоматическая регенерация страниц.',
+        'Файлы поисковой доступности: sitemap.xml, robots.txt и llms.txt.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'Static HTML, CSS, and JavaScript deployed to Cloudflare Pages from the private main branch.',
+        'A Node.js generator embeds the relevant detailed record into each country page and keeps shared client payloads compact.',
+      ],
+      ru: [
+        'Статические HTML, CSS и JavaScript публикуются в Cloudflare Pages из приватной ветки main.',
+        'Node.js-генератор встраивает нужную запись в каждую страницу страны и сохраняет общие клиентские данные компактными.',
+      ],
+    },
+    stack: ['JavaScript', 'Static Generation', 'Cloudflare Pages', 'IMF WEO Data', 'Data Visualization', 'SEO'],
+    outcomes: {
+      en: [
+        'Published a fast global data explorer with 183 indexable country pages and automated data refreshes.',
+      ],
+      ru: [
+        'Опубликован быстрый глобальный дата-портал со 183 индексируемыми страницами стран и автоматическим обновлением данных.',
+      ],
+    },
+  },
+
+  {
     slug: 'second-coworking',
     name: {
       en: 'Second (Smart Coworking & Space ERP)',
@@ -484,6 +560,7 @@ export const projects: Project[] = [
     category: 'web-platforms',
     type: 'app',
     visibility: 'private',
+    sourceVisibility: 'local-only',
     demoStatus: 'ready',
     thumbnail: {
       en: secondImg1,
@@ -897,6 +974,7 @@ export const projects: Project[] = [
     category: 'audio-media',
     type: 'tooling',
     visibility: 'public',
+    sourceVisibility: 'mixed',
     demoStatus: 'ready',
     thumbnail: {
       en: nightvoiceImg,
@@ -913,38 +991,40 @@ export const projects: Project[] = [
     repo: 'DEN-2020/NightVoice-Web',
     githubUrl: 'https://github.com/DEN-2020/NightVoice-Web',
     summary: {
-      en: 'System-wide loudness stabilization and dynamic range compression for Windows (0% AI, pure DSP) with official Astro multilingual documentation portal in 6 languages.',
-      ru: 'Системная стабилизация громкости и динамическая компрессия для Windows (без ИИ, чистый DSP) с официальным сайтом на Astro на 6 языках.',
+      en: 'Windows loudness-control MVP built around Equalizer APO and LoudMax, paired with a public Astro documentation portal in 6 languages.',
+      ru: 'Windows MVP для выравнивания громкости на базе Equalizer APO и LoudMax с публичным сайтом-документацией на Astro на 6 языках.',
     },
     purpose: {
-      en: 'Engineered to solve voice clarity and volume spike issues in media playback. Employs 100% mathematical DSP algorithms (Soft, Night, Strong, Custom compression modes) without AI overhead, paired with a modern Astro web portal translated into English, Russian, German, Spanish, French, and Finnish.',
-      ru: 'Разработано для устранения резких перепадов громкости и улучшения разборчивости речи в фильмах и видео. Использует чистые математические DSP-алгоритмы (режимы Soft, Night, Strong, Custom) без ИИ-задержек в связке с мультиязычным веб-порталом на Astro на 6 языках (EN, RU, DE, ES, FR, FI).',
+      en: 'Designed to reduce volume spikes and improve dialogue clarity during media playback. The desktop controller switches Equalizer APO profiles for Soft, Night, and Strong compression modes; the public website documents the product in EN, RU, DE, ES, FR, and FI.',
+      ru: 'Разработано для уменьшения перепадов громкости и повышения разборчивости диалогов. Десктопный контроллер переключает профили Equalizer APO для режимов Soft, Night и Strong, а публичный сайт описывает продукт на EN, RU, DE, ES, FR и FI.',
     },
     features: {
       en: [
-        'System-wide Windows dynamic range compression balancing loud explosions and quiet dialogue.',
+        'System-wide Windows dynamic range control through Equalizer APO and the LoudMax VST limiter.',
         'Preset modes (Soft, Night, Strong, Custom) with instant system tray profile switching.',
         'Official multilingual Astro website translated into 6 languages with interactive audio before/after player.',
-        'Local DSP processing without cloud AI or audio uploads.',
+        'Local audio processing without cloud AI or audio uploads.',
       ],
       ru: [
-        'Системная динамическая компрессия Windows: выравнивание громких спецэффектов и тихой речи.',
+        'Системная обработка звука Windows через Equalizer APO и VST-лимитер LoudMax.',
         'Готовые пресеты (Soft, Night, Strong, Custom) с быстрым переключением из системного трея.',
         'Официальный многоязычный сайт на Astro на 6 языках со встроенным интерактивным аудио-плеером «До/После».',
-        'Локальная DSP-обработка без облачного ИИ и отправки аудио.',
+        'Локальная обработка без облачного ИИ и отправки аудио.',
       ],
     },
     technicalNotes: {
       en: [
-        'Windows audio core written in C# with WASAPI endpoint DSP biquad filter cascades.',
+        'C# desktop controller writes and switches Equalizer APO configuration; LoudMax64.dll provides limiting and compression.',
+        'The presets use threshold values around -10 dB, -18 dB, and -25 dB, with a -1 dBFS limiter and a 3 kHz dialogue-presence EQ boost.',
         'Public documentation and marketing portal built with Astro 7 and TypeScript.',
       ],
       ru: [
-        'Десктопное ядро на C# с каскадами фильтров WASAPI и цифровой компрессией.',
+        'Десктопный контроллер на C# формирует и переключает конфигурацию Equalizer APO; лимитирование и компрессию выполняет LoudMax64.dll.',
+        'Пресеты используют пороги примерно -10 dB, -18 dB и -25 dB, лимитер -1 dBFS и усиление области речи около 3 кГц.',
         'Публичный документационный и промо-портал на Astro 7 и TypeScript.',
       ],
     },
-    stack: ['C#', 'DSP Algorithms', 'Astro 7', 'TypeScript', 'i18n (EN/RU/DE/ES/FR/FI)', 'Web Audio API'],
+    stack: ['C#', 'Equalizer APO', 'LoudMax VST', 'Astro 7', 'TypeScript', 'i18n (EN/RU/DE/ES/FR/FI)'],
     outcomes: {
       en: [
         'Delivered crystal-clear night movie listening without waking family members or needing manual volume adjustments.',
@@ -1087,6 +1167,73 @@ export const projects: Project[] = [
 
   // 4. Mobile & Productivity Systems
   {
+    slug: 'kineticfit-3d',
+    name: {
+      en: 'KineticFit 3D',
+      ru: 'KineticFit 3D (Фитнес-тренер)',
+    },
+    category: 'mobile-apps',
+    type: 'app',
+    visibility: 'private',
+    sourceVisibility: 'private',
+    demoStatus: 'ready',
+    previewKind: 'concept',
+    thumbnail: {
+      en: kineticFitConcept,
+      ru: kineticFitConcept,
+    },
+    screenshots: {
+      en: [kineticFitConcept],
+      ru: [kineticFitConcept],
+    },
+    badge: {
+      en: 'Interactive 3D Coach',
+      ru: 'Интерактивный 3D-тренер',
+    },
+    summary: {
+      en: 'Private interactive 3D warmup and fitness coach with animated exercise guidance, routine playlists, streaks, voice cues, and TV mode.',
+      ru: 'Приватный интерактивный 3D-тренер для разминки и фитнеса с анимациями упражнений, плейлистами, сериями занятий, голосовыми подсказками и ТВ-режимом.',
+    },
+    purpose: {
+      en: 'A responsive fitness experience that combines a Three.js exercise avatar with guided timers, selectable camera angles, custom routines, profiles, and achievement tracking.',
+      ru: 'Адаптивное фитнес-приложение, объединяющее 3D-аватара на Three.js с таймерами, выбором ракурса, собственными комплексами, профилями и достижениями.',
+    },
+    features: {
+      en: [
+        '3D exercise demonstrations with controlled and free-orbit camera modes.',
+        'Routine catalog for warmup, mobility, cardio, joint health, HIIT, and custom playlists.',
+        'Workout timer, voice cues, summaries, streak tracking, and achievements.',
+        'Responsive fullscreen TV mode for guided sessions on a larger display.',
+      ],
+      ru: [
+        '3D-демонстрации упражнений с управляемыми ракурсами и свободной камерой.',
+        'Каталог комплексов для разминки, мобильности, кардио, суставов, HIIT и собственных плейлистов.',
+        'Таймер, голосовые подсказки, итоги занятий, серии тренировок и достижения.',
+        'Адаптивный полноэкранный ТВ-режим для занятий на большом экране.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'React 19, TypeScript, Vite 6, React Three Fiber, Drei, Three.js, Zustand, Motion, and Tailwind CSS 4.',
+        'The private repository also contains a local Blender/Python animation preparation workflow for the exercise assets.',
+      ],
+      ru: [
+        'React 19, TypeScript, Vite 6, React Three Fiber, Drei, Three.js, Zustand, Motion и Tailwind CSS 4.',
+        'В приватном репозитории также есть локальный Blender/Python-процесс подготовки анимаций упражнений.',
+      ],
+    },
+    stack: ['React 19', 'TypeScript', 'Three.js', 'React Three Fiber', 'Zustand', 'Blender', 'Vite 6'],
+    outcomes: {
+      en: [
+        'Built a private 3D fitness MVP with reusable routines, animated guidance, and mobile-to-TV layouts.',
+      ],
+      ru: [
+        'Собран приватный 3D-фитнес MVP с переиспользуемыми комплексами, анимированными подсказками и адаптацией от мобильного экрана до ТВ.',
+      ],
+    },
+  },
+
+  {
     slug: 'kids-tracker',
     name: {
       en: 'Kids Tracker Family Suite',
@@ -1222,6 +1369,73 @@ export const projects: Project[] = [
   },
 
   // 5. AI, 3D Pipelines & Game Dev
+  {
+    slug: 'roblox-asset-pipeline',
+    name: {
+      en: 'Roblox Asset Pipeline',
+      ru: 'Roblox Asset Pipeline (3D-конвейер)',
+    },
+    category: 'ai-3d-gamedev',
+    type: 'pipeline',
+    visibility: 'local-only',
+    sourceVisibility: 'local-only',
+    demoStatus: 'ready',
+    previewKind: 'concept',
+    thumbnail: {
+      en: robloxAssetPipelineConcept,
+      ru: robloxAssetPipelineConcept,
+    },
+    screenshots: {
+      en: [robloxAssetPipelineConcept],
+      ru: [robloxAssetPipelineConcept],
+    },
+    badge: {
+      en: 'AI → Blender → FBX',
+      ru: 'AI → Blender → FBX',
+    },
+    summary: {
+      en: 'Local pipeline for generating, cleaning, previewing, validating, and exporting Roblox-ready wearable assets and game models.',
+      ru: 'Локальный конвейер генерации, очистки, предпросмотра, проверки и экспорта готовых для Roblox носимых ассетов и игровых моделей.',
+    },
+    purpose: {
+      en: 'An offline production workflow connecting optional Hunyuan3D generation, Blender post-processing, R15 references, Three.js previews, validation reports, and FBX export.',
+      ru: 'Локальный production-процесс, объединяющий опциональную генерацию Hunyuan3D, постобработку Blender, эталоны R15, предпросмотр Three.js, отчёты проверки и экспорт FBX.',
+    },
+    features: {
+      en: [
+        'Prompt or image input with raw GLB preview before processing.',
+        'Blender cleanup and export profiles for layered clothing and accessories.',
+        'R15 reference scenes, size constraints, thumbnail rendering, and validation reports.',
+        'Manual final handoff to Roblox Studio through the supported import tools.',
+      ],
+      ru: [
+        'Ввод текста или изображения с предпросмотром исходного GLB до обработки.',
+        'Профили очистки и экспорта Blender для layered clothing и аксессуаров.',
+        'Эталонные сцены R15, ограничения размеров, рендер миниатюр и отчёты проверки.',
+        'Финальная ручная передача в Roblox Studio через поддерживаемые инструменты импорта.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'Python orchestration, Blender 4.5 automation, Three.js previews, Rojo helper files, and optional local Hunyuan3D inference.',
+        'Generated outputs, local model weights, and machine-specific paths remain outside the public portfolio repository.',
+      ],
+      ru: [
+        'Оркестрация на Python, автоматизация Blender 4.5, предпросмотр Three.js, вспомогательные файлы Rojo и опциональный локальный Hunyuan3D.',
+        'Результаты генерации, веса моделей и пути конкретной машины не публикуются в репозитории портфолио.',
+      ],
+    },
+    stack: ['Python', 'Blender 4.5', 'Hunyuan3D', 'Three.js', 'FBX / GLB', 'Roblox Studio', 'Rojo'],
+    outcomes: {
+      en: [
+        'Documented a repeatable local path from generated mesh to validated export while keeping large assets and local configuration private.',
+      ],
+      ru: [
+        'Описан воспроизводимый локальный путь от сгенерированной сетки до проверенного экспорта без публикации крупных ассетов и локальной конфигурации.',
+      ],
+    },
+  },
+
   {
     slug: 'hunyuan3d-docker',
     name: {
@@ -1365,6 +1579,73 @@ export const projects: Project[] = [
   },
 
   // 6. Research, AI Agents & Mesh Infra
+  {
+    slug: 'seo-studio',
+    name: {
+      en: 'SEO Studio',
+      ru: 'SEO Studio (SEO Operating System)',
+    },
+    category: 'research-infra',
+    type: 'ecosystem',
+    visibility: 'private',
+    sourceVisibility: 'private',
+    demoStatus: 'internal',
+    previewKind: 'concept',
+    thumbnail: {
+      en: seoStudioConcept,
+      ru: seoStudioConcept,
+    },
+    screenshots: {
+      en: [seoStudioConcept],
+      ru: [seoStudioConcept],
+    },
+    badge: {
+      en: 'Self-hosted SEO OS',
+      ru: 'Self-hosted SEO OS',
+    },
+    summary: {
+      en: 'Private local-first SEO operating system with web, API, worker, database, audit modules, and reusable agent-facing capabilities.',
+      ru: 'Приватная local-first SEO-платформа с веб-интерфейсом, API, worker-процессом, базой данных, модулями аудита и переиспользуемыми возможностями для AI-агентов.',
+    },
+    purpose: {
+      en: 'A self-hostable, SaaS-ready platform that separates product UI, REST APIs, durable background jobs, storage, and MCP integrations behind portable application boundaries.',
+      ru: 'Self-hostable и SaaS-ready платформа, разделяющая интерфейс, REST API, фоновые задания, хранилище и MCP-интеграции через переносимые границы приложения.',
+    },
+    features: {
+      en: [
+        'Multilingual project dashboard with audit, performance, recommendation, site, and workspace screens.',
+        'Independent Fastify API and background worker with tenant-isolation checks.',
+        'Modular audit capabilities reusable by Web, REST, MCP, and future integrations.',
+        'Evidence-oriented recommendations, job history, roles, quotas, and audit trails in the architecture.',
+      ],
+      ru: [
+        'Многоязычный интерфейс проектов с аудитами, производительностью, рекомендациями, сайтами и рабочими пространствами.',
+        'Независимые Fastify API и background worker с проверками изоляции tenants.',
+        'Модульные аудиты, переиспользуемые в Web, REST, MCP и будущих интеграциях.',
+        'Архитектура доказательных рекомендаций, истории заданий, ролей, квот и аудита действий.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'TypeScript monorepo with Next.js 16, Fastify 5, PostgreSQL, Prisma 7, Zod, next-intl, Tailwind CSS 4, and Vitest.',
+        'Provider-specific services are isolated behind adapters; the project remains private and is not approved for public deployment yet.',
+      ],
+      ru: [
+        'TypeScript-монорепозиторий на Next.js 16, Fastify 5, PostgreSQL, Prisma 7, Zod, next-intl, Tailwind CSS 4 и Vitest.',
+        'Провайдеры изолированы адаптерами; репозиторий остаётся приватным и пока не допущен к публичному деплою.',
+      ],
+    },
+    stack: ['Next.js 16', 'Fastify 5', 'TypeScript', 'PostgreSQL', 'Prisma 7', 'MCP', 'Vitest'],
+    outcomes: {
+      en: [
+        'Established an active private implementation with separate web, API, worker, database, UI, and documentation layers.',
+      ],
+      ru: [
+        'Создана активная приватная реализация с отдельными слоями web, API, worker, базы данных, интерфейса и документации.',
+      ],
+    },
+  },
+
   {
     slug: 'btcusdt-edge-research',
     name: {
