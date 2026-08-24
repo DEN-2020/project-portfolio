@@ -396,17 +396,17 @@ const renderLightboxModal = () => {
   const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
 
   return `
-    <div class="lightbox-modal lightbox-modal--open" id="lightbox-container" role="dialog" aria-modal="true" aria-label="${escapeHtml(p.name[lang])} preview">
+    <div class="lightbox-modal lightbox-modal--open" id="lightbox-container" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
       <div class="lightbox-content">
         <div class="lightbox-header">
           <div>
-            <h3 class="lightbox-title">${escapeHtml(p.name[lang])}</h3>
+            <h3 class="lightbox-title" id="lightbox-title">${escapeHtml(p.name[lang])}</h3>
             <span class="preview-pill preview-pill--${statusInfo.tone}" style="margin-top: 4px;">
               ${statusInfo.label}
             </span>
           </div>
-          <button class="lightbox-close" id="lightbox-close-btn" type="button" aria-label="Close modal">
-            <i data-lucide="x"></i>
+          <button class="lightbox-close" id="lightbox-close-btn" type="button" aria-label="${lang === 'ru' ? 'Закрыть просмотр' : 'Close preview'}">
+            <span class="lightbox-close__glyph" aria-hidden="true">×</span>
           </button>
         </div>
         <div class="lightbox-image-wrap">
@@ -475,7 +475,7 @@ const render = () => {
         </div>
         <div>
           <span>${t.brandTitle}</span>
-          <span style="color: var(--accent-emerald);">.portfolio</span>
+          <span style="color: var(--accent-primary);">.portfolio</span>
         </div>
         <span class="brand__tag">${t.brandTag}</span>
       </a>
@@ -642,7 +642,7 @@ const render = () => {
         <div style="display: flex; gap: 14px; align-items: center;">
           <span>${state.visibilityMode === 'all' ? t.footerModeDev : t.footerModePublic}</span>
           <span>·</span>
-          <a href="https://github.com/DEN-2020" target="_blank" rel="noreferrer" style="color: var(--accent-emerald);">
+          <a href="https://github.com/DEN-2020" target="_blank" rel="noreferrer" style="color: var(--accent-primary);">
             github.com/DEN-2020
           </a>
         </div>
@@ -657,7 +657,7 @@ const render = () => {
   const hydrationVersion = ++iconHydrationVersion;
   const iconRoots = Array.from(
     app.querySelectorAll<HTMLElement>(
-      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .filter-tabs, .category-header, .project-card, .empty-state, .site-footer, .lightbox',
+      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .filter-tabs, .category-header, .project-card, .empty-state, .site-footer, .lightbox-modal',
     ),
   );
   const hydrateNextIconRoot = () => {
@@ -864,6 +864,8 @@ const bindEvents = () => {
     state.lightboxSlug = null;
     render();
   });
+
+  document.querySelector<HTMLButtonElement>('#lightbox-close-btn')?.focus();
 
   document.querySelector('#lightbox-container')?.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {

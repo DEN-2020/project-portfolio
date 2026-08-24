@@ -9,7 +9,9 @@ import hunyuan3dImg from './assets/screenshots/hunyuan3d.svg';
 import kidsTrackerEn1 from './assets/screenshots/kids-tracker-en-1.png';
 import kidsTrackerEn2 from './assets/screenshots/kids-tracker-en-2.png';
 import kidsTrackerEn3 from './assets/screenshots/kids-tracker-en-3.png';
-import kineticFitConcept from './assets/screenshots/kineticfit-concept.webp';
+import kineticFitDesktop from './assets/screenshots/kineticfit-desktop.webp';
+import kineticFitMobile from './assets/screenshots/kineticfit-mobile.webp';
+import kineticFitWorkout from './assets/screenshots/kineticfit-workout.webp';
 import marketplaceEn1 from './assets/screenshots/marketplace-en-1.png';
 import marketplaceEn2 from './assets/screenshots/marketplace-en-2.png';
 import marketplaceEn3 from './assets/screenshots/marketplace-en-3.png';
@@ -229,6 +231,8 @@ export const projects: Project[] = [
         'Tri-lingual localized catalog (RU / EN / AR) with full bidirectional RTL/LTR layout rendering.',
         'Structured vertical categories: Real Estate, Auto/Marine, Electronics, Jobs, and Verified Services.',
         'Listing lifecycle management covering moderation, revisions, expiry, renewal, archive, favorites, and messages.',
+        'Localized Hurghada district landing pages and editorial guides support commercial discovery without exposing private operational tools.',
+        'Server-side translation services use shared budget accounting and provider limits across the Nabiora product family.',
         'Responsive image variants and private-media handling backed by Supabase Storage when production data mode is enabled.',
         'Installable PWA shell with a service worker and controlled caching strategy.',
       ],
@@ -236,6 +240,8 @@ export const projects: Project[] = [
         'Трехъязычный локализованный каталог (RU / EN / AR) с поддержкой RTL/LTR-интерфейса.',
         'Структурированные категории: Недвижимость, Авто/Яхты, Электроника, Вакансии и Проверенные услуги.',
         'Жизненный цикл объявлений: модерация, правки, срок действия, продление, архив, избранное и сообщения.',
+        'Локализованные посадочные страницы районов Хургады и редакционные гайды помогают органическому поиску без раскрытия внутренних инструментов.',
+        'Серверные переводы используют общий учёт бюджета и лимитов провайдеров для продуктов Nabiora.',
         'Адаптивные варианты изображений и приватные медиа через Supabase Storage при включённом production-режиме данных.',
         'Устанавливаемая PWA-оболочка с service worker и контролируемой стратегией кэширования.',
       ],
@@ -289,23 +295,25 @@ export const projects: Project[] = [
     },
     siteUrl: 'https://community.nabiora.com/en',
     summary: {
-      en: 'SSR community portal for Egypt with a moderated forum, multilingual guides, directory foundations, and practical city tools.',
-      ru: 'SSR-портал сообщества в Египте с модерируемым форумом, многоязычными гайдами, основой каталога и городскими инструментами.',
+      en: 'SSR community portal for Egypt with a moderated forum, multilingual guides, local news, a channel directory, and practical city tools.',
+      ru: 'SSR-портал сообщества в Египте с модерируемым форумом, многоязычными гайдами, локальными новостями, каталогом каналов и городскими инструментами.',
     },
     purpose: {
-      en: 'A standalone community service for community.nabiora.com. It combines server-rendered forum routes, Markdown/MDX guides, profile onboarding, moderation, and weather/currency tool pages.',
-      ru: 'Самостоятельный сервис для community.nabiora.com: серверный форум, Markdown/MDX-гайды, онбординг профилей, модерация и страницы инструментов погоды и валют.',
+      en: 'A standalone community service for community.nabiora.com. It combines server-rendered forum routes, Markdown/MDX guides, local news and directory discovery, profile onboarding, moderation, and weather/currency tools.',
+      ru: 'Самостоятельный сервис для community.nabiora.com: серверный форум, Markdown/MDX-гайды, локальные новости и каталог, онбординг профилей, модерация и инструменты погоды и валют.',
     },
     features: {
       en: [
         'Moderated forum with published, pending, hidden, and locked content states enforced by RLS.',
         'Markdown/MDX guide collection and stable multilingual routes in RU, EN, and AR with RTL support.',
+        'Local-news ingestion with deduplication, structured content pages, channel-directory discovery, and a compact map preview.',
         'Profile onboarding with user-selected public names and safe avatar options.',
         'Server-side weather and currency tools with public snapshot refresh jobs.',
       ],
       ru: [
         'Модерируемый форум со статусами published, pending, hidden и locked, которые контролируются через RLS.',
         'Коллекция Markdown/MDX-гайдов и стабильные маршруты RU, EN и AR с поддержкой RTL.',
+        'Загрузка локальных новостей с дедупликацией, структурированные контентные страницы, каталог каналов и компактный превью-режим карты.',
         'Онбординг профиля с выбранным пользователем публичным именем и безопасными вариантами аватара.',
         'Серверные инструменты погоды и валют с обновлением публичных снимков по расписанию.',
       ],
@@ -314,11 +322,13 @@ export const projects: Project[] = [
       en: [
         'Astro 7 SSR with strict TypeScript and the Cloudflare adapter; React is limited to interactive islands.',
         'Supabase Database and Auth with role checks, RPC-based moderation, and row-level security.',
+        'Translation usage is coordinated through a shared budget data contract while the Community application remains independently deployed.',
         'The current scope intentionally excludes chat, ratings, realtime, file uploads, and notifications.',
       ],
       ru: [
         'Astro 7 SSR со строгим TypeScript и Cloudflare-адаптером; React используется только для интерактивных островов.',
         'Supabase Database и Auth с проверкой ролей, RPC-модерацией и Row Level Security.',
+        'Расход переводов координируется через общий контракт бюджета, при этом Community остаётся независимо развёрнутым приложением.',
         'Текущий scope намеренно не включает чат, рейтинги, realtime, загрузку файлов и уведомления.',
       ],
     },
@@ -1177,14 +1187,13 @@ export const projects: Project[] = [
     visibility: 'private',
     sourceVisibility: 'private',
     demoStatus: 'ready',
-    previewKind: 'concept',
     thumbnail: {
-      en: kineticFitConcept,
-      ru: kineticFitConcept,
+      en: kineticFitDesktop,
+      ru: kineticFitDesktop,
     },
     screenshots: {
-      en: [kineticFitConcept],
-      ru: [kineticFitConcept],
+      en: [kineticFitDesktop, kineticFitMobile, kineticFitWorkout],
+      ru: [kineticFitDesktop, kineticFitMobile, kineticFitWorkout],
     },
     badge: {
       en: 'Interactive 3D Coach',
@@ -1203,13 +1212,13 @@ export const projects: Project[] = [
         '3D exercise demonstrations with controlled and free-orbit camera modes.',
         'Routine catalog for warmup, mobility, cardio, joint health, HIIT, and custom playlists.',
         'Workout timer, voice cues, summaries, streak tracking, and achievements.',
-        'Responsive fullscreen TV mode for guided sessions on a larger display.',
+        'Responsive mobile and fullscreen layouts, with matching light and dark themes for guided sessions on any display.',
       ],
       ru: [
         '3D-демонстрации упражнений с управляемыми ракурсами и свободной камерой.',
         'Каталог комплексов для разминки, мобильности, кардио, суставов, HIIT и собственных плейлистов.',
         'Таймер, голосовые подсказки, итоги занятий, серии тренировок и достижения.',
-        'Адаптивный полноэкранный ТВ-режим для занятий на большом экране.',
+        'Адаптивные мобильный и полноэкранный режимы со светлой и тёмной темами для занятий на любом дисплее.',
       ],
     },
     technicalNotes: {
@@ -1604,8 +1613,8 @@ export const projects: Project[] = [
       ru: 'Self-hosted SEO OS',
     },
     summary: {
-      en: 'Private local-first SEO operating system with web, API, worker, database, audit modules, and reusable agent-facing capabilities.',
-      ru: 'Приватная local-first SEO-платформа с веб-интерфейсом, API, worker-процессом, базой данных, модулями аудита и переиспользуемыми возможностями для AI-агентов.',
+      en: 'Private local-first SEO operating system with deep audits, analytics, recommendation workflows, multi-tenant workspaces, and reusable agent-facing capabilities.',
+      ru: 'Приватная local-first SEO-платформа с глубокими аудитами, аналитикой, рабочим процессом рекомендаций, multi-tenant пространствами и возможностями для AI-агентов.',
     },
     purpose: {
       en: 'A self-hostable, SaaS-ready platform that separates product UI, REST APIs, durable background jobs, storage, and MCP integrations behind portable application boundaries.',
@@ -1613,35 +1622,41 @@ export const projects: Project[] = [
     },
     features: {
       en: [
-        'Multilingual project dashboard with audit, performance, recommendation, site, and workspace screens.',
-        'Independent Fastify API and background worker with tenant-isolation checks.',
+        'Product-depth audit engine with 22 rules, a search-appearance lab, crawled-pages explorer, analytics dashboard, and recommendation workflow.',
+        'Adaptive multilingual application shell covering projects, audits, performance, recommendations, workspaces, users, and settings.',
+        'Independent Fastify API and lease-aware background worker with tenant-isolation and durable PostgreSQL persistence.',
+        'Workspace and project tenancy with roles, RBAC, quotas, audit trails, and secure HttpOnly session handling.',
         'Modular audit capabilities reusable by Web, REST, MCP, and future integrations.',
-        'Evidence-oriented recommendations, job history, roles, quotas, and audit trails in the architecture.',
       ],
       ru: [
-        'Многоязычный интерфейс проектов с аудитами, производительностью, рекомендациями, сайтами и рабочими пространствами.',
-        'Независимые Fastify API и background worker с проверками изоляции tenants.',
+        'Углублённый аудит по 22 правилам, лаборатория поискового сниппета, просмотр просканированных страниц, аналитический дашборд и workflow рекомендаций.',
+        'Адаптивная многоязычная оболочка для проектов, аудитов, производительности, рекомендаций, рабочих пространств, пользователей и настроек.',
+        'Независимые Fastify API и lease-aware background worker с изоляцией tenants и надёжным хранением в PostgreSQL.',
+        'Тенантность рабочих пространств и проектов с ролями, RBAC, квотами, журналом действий и безопасными HttpOnly-сессиями.',
         'Модульные аудиты, переиспользуемые в Web, REST, MCP и будущих интеграциях.',
-        'Архитектура доказательных рекомендаций, истории заданий, ролей, квот и аудита действий.',
       ],
     },
     technicalNotes: {
       en: [
         'TypeScript monorepo with Next.js 16, Fastify 5, PostgreSQL, Prisma 7, Zod, next-intl, Tailwind CSS 4, and Vitest.',
-        'Provider-specific services are isolated behind adapters; the project remains private and is not approved for public deployment yet.',
+        'Better Auth uses HttpOnly sessions; provider-specific services remain isolated behind adapters and the private project is not approved for public deployment.',
+        'CI includes a Node 24 release gate covering type checks, tests, security checks, and production builds.',
       ],
       ru: [
         'TypeScript-монорепозиторий на Next.js 16, Fastify 5, PostgreSQL, Prisma 7, Zod, next-intl, Tailwind CSS 4 и Vitest.',
-        'Провайдеры изолированы адаптерами; репозиторий остаётся приватным и пока не допущен к публичному деплою.',
+        'Better Auth использует HttpOnly-сессии; провайдеры изолированы адаптерами, а приватный проект пока не допущен к публичному деплою.',
+        'CI включает release gate на Node 24 с проверками типов, тестами, security-проверками и production-сборкой.',
       ],
     },
     stack: ['Next.js 16', 'Fastify 5', 'TypeScript', 'PostgreSQL', 'Prisma 7', 'MCP', 'Vitest'],
     outcomes: {
       en: [
         'Established an active private implementation with separate web, API, worker, database, UI, and documentation layers.',
+        'Completed the identity, tenancy, RBAC, analytics, and product-depth foundations needed for a SaaS-ready workflow.',
       ],
       ru: [
         'Создана активная приватная реализация с отдельными слоями web, API, worker, базы данных, интерфейса и документации.',
+        'Завершена базовая реализация identity, tenancy, RBAC, аналитики и углублённых продуктовых сценариев для SaaS-ready workflow.',
       ],
     },
   },
