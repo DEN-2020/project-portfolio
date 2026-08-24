@@ -14,6 +14,27 @@ export interface TranslationDict {
   heroDescription: string;
   exploreCatalogBtn: string;
   githubReposBtn: string;
+  contactBtn: string;
+  contactEyebrow: string;
+  contactTitle: string;
+  contactDescription: string;
+  contactNameLabel: string;
+  contactNamePlaceholder: string;
+  contactEmailLabel: string;
+  contactEmailPlaceholder: string;
+  contactTopicLabel: string;
+  contactTopicJob: string;
+  contactTopicFreelance: string;
+  contactTopicCollaboration: string;
+  contactTopicOther: string;
+  contactMessageLabel: string;
+  contactMessagePlaceholder: string;
+  contactPrivacy: string;
+  contactSubmit: string;
+  contactSending: string;
+  contactSuccess: string;
+  contactError: string;
+  contactRateLimit: string;
   statTotalProjects: string;
   statLiveReady: string;
   statWebPlatforms: string;
@@ -75,6 +96,28 @@ export const translations: Record<Language, TranslationDict> = {
       'Инженерная витрина DEN-2020: веб-платформы и дата-порталы, SEO-автоматизация, финансовые инструменты, аудио/DSP, 3D-пайплайны, игры и локальные системные утилиты.',
     exploreCatalogBtn: 'Открыть каталог',
     githubReposBtn: 'Репозитории GitHub',
+    contactBtn: 'Связаться',
+    contactEyebrow: 'КОНТАКТ БЕЗ ПУБЛИКАЦИИ EMAIL',
+    contactTitle: 'Есть задача, которую стоит обсудить?',
+    contactDescription:
+      'Опишите проект, роль или формат сотрудничества. Сообщение будет передано через защищённую форму; адрес получателя не публикуется.',
+    contactNameLabel: 'Имя или компания',
+    contactNamePlaceholder: 'Как к вам обращаться',
+    contactEmailLabel: 'Ваш email',
+    contactEmailPlaceholder: 'name@company.com',
+    contactTopicLabel: 'Тема',
+    contactTopicJob: 'Предложение работы',
+    contactTopicFreelance: 'Проект / фриланс',
+    contactTopicCollaboration: 'Сотрудничество',
+    contactTopicOther: 'Другое',
+    contactMessageLabel: 'Сообщение',
+    contactMessagePlaceholder: 'Кратко расскажите о задаче, сроках и желаемом результате…',
+    contactPrivacy: 'Данные используются только для ответа на ваше обращение.',
+    contactSubmit: 'Отправить сообщение',
+    contactSending: 'Отправка…',
+    contactSuccess: 'Сообщение отправлено. Спасибо — отвечу по указанному адресу.',
+    contactError: 'Не удалось отправить. Проверьте поля и попробуйте ещё раз.',
+    contactRateLimit: 'Слишком много попыток. Пожалуйста, попробуйте позже.',
     statTotalProjects: 'Всего проектов',
     statLiveReady: 'Онлайн / Готово',
     statWebPlatforms: 'Веб-платформы',
@@ -134,6 +177,28 @@ export const translations: Record<Language, TranslationDict> = {
       'Engineering showcase by DEN-2020 spanning web platforms and data portals, SEO automation, financial tools, audio/DSP, 3D pipelines, games, and local system utilities.',
     exploreCatalogBtn: 'Explore Catalog',
     githubReposBtn: 'GitHub Repositories',
+    contactBtn: 'Contact',
+    contactEyebrow: 'PRIVATE CONTACT CHANNEL',
+    contactTitle: 'Have a project worth discussing?',
+    contactDescription:
+      'Share the project, role, or collaboration format. Your message is forwarded through a protected form and the recipient address is never published.',
+    contactNameLabel: 'Name or company',
+    contactNamePlaceholder: 'How should I address you?',
+    contactEmailLabel: 'Your email',
+    contactEmailPlaceholder: 'name@company.com',
+    contactTopicLabel: 'Topic',
+    contactTopicJob: 'Job opportunity',
+    contactTopicFreelance: 'Project / freelance',
+    contactTopicCollaboration: 'Collaboration',
+    contactTopicOther: 'Other',
+    contactMessageLabel: 'Message',
+    contactMessagePlaceholder: 'Briefly describe the project, timeline, and desired outcome…',
+    contactPrivacy: 'Your details are used only to reply to this inquiry.',
+    contactSubmit: 'Send message',
+    contactSending: 'Sending…',
+    contactSuccess: 'Message sent. Thank you — I will reply to the address provided.',
+    contactError: 'The message could not be sent. Check the fields and try again.',
+    contactRateLimit: 'Too many attempts. Please try again later.',
     statTotalProjects: 'Total Projects',
     statLiveReady: 'Live / Ready',
     statWebPlatforms: 'Web Platforms',

@@ -16,10 +16,12 @@ import {
   Layers,
   LayoutGrid,
   Lock,
+  Mail,
   Maximize2,
   Play,
   Radio,
   Search,
+  Send,
   Server,
   Shield,
   ShieldCheck,
@@ -72,6 +74,8 @@ if (!app) {
   throw new Error('Root #app element not found');
 }
 let iconHydrationVersion = 0;
+const CONTACT_FORM_ENDPOINT =
+  import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim() || 'https://formspree.io/f/xvkpjavy';
 
 const escapeHtml = (str: string) =>
   str
@@ -453,6 +457,104 @@ const renderLightboxModal = () => {
   `;
 };
 
+const renderContactSection = (lang: Language) => {
+  const t = translations[lang];
+  const endpoint = CONTACT_FORM_ENDPOINT ? escapeHtml(CONTACT_FORM_ENDPOINT) : '#';
+
+  return `
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-shell">
+        <div class="contact-intro">
+          <span class="contact-eyebrow">
+            <i data-lucide="shield-check"></i>
+            ${t.contactEyebrow}
+          </span>
+          <h2 id="contact-title">${t.contactTitle}</h2>
+          <p>${t.contactDescription}</p>
+          <div class="contact-assurance">
+            <i data-lucide="mail"></i>
+            <span>${t.contactPrivacy}</span>
+          </div>
+        </div>
+
+        <form
+          class="contact-form"
+          id="contact-form"
+          action="${endpoint}"
+          method="POST"
+          data-configured="${Boolean(CONTACT_FORM_ENDPOINT)}"
+        >
+          <input type="hidden" name="_subject" value="New portfolio inquiry" />
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-company-site">Website</label>
+            <input id="contact-company-site" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="contact-form__row">
+            <label class="contact-field">
+              <span>${t.contactNameLabel}</span>
+              <input
+                type="text"
+                name="name"
+                placeholder="${escapeHtml(t.contactNamePlaceholder)}"
+                autocomplete="name"
+                maxlength="100"
+                required
+              />
+            </label>
+            <label class="contact-field">
+              <span>${t.contactEmailLabel}</span>
+              <input
+                type="email"
+                name="email"
+                placeholder="${escapeHtml(t.contactEmailPlaceholder)}"
+                autocomplete="email"
+                inputmode="email"
+                maxlength="254"
+                required
+              />
+            </label>
+          </div>
+
+          <label class="contact-field">
+            <span>${t.contactTopicLabel}</span>
+            <select name="topic" required>
+              <option value="Job opportunity">${t.contactTopicJob}</option>
+              <option value="Project or freelance">${t.contactTopicFreelance}</option>
+              <option value="Collaboration">${t.contactTopicCollaboration}</option>
+              <option value="Other">${t.contactTopicOther}</option>
+            </select>
+          </label>
+
+          <label class="contact-field">
+            <span>${t.contactMessageLabel}</span>
+            <textarea
+              name="message"
+              placeholder="${escapeHtml(t.contactMessagePlaceholder)}"
+              minlength="30"
+              maxlength="3000"
+              rows="7"
+              required
+            ></textarea>
+          </label>
+
+          <div class="contact-form__footer">
+            <p class="contact-form__privacy">
+              <i data-lucide="shield-check"></i>
+              ${t.contactPrivacy}
+            </p>
+            <button class="btn btn--primary contact-submit" type="submit">
+              <i data-lucide="send"></i>
+              <span data-contact-submit-label>${t.contactSubmit}</span>
+            </button>
+          </div>
+          <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  `;
+};
+
 const render = () => {
   const lang = state.language;
   const t = translations[lang];
@@ -507,6 +609,10 @@ const render = () => {
           <i data-lucide="git-branch"></i>
           <span>${t.githubBtn}</span>
         </a>
+        <a class="topbar__link topbar__link--contact" href="#contact">
+          <i data-lucide="mail"></i>
+          <span>${t.contactBtn}</span>
+        </a>
       </div>
     </header>
 
@@ -533,7 +639,11 @@ const render = () => {
       </p>
 
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#workspace">
+        <a class="btn btn--primary" href="#contact">
+          <i data-lucide="mail"></i>
+          ${t.contactBtn}
+        </a>
+        <a class="btn btn--secondary" href="#workspace">
           <i data-lucide="layout-grid"></i>
           ${t.exploreCatalogBtn} (${visible.length})
         </a>
@@ -633,6 +743,8 @@ const render = () => {
       </div>
     </main>
 
+    ${renderContactSection(lang)}
+
     <!-- Footer -->
     <footer class="site-footer">
       <div class="site-footer__inner">
@@ -645,6 +757,8 @@ const render = () => {
           <a href="https://github.com/DEN-2020" target="_blank" rel="noreferrer" style="color: var(--accent-primary);">
             github.com/DEN-2020
           </a>
+          <span>·</span>
+          <a href="#contact" style="color: var(--accent-primary);">${t.contactBtn}</a>
         </div>
       </div>
     </footer>
@@ -657,7 +771,7 @@ const render = () => {
   const hydrationVersion = ++iconHydrationVersion;
   const iconRoots = Array.from(
     app.querySelectorAll<HTMLElement>(
-      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .filter-tabs, .category-header, .project-card, .empty-state, .site-footer, .lightbox-modal',
+      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .filter-tabs, .category-header, .project-card, .empty-state, .contact-section, .site-footer, .lightbox-modal',
     ),
   );
   const hydrateNextIconRoot = () => {
@@ -685,10 +799,12 @@ const render = () => {
           Layers,
           LayoutGrid,
           Lock,
+          Mail,
           Maximize2,
           Play,
           Radio,
           Search,
+          Send,
           Server,
           Shield,
           ShieldCheck,
@@ -828,6 +944,63 @@ const bindEvents = () => {
     wrap.addEventListener('mouseleave', () => {
       setActive(0);
     });
+  });
+
+  const contactForm = document.querySelector<HTMLFormElement>('#contact-form');
+  contactForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!contactForm.reportValidity()) return;
+
+    const submitButton = contactForm.querySelector<HTMLButtonElement>('.contact-submit');
+    const submitLabel = contactForm.querySelector<HTMLElement>('[data-contact-submit-label]');
+    const status = contactForm.querySelector<HTMLElement>('#contact-status');
+    const t = translations[state.language];
+
+    if (!CONTACT_FORM_ENDPOINT) {
+      if (status) {
+        status.textContent = t.contactError;
+        status.className = 'contact-status contact-status--error';
+      }
+      return;
+    }
+
+    submitButton?.setAttribute('disabled', 'true');
+    if (submitLabel) submitLabel.textContent = t.contactSending;
+    if (status) {
+      status.textContent = '';
+      status.className = 'contact-status';
+    }
+
+    const payload = new FormData(contactForm);
+    payload.append('language', state.language.toUpperCase());
+    payload.append('source', window.location.href.split('#')[0]);
+
+    try {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: 'POST',
+        body: payload,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) throw new Error('rate-limit');
+        throw new Error('submission-failed');
+      }
+
+      contactForm.reset();
+      if (status) {
+        status.textContent = t.contactSuccess;
+        status.className = 'contact-status contact-status--success';
+      }
+    } catch (error) {
+      if (status) {
+        status.textContent = error instanceof Error && error.message === 'rate-limit' ? t.contactRateLimit : t.contactError;
+        status.className = 'contact-status contact-status--error';
+      }
+    } finally {
+      submitButton?.removeAttribute('disabled');
+      if (submitLabel) submitLabel.textContent = t.contactSubmit;
+    }
   });
 
   // Detailed lists are inserted only after a visitor opens a card.
