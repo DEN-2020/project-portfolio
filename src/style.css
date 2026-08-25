@@ -1084,16 +1084,6 @@ svg {
   transition: all 0.15s ease;
 }
 
-.stack-tag::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  flex: 0 0 6px;
-  border-radius: 50%;
-  background: var(--accent-cyan);
-  box-shadow: 0 0 8px rgba(14, 165, 233, 0.45);
-}
-
 .stack-tag:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);

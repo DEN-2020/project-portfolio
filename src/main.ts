@@ -45,6 +45,7 @@ import {
   type SourceVisibility,
 } from './projects';
 import { translations } from './translations';
+import { getTechIcon } from './tech-icons';
 import { initAnalytics } from './analytics';
 
 interface AppState {
@@ -315,6 +316,7 @@ const renderProjectCard = (p: Project) => {
             .map(
               (item) => `
             <span class="stack-tag">
+              ${getTechIcon(item)}
               <span>${escapeHtml(item)}</span>
             </span>
           `
