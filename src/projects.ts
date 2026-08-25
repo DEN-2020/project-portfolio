@@ -80,12 +80,12 @@ export const CATEGORIES: CategoryInfo[] = [
   {
     id: 'web-platforms',
     title: {
-      en: 'Web Platforms & Ecosystems',
-      ru: 'Веб-платформы и сервисы',
+      en: 'Web & SaaS Platforms',
+      ru: 'Веб- и SaaS-платформы',
     },
     subtitle: {
-      en: 'Full-stack multi-language marketplaces, community portals, and business platforms',
-      ru: 'Многоязычные маркетплейсы, порталы сообществ и корпоративные платформы',
+      en: 'Full-stack marketplaces, community portals, SaaS products, and business platforms',
+      ru: 'Маркетплейсы, порталы сообществ, SaaS-продукты и корпоративные платформы',
     },
     icon: 'layout-grid',
   },
@@ -140,7 +140,7 @@ export const CATEGORIES: CategoryInfo[] = [
   {
     id: 'research-infra',
     title: {
-      en: 'Research, AI Agents & Mesh Infra',
+      en: 'Research, AI Agents & Infrastructure',
       ru: 'Исследования, AI-агенты и сетевая инфраструктура',
     },
     subtitle: {
@@ -1594,7 +1594,7 @@ export const projects: Project[] = [
       en: 'SEO Studio',
       ru: 'SEO Studio (SEO Operating System)',
     },
-    category: 'research-infra',
+    category: 'web-platforms',
     type: 'ecosystem',
     visibility: 'private',
     sourceVisibility: 'private',

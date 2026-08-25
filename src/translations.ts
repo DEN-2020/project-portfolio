@@ -42,6 +42,7 @@ export interface TranslationDict {
   statAudioVideo: string;
   statAiGames: string;
   searchPlaceholder: string;
+  clearSearchLabel: string;
   byCategoryBtn: string;
   allGridBtn: string;
   allCategoriesTab: string;
@@ -125,6 +126,7 @@ export const translations: Record<Language, TranslationDict> = {
     statAudioVideo: 'Аудио и видео',
     statAiGames: 'ИИ, 3D и игры',
     searchPlaceholder: 'Поиск по названию, стеку (React, Python...) или ключевому слову...',
+    clearSearchLabel: 'Очистить поиск',
     byCategoryBtn: 'По категориям',
     allGridBtn: 'Общая сетка',
     allCategoriesTab: 'Все категории',
@@ -206,6 +208,7 @@ export const translations: Record<Language, TranslationDict> = {
     statAudioVideo: 'Audio & Video',
     statAiGames: 'AI, 3D & Games',
     searchPlaceholder: 'Search by title, stack (React, TypeScript), or keyword...',
+    clearSearchLabel: 'Clear search',
     byCategoryBtn: 'By Category',
     allGridBtn: 'All Grid',
     allCategoriesTab: 'All Categories',

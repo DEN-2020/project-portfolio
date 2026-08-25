@@ -144,6 +144,7 @@ const getVisibleProjects = (): Project[] => {
     // Search query
     if (state.query.trim()) {
       const q = state.query.toLowerCase().trim();
+      const category = CATEGORIES.find((item) => item.id === p.category);
       const haystack = [
         p.name[lang],
         p.name.en,
@@ -153,6 +154,10 @@ const getVisibleProjects = (): Project[] => {
         p.repo ?? '',
         getSourceVisibility(p),
         p.category,
+        category?.title[lang] ?? '',
+        category?.title.en ?? '',
+        category?.title.ru ?? '',
+        category?.subtitle[lang] ?? '',
         p.stack.join(' '),
         p.features[lang].join(' '),
         p.technicalNotes[lang].join(' '),
@@ -224,6 +229,7 @@ const renderProjectCard = (p: Project) => {
   const t = translations[lang];
   const statusInfo = getStatusInfo(p, lang);
   const sourceInfo = getSourceInfo(p, lang);
+  const categoryInfo = CATEGORIES.find((category) => category.id === p.category);
   const hasPublicSource =
     (sourceInfo.visibility === 'public' || sourceInfo.visibility === 'mixed') && Boolean(p.repo && p.githubUrl);
   const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
@@ -275,6 +281,14 @@ const renderProjectCard = (p: Project) => {
         <div class="project-card__head">
           <div>
             <h3 class="project-card__title">${escapeHtml(p.name[lang])}</h3>
+            ${
+              categoryInfo
+                ? `<span class="project-card__category">
+                    <i data-lucide="${categoryInfo.icon}"></i>
+                    ${escapeHtml(categoryInfo.title[lang])}
+                  </span>`
+                : ''
+            }
             <div class="project-card__source-row">
               ${
                 hasPublicSource && p.repo
@@ -679,7 +693,7 @@ const render = () => {
           />
           ${
             state.query
-              ? `<button class="search-field__clear" id="clear-search-btn" type="button" aria-label="Clear search">
+              ? `<button class="search-field__clear" id="clear-search-btn" type="button" aria-label="${escapeHtml(t.clearSearchLabel)}" title="${escapeHtml(t.clearSearchLabel)}">
                   <i data-lucide="x"></i>
                 </button>`
               : ''
@@ -855,6 +869,7 @@ const bindEvents = () => {
   document.querySelector('#clear-search-btn')?.addEventListener('click', () => {
     state.query = '';
     render();
+    document.querySelector<HTMLInputElement>('#search-input')?.focus();
   });
 
   // Reset Filters
