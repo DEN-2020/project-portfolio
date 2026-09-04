@@ -447,7 +447,7 @@ export const projects: Project[] = [
       en: 'Live Health Portal',
       ru: 'Работает онлайн',
     },
-    siteUrl: 'https://verdant-dusk-c3c590.netlify.app/',
+    siteUrl: 'https://nizam-al-tayyibat.pages.dev/',
     summary: {
       en: 'Interactive informational wellness portal with nutrition content, recipe tools, onboarding, and responsive reading interfaces.',
       ru: 'Интерактивный информационный wellness-портал с материалами о питании, рецептами, онбордингом и адаптивным интерфейсом чтения.',
@@ -931,7 +931,7 @@ export const projects: Project[] = [
       en: 'Live Landing Page',
       ru: 'Работает онлайн',
     },
-    siteUrl: 'https://volumepilot.netlify.app/',
+    siteUrl: 'https://volumepilot.pages.dev/',
     summary: {
       en: 'Modern showcase landing page for the VolumePilot audio ducking utility featuring interactive waveform animations, feature breakdowns, and direct downloads.',
       ru: 'Промо-сайт для утилиты VolumePilot с интерактивной анимацией аудио-волн, описанием преимуществ авто-дакинга и ссылкой на загрузку.',
