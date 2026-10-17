@@ -79,6 +79,8 @@ export interface TranslationDict {
   clickToExpand: string;
   projectCount: string;
   projectsCount: string;
+  completionLabel: string;
+  completionHint: string;
 }
 
 export const translations: Record<Language, TranslationDict> = {
@@ -163,6 +165,8 @@ export const translations: Record<Language, TranslationDict> = {
     clickToExpand: 'Нажмите для увеличения скриншота',
     projectCount: 'проект',
     projectsCount: 'проектов',
+    completionLabel: 'Примерная готовность',
+    completionHint: 'Оценка текущей зрелости проекта, а не точный план разработки',
   },
   en: {
     brandTitle: 'DEN-2020',
@@ -245,5 +249,7 @@ export const translations: Record<Language, TranslationDict> = {
     clickToExpand: 'Click to view full screenshot',
     projectCount: 'Project',
     projectsCount: 'Projects',
+    completionLabel: 'Estimated readiness',
+    completionHint: 'An approximate product-maturity estimate, not a delivery commitment',
   },
 };

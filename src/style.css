@@ -1022,6 +1022,48 @@ svg {
   overflow: hidden;
 }
 
+.project-progress {
+  display: grid;
+  gap: 6px;
+  padding: 9px 10px;
+  border: 1px solid rgba(125, 211, 252, 0.14);
+  border-radius: var(--radius-sm);
+  background: rgba(14, 165, 233, 0.045);
+}
+
+.project-progress__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-secondary);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.project-progress__meta strong {
+  color: #7dd3fc;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.project-progress__track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: rgba(148, 163, 184, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.08);
+}
+
+.project-progress__fill {
+  display: block;
+  width: var(--project-progress);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee 62%, #34d399);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.24);
+}
+
 /* Local Info Strip (Dev Mode only) */
 .dev-meta-strip {
   display: flex;

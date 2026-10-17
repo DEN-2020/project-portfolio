@@ -53,6 +53,7 @@ import secondImg2 from './assets/screenshots/second-2.png';
 import secondImg3 from './assets/screenshots/second-3.png';
 import crawlveroDesktop from './assets/screenshots/crawlvero-desktop.webp';
 import crawlveroMobile from './assets/screenshots/crawlvero-mobile.webp';
+import emojiArcadeImg from './assets/screenshots/emoji-arcade.webp';
 import tvImg from './assets/screenshots/tv.svg';
 import videogenEn1 from './assets/screenshots/videogen-en-1.png';
 import videogenEn2 from './assets/screenshots/videogen-en-2.png';
@@ -173,6 +174,8 @@ export interface Project {
   visibility: ProjectVisibility;
   sourceVisibility?: SourceVisibility;
   demoStatus: DemoStatus;
+  /** Approximate product maturity shown in the portfolio, not a delivery commitment. */
+  completion?: number;
   previewKind?: PreviewKind;
   thumbnail: Record<Language, string>;
   screenshots?: Record<Language, string[]>;
@@ -1621,6 +1624,74 @@ export const projects: Project[] = [
       ru: [
         'Опубликованы адаптивные версии на Cloudflare Pages и GitHub Pages с автоматическими проверками типов, расчётов, размещения, истории, синхронизации и экспорта.',
         'Публичный статический конструктор остаётся работоспособным без опционального приватного сервиса синхронизации.',
+      ],
+    },
+  },
+
+  {
+    slug: 'emoji-arcade',
+    name: {
+      en: 'Emoji Arcade',
+      ru: 'Emoji Arcade (мини-игры)',
+    },
+    category: 'ai-3d-gamedev',
+    type: 'game',
+    visibility: 'local-only',
+    sourceVisibility: 'local-only',
+    demoStatus: 'preparing',
+    completion: 60,
+    previewKind: 'actual',
+    thumbnail: {
+      en: emojiArcadeImg,
+      ru: emojiArcadeImg,
+    },
+    screenshots: {
+      en: [emojiArcadeImg],
+      ru: [emojiArcadeImg],
+    },
+    badge: {
+      en: 'Local Prototype',
+      ru: 'Локальный прототип',
+    },
+    summary: {
+      en: 'A local browser arcade hub containing six lightweight emoji-based mini-games.',
+      ru: 'Локальный браузерный аркадный хаб с шестью небольшими мини-играми на основе эмодзи.',
+    },
+    purpose: {
+      en: 'An experimental collection for testing responsive game interfaces, pointer and keyboard controls, scoring loops, and small canvas-based mechanics without a backend.',
+      ru: 'Экспериментальная коллекция для проверки адаптивных игровых интерфейсов, управления мышью, касанием и клавиатурой, игровых циклов со счётом и небольших canvas-механик без бэкенда.',
+    },
+    features: {
+      en: [
+        'Six playable prototypes: Emoji Ninja, Collector, Jump, Memory, Space, and Snake.',
+        'Pointer, touch, and keyboard interaction patterns suited to desktop and mobile browsers.',
+        'Score and game-over flows, with a locally stored best score in Emoji Collector.',
+        'Shared dark arcade hub with direct navigation to each standalone game.',
+      ],
+      ru: [
+        'Шесть игровых прототипов: Emoji Ninja, Collector, Jump, Memory, Space и Snake.',
+        'Управление мышью, касанием и клавиатурой для настольных и мобильных браузеров.',
+        'Счёт и сценарии завершения игры; в Emoji Collector лучший результат сохраняется локально.',
+        'Общий тёмный аркадный хаб с переходами к каждой отдельной игре.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'Buildless HTML, CSS, and JavaScript; Phaser 3 powers selected games while others use the Canvas 2D API and DOM interactions.',
+        'The suite remains local-only and still needs content cleanup, consistent navigation, testing, and production asset bundling before publication.',
+      ],
+      ru: [
+        'HTML, CSS и JavaScript без сборщика; часть игр работает на Phaser 3, остальные используют Canvas 2D API и DOM-взаимодействия.',
+        'Набор пока доступен только локально: перед публикацией нужны правки контента, единая навигация, тестирование и локальная сборка зависимостей.',
+      ],
+    },
+    stack: ['HTML', 'JavaScript', 'Canvas 2D', 'Phaser 3', 'Tailwind CSS'],
+    outcomes: {
+      en: [
+        'Produced a functional multi-game prototype and a reusable visual hub while keeping unfinished source and local files private.',
+      ],
+      ru: [
+        'Создан работоспособный прототип из нескольких игр и общая визуальная витрина без публикации незавершённых исходников и локальных файлов.',
       ],
     },
   },

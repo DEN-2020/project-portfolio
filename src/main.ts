@@ -104,6 +104,17 @@ const getStatusInfo = (p: Project, lang: Language) => {
   }
 };
 
+const DEFAULT_COMPLETION_BY_STATUS: Record<DemoStatus, number> = {
+  live: 90,
+  ready: 80,
+  source: 70,
+  preparing: 55,
+  internal: 70,
+};
+
+const getProjectCompletion = (project: Project) =>
+  Math.round(Math.max(0, Math.min(100, project.completion ?? DEFAULT_COMPLETION_BY_STATUS[project.demoStatus])));
+
 const getSourceVisibility = (project: Project): SourceVisibility => {
   if (project.sourceVisibility) return project.sourceVisibility;
   if (project.repo && project.githubUrl) return 'public';
@@ -234,6 +245,7 @@ const renderProjectCard = (p: Project) => {
   const hasPublicSource =
     (sourceInfo.visibility === 'public' || sourceInfo.visibility === 'mixed') && Boolean(p.repo && p.githubUrl);
   const images = p.screenshots?.[lang]?.length ? p.screenshots[lang] : [p.thumbnail[lang] || p.thumbnail.en];
+  const completion = getProjectCompletion(p);
 
   return `
     <article class="project-card" data-slug="${escapeHtml(p.slug)}">
@@ -307,6 +319,23 @@ const renderProjectCard = (p: Project) => {
 
         <p class="project-card__summary">${escapeHtml(p.summary[lang])}</p>
         <p class="project-card__purpose">${escapeHtml(p.purpose[lang])}</p>
+
+        <div class="project-progress" title="${escapeHtml(t.completionHint)}">
+          <div class="project-progress__meta">
+            <span>${t.completionLabel}</span>
+            <strong>~${completion}%</strong>
+          </div>
+          <div
+            class="project-progress__track"
+            role="progressbar"
+            aria-label="${escapeHtml(t.completionLabel)}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="${completion}"
+          >
+            <span class="project-progress__fill" style="--project-progress: ${completion}%"></span>
+          </div>
+        </div>
 
         ${renderCompanionStrip(p, lang)}
 
