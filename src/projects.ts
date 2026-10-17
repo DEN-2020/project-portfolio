@@ -9,6 +9,8 @@ import hunyuan3dImg from './assets/screenshots/hunyuan3d.svg';
 import kidsTrackerEn1 from './assets/screenshots/kids-tracker-en-1.png';
 import kidsTrackerEn2 from './assets/screenshots/kids-tracker-en-2.png';
 import kidsTrackerEn3 from './assets/screenshots/kids-tracker-en-3.png';
+import kitchenCadDesktop from './assets/screenshots/kitchen-cad-desktop.webp';
+import kitchenCadMobile from './assets/screenshots/kitchen-cad-mobile.webp';
 import kineticFitDesktop from './assets/screenshots/kineticfit-desktop.webp';
 import kineticFitMobile from './assets/screenshots/kineticfit-mobile.webp';
 import kineticFitWorkout from './assets/screenshots/kineticfit-workout.webp';
@@ -38,6 +40,8 @@ import nizamPortalRu1 from './assets/screenshots/nizam-portal-ru-1.png';
 import nizamPortalRu2 from './assets/screenshots/nizam-portal-ru-2.png';
 import nizamPortalRu3 from './assets/screenshots/nizam-portal-ru-3.png';
 import profitCalcImg from './assets/screenshots/profit-calc.png';
+import pocketRatesDesktop from './assets/screenshots/pocket-rates-desktop.webp';
+import pocketRatesMobile from './assets/screenshots/pocket-rates-mobile.webp';
 import robloxAssetPipelineConcept from './assets/screenshots/roblox-asset-pipeline-concept.webp';
 import robloxSpace1 from './assets/screenshots/roblox-space-1.png';
 import robloxSpace2 from './assets/screenshots/roblox-space-2.png';
@@ -128,12 +132,12 @@ export const CATEGORIES: CategoryInfo[] = [
   {
     id: 'ai-3d-gamedev',
     title: {
-      en: 'AI, 3D Pipelines & Game Dev',
-      ru: 'ИИ, 3D-пайплайны и разработка игр',
+      en: 'AI, CAD, 3D & Game Dev',
+      ru: 'ИИ, CAD, 3D и разработка игр',
     },
     subtitle: {
-      en: 'Generative 3D neural mesh pipelines, Blender modeling, and Roblox arcade games',
-      ru: 'Генеративные 3D-нейросети, Blender-пайплайны и аркадные игры на Roblox',
+      en: 'Parametric CAD, generative 3D pipelines, Blender tooling, and Roblox games',
+      ru: 'Параметрический CAD, генеративные 3D-пайплайны, Blender-инструменты и игры Roblox',
     },
     icon: 'sparkles',
   },
@@ -474,12 +478,12 @@ export const projects: Project[] = [
       en: [
         'Built with React, TypeScript, Tailwind CSS, Lucide icons, and modern responsive flex/grid layouts.',
         'Client-side navigation and filtering across structured informational sections.',
-        'The current public demo is deployed on Netlify; its source repository remains private.',
+        'The current public demo is deployed on Cloudflare Pages; its source repository remains private.',
       ],
       ru: [
         'Стек: React, TypeScript, Tailwind CSS, Lucide Icons и адаптивная верстка.',
         'Клиентская навигация и фильтрация по структурированным информационным разделам.',
-        'Текущая публичная демо-версия размещена на Netlify; репозиторий исходников остаётся закрытым.',
+        'Текущая публичная демо-версия размещена на Cloudflare Pages; репозиторий исходников остаётся закрытым.',
       ],
     },
     stack: ['React 19', 'TypeScript', 'Vite 6', 'Tailwind CSS 4', 'Responsive UI'],
@@ -628,6 +632,82 @@ export const projects: Project[] = [
   },
 
   // 2. FinTech & Analytics Calculators
+  {
+    slug: 'pocket-rates-pwa',
+    name: {
+      en: 'Pocket Rates PWA',
+      ru: 'Pocket Rates (Конвертер валют)',
+    },
+    category: 'calculators',
+    type: 'calculator',
+    visibility: 'public',
+    sourceVisibility: 'public',
+    demoStatus: 'live',
+    previewKind: 'actual',
+    thumbnail: {
+      en: pocketRatesDesktop,
+      ru: pocketRatesDesktop,
+    },
+    screenshots: {
+      en: [pocketRatesDesktop, pocketRatesMobile],
+      ru: [pocketRatesDesktop, pocketRatesMobile],
+    },
+    badge: {
+      en: 'Live Offline-Ready PWA',
+      ru: 'Работающий PWA с офлайн-режимом',
+    },
+    repo: 'DEN-2020/pocket-rates-pwa',
+    githubUrl: 'https://github.com/DEN-2020/pocket-rates-pwa',
+    siteUrl: 'https://den-2020.github.io/pocket-rates-pwa/',
+    summary: {
+      en: 'Mobile-first fiat and crypto converter with multi-currency rows, a safe calculator, historical charts, and honest cached-rate offline behavior.',
+      ru: 'Мобильный PWA-конвертер фиатных и криптовалют с несколькими валютными строками, безопасным калькулятором, историческими графиками и честным офлайн-режимом на сохранённых курсах.',
+    },
+    purpose: {
+      en: 'A fast static-hosted conversion tool that keeps provider provenance, quote semantics, freshness, and stale states visible instead of presenting every rate as interchangeable real-time truth.',
+      ru: 'Быстрый конвертер для статического хостинга, который явно показывает источник, тип курса, время обновления и устаревшее состояние данных, не выдавая любые котировки за одинаково точные данные реального времени.',
+    },
+    features: {
+      en: [
+        'Any selected currency row can become the active input; currencies can be searched, replaced, reordered, added, or removed.',
+        'Decimal calculation kernel and constrained expression parser support arithmetic, parentheses, sign changes, and calculator-style percentages without eval.',
+        'Frankfurter fiat snapshots and an optional CoinGecko crypto pilot are normalized behind provider adapters with visible attribution and partial-failure handling.',
+        'Historical fiat charts support multiple periods, pair swapping, real coverage dates, and source-based min/max/change statistics.',
+        'Installable PWA shell, IndexedDB preferences and snapshots, offline cached conversion, update prompts, and light/dark/system themes.',
+      ],
+      ru: [
+        'Любая выбранная валютная строка становится активным вводом; валюты можно искать, заменять, менять местами, добавлять и удалять.',
+        'Точное десятичное ядро и ограниченный парсер выражений поддерживают арифметику, скобки, смену знака и привычные проценты без использования eval.',
+        'Фиатные данные Frankfurter и пилотная интеграция CoinGecko нормализуются через адаптеры провайдеров с атрибуцией и обработкой частичных сбоев.',
+        'Исторические графики фиатных пар поддерживают разные периоды, смену пары, реальные даты покрытия и статистику по данным источника.',
+        'Устанавливаемая PWA-оболочка, IndexedDB для настроек и снимков курсов, офлайн-конвертация, обновления приложения и светлая/тёмная/системная темы.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'React 19, TypeScript 5.9, Vite 8, decimal.js-light, Lightweight Charts, Workbox, and Vitest.',
+        'Domain logic, provider adapters, storage adapters, and UI features are separated so provider response formats do not leak into presentation code.',
+        'The public client contains no provider secrets; the keyless crypto source is treated as a limited pilot rather than production polling infrastructure.',
+      ],
+      ru: [
+        'Стек: React 19, TypeScript 5.9, Vite 8, decimal.js-light, Lightweight Charts, Workbox и Vitest.',
+        'Доменная логика, адаптеры провайдеров, хранилище и UI разделены, поэтому формат ответа конкретного API не проникает в компоненты интерфейса.',
+        'Публичный клиент не содержит ключей провайдеров; keyless-источник криптоданных используется как ограниченный пилот, а не как production-инфраструктура частого опроса.',
+      ],
+    },
+    stack: ['React 19', 'TypeScript', 'Vite 8', 'PWA / Workbox', 'IndexedDB', 'decimal.js-light', 'Lightweight Charts'],
+    outcomes: {
+      en: [
+        'Published a tested GitHub Pages build with provider-aware conversion, offline fallback, and a mobile-first interaction model.',
+        'CI verifies type safety, unit tests, and the production build on every main-branch update.',
+      ],
+      ru: [
+        'Опубликована проверенная версия на GitHub Pages с учётом источников курсов, офлайн-резервом и mobile-first интерфейсом.',
+        'CI проверяет типы, модульные тесты и production-сборку при каждом обновлении основной ветки.',
+      ],
+    },
+  },
+
   {
     slug: 'calc',
     name: {
@@ -957,14 +1037,14 @@ export const projects: Project[] = [
     technicalNotes: {
       en: [
         'Developed with React 19, TypeScript, Vite 6, Tailwind CSS 4, and Motion.',
-        'Built and deployed as a static marketing site on Netlify.',
+        'Built as a static marketing site on Cloudflare Pages; the release installer is delivered separately from Cloudflare R2.',
       ],
       ru: [
         'Стек: React 19, TypeScript, Vite 6, Tailwind CSS 4 и Motion.',
-        'Статическая сборка и размещение промо-сайта на Netlify.',
+        'Статический промо-сайт размещён на Cloudflare Pages, а установщик выпуска доставляется отдельно из Cloudflare R2.',
       ],
     },
-    stack: ['React 19', 'TypeScript', 'Vite 6', 'Tailwind CSS 4', 'Motion', 'Netlify'],
+    stack: ['React 19', 'TypeScript', 'Vite 6', 'Tailwind CSS 4', 'Motion', 'Cloudflare Pages', 'Cloudflare R2'],
     outcomes: {
       en: [
         'Provides a dedicated public product presentation separate from the private desktop source repository.',
@@ -1377,7 +1457,83 @@ export const projects: Project[] = [
     },
   },
 
-  // 5. AI, 3D Pipelines & Game Dev
+  // 5. AI, CAD, 3D Pipelines & Game Dev
+  {
+    slug: 'kitchen-cad',
+    name: {
+      en: 'Kitchen CAD (Furniture CAD)',
+      ru: 'Kitchen CAD (Конструктор мебели)',
+    },
+    category: 'ai-3d-gamedev',
+    type: 'tooling',
+    visibility: 'public',
+    sourceVisibility: 'public',
+    demoStatus: 'live',
+    previewKind: 'actual',
+    thumbnail: {
+      en: kitchenCadDesktop,
+      ru: kitchenCadDesktop,
+    },
+    screenshots: {
+      en: [kitchenCadDesktop, kitchenCadMobile],
+      ru: [kitchenCadDesktop, kitchenCadMobile],
+    },
+    badge: {
+      en: 'Live Parametric CAD',
+      ru: 'Параметрический CAD онлайн',
+    },
+    repo: 'DEN-2020/kitchen-cad',
+    githubUrl: 'https://github.com/DEN-2020/kitchen-cad',
+    siteUrl: 'https://kitchen-cad.pages.dev/',
+    summary: {
+      en: 'Browser-based parametric kitchen and furniture designer with interactive 3D editing, dimensional validation, preliminary cut lists, and production-oriented exports.',
+      ru: 'Браузерный параметрический конструктор кухонь и мебели с интерактивным 3D-редактированием, проверкой размеров, предварительной деталировкой и производственными экспортами.',
+    },
+    purpose: {
+      en: 'A mobile-first planning prototype built around one shared project model for scene geometry, dimensions, collision warnings, parts, costing, and export. It assists design work but is not presented as a certified CAD/CAM system.',
+      ru: 'Mobile-first прототип для проектирования на единой модели данных: геометрия сцены, размеры, предупреждения, детали, смета и экспорт. Инструмент помогает планированию, но не выдаётся за сертифицированную CAD/CAM-систему.',
+    },
+    features: {
+      en: [
+        'Editable room dimensions and direct 3D selection, movement, camera rotation, zoom, front view, and top view.',
+        'Parametric cabinets, sink and appliance modules, door configurations, fronts, handles, legs, materials, and segmented countertops.',
+        'Visual warnings for room-boundary violations, collisions, countertop coverage, and oversized built-in fixtures.',
+        'Dimension overlays, exploded view, preliminary parts and workshop lists, CSV, JSON, PNG, and multi-page PDF export.',
+        'Autosave, an 80-step undo/redo history, safe project import, and optional conflict-aware synchronization with a local PC service.',
+      ],
+      ru: [
+        'Редактируемые размеры комнаты, выбор и перемещение объектов прямо в 3D-сцене, вращение камеры, масштаб, вид спереди и сверху.',
+        'Параметрические шкафы, мойки и техника, конфигурации створок, фасады, ручки, ножки, материалы и сегментные столешницы.',
+        'Визуальные предупреждения о выходе за границы комнаты, пересечениях, ошибках перекрытия столешницей и слишком крупных встраиваемых элементах.',
+        'Размерные линии, разобранный вид, предварительная деталировка и цеховые списки, экспорт CSV, JSON, PNG и многостраничного PDF.',
+        'Автосохранение, история undo/redo до 80 шагов, безопасный импорт проекта и опциональная синхронизация с локальным ПК с обнаружением конфликтов.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'React 19, TypeScript 5.9, Three.js, React Three Fiber, Vite, Cloudflare Pages, and Node.js test suites.',
+        'Calculation formulas live in the core domain rather than UI components, allowing visualization changes without silently changing manufacturing dimensions.',
+        'The optional SQLite sync service binds to localhost and uses a secret from an ignored local environment file; neither the database nor its key is included in the public client.',
+      ],
+      ru: [
+        'Стек: React 19, TypeScript 5.9, Three.js, React Three Fiber, Vite, Cloudflare Pages и тесты на Node.js.',
+        'Расчётные формулы находятся в доменном ядре, а не в UI, поэтому изменение темы или 3D-визуализации не должно незаметно менять производственные размеры.',
+        'Опциональный сервис синхронизации SQLite слушает localhost и использует секрет из игнорируемого локального env-файла; база и ключ не входят в публичный клиент.',
+      ],
+    },
+    stack: ['React 19', 'TypeScript', 'Three.js', 'React Three Fiber', 'Parametric Geometry', 'Cloudflare Pages', 'SQLite Sync'],
+    outcomes: {
+      en: [
+        'Published responsive Cloudflare Pages and GitHub Pages builds backed by automated type, calculation, placement, history, sync, and export tests.',
+        'Kept the public static designer usable without the optional private synchronization service.',
+      ],
+      ru: [
+        'Опубликованы адаптивные версии на Cloudflare Pages и GitHub Pages с автоматическими проверками типов, расчётов, размещения, истории, синхронизации и экспорта.',
+        'Публичный статический конструктор остаётся работоспособным без опционального приватного сервиса синхронизации.',
+      ],
+    },
+  },
+
   {
     slug: 'roblox-asset-pipeline',
     name: {
