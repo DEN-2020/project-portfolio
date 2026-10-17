@@ -49,7 +49,8 @@ import robloxSpace3 from './assets/screenshots/roblox-space-3.png';
 import secondImg1 from './assets/screenshots/second-1.png';
 import secondImg2 from './assets/screenshots/second-2.png';
 import secondImg3 from './assets/screenshots/second-3.png';
-import seoStudioConcept from './assets/screenshots/seo-studio-concept.webp';
+import crawlveroDesktop from './assets/screenshots/crawlvero-desktop.webp';
+import crawlveroMobile from './assets/screenshots/crawlvero-mobile.webp';
 import tvImg from './assets/screenshots/tv.svg';
 import videogenEn1 from './assets/screenshots/videogen-en-1.png';
 import videogenEn2 from './assets/screenshots/videogen-en-2.png';
@@ -1747,72 +1748,75 @@ export const projects: Project[] = [
   {
     slug: 'seo-studio',
     name: {
-      en: 'SEO Studio',
-      ru: 'SEO Studio (SEO Operating System)',
+      en: 'Crawlvero (SEO Studio)',
+      ru: 'Crawlvero (SEO-платформа)',
     },
     category: 'web-platforms',
     type: 'ecosystem',
-    visibility: 'private',
+    visibility: 'public',
     sourceVisibility: 'private',
-    demoStatus: 'internal',
-    previewKind: 'concept',
+    demoStatus: 'live',
+    previewKind: 'actual',
     thumbnail: {
-      en: seoStudioConcept,
-      ru: seoStudioConcept,
+      en: crawlveroDesktop,
+      ru: crawlveroDesktop,
     },
     screenshots: {
-      en: [seoStudioConcept],
-      ru: [seoStudioConcept],
+      en: [crawlveroDesktop, crawlveroMobile],
+      ru: [crawlveroDesktop, crawlveroMobile],
     },
     badge: {
-      en: 'Self-hosted SEO OS',
-      ru: 'Self-hosted SEO OS',
+      en: 'Public SaaS Preview',
+      ru: 'Публичное SaaS-превью',
     },
+    siteUrl: 'https://crawlvero.com/',
     summary: {
-      en: 'Private local-first SEO operating system with deep audits, analytics, recommendation workflows, multi-tenant workspaces, and reusable agent-facing capabilities.',
-      ru: 'Приватная local-first SEO-платформа с глубокими аудитами, аналитикой, рабочим процессом рекомендаций, multi-tenant пространствами и возможностями для AI-агентов.',
+      en: 'Public technical SEO platform for evidence-backed audits, monitoring, prioritized remediation workflows, reports, and controlled access for compatible AI agents.',
+      ru: 'Публичная платформа технического SEO-аудита с доказательными находками, мониторингом, приоритетным планом исправлений, отчётами и контролируемым доступом для совместимых AI-агентов.',
     },
     purpose: {
-      en: 'A self-hostable, SaaS-ready platform that separates product UI, REST APIs, durable background jobs, storage, and MCP integrations behind portable application boundaries.',
-      ru: 'Self-hostable и SaaS-ready платформа, разделяющая интерфейс, REST API, фоновые задания, хранилище и MCP-интеграции через переносимые границы приложения.',
+      en: 'A public product preview at crawlvero.com backed by private source code. The architecture separates the human UI, REST APIs, durable background jobs, storage, and MCP integrations while keeping costly or mutating agent actions behind permissions and quotas.',
+      ru: 'Публичное превью продукта на crawlvero.com с приватными исходниками. Архитектура разделяет интерфейс, REST API, фоновые задания, хранилище и MCP-интеграции, а ресурсоёмкие или изменяющие действия агентов оставляет под разрешениями и квотами.',
     },
     features: {
       en: [
-        'Product-depth audit engine with 22 rules, a search-appearance lab, crawled-pages explorer, analytics dashboard, and recommendation workflow.',
-        'Adaptive multilingual application shell covering projects, audits, performance, recommendations, workspaces, users, and settings.',
-        'Independent Fastify API and lease-aware background worker with tenant-isolation and durable PostgreSQL persistence.',
-        'Workspace and project tenancy with roles, RBAC, quotas, audit trails, and secure HttpOnly session handling.',
-        'Modular audit capabilities reusable by Web, REST, MCP, and future integrations.',
+        'Technical crawl and audit workflows covering indexability, canonical tags, titles, links, images, sitemaps, and Lighthouse checks.',
+        'Evidence-rich findings, run history, comparisons, crawled-page exploration, prioritized remediation tasks, and protected PDF reports.',
+        'Public multilingual product pages plus account-based access to the live preview; payments are intentionally not enabled yet.',
+        'Read-only OAuth MCP pilot and local MCP tools expose the same evidence model to compatible AI agents.',
+        'Tenant isolation, SSRF protection, quotas, queues, audit trails, and explicit permissions guard costly or state-changing operations.',
       ],
       ru: [
-        'Углублённый аудит по 22 правилам, лаборатория поискового сниппета, просмотр просканированных страниц, аналитический дашборд и workflow рекомендаций.',
-        'Адаптивная многоязычная оболочка для проектов, аудитов, производительности, рекомендаций, рабочих пространств, пользователей и настроек.',
-        'Независимые Fastify API и lease-aware background worker с изоляцией tenants и надёжным хранением в PostgreSQL.',
-        'Тенантность рабочих пространств и проектов с ролями, RBAC, квотами, журналом действий и безопасными HttpOnly-сессиями.',
-        'Модульные аудиты, переиспользуемые в Web, REST, MCP и будущих интеграциях.',
+        'Технический обход и аудит индексируемости, canonical, Title, ссылок, изображений, sitemap и показателей Lighthouse.',
+        'Находки с доказательствами, история и сравнение запусков, просмотр просканированных страниц, приоритетные задачи и защищённые PDF-отчёты.',
+        'Публичные многоязычные страницы продукта и доступ к рабочему превью через аккаунт; реальные платежи пока намеренно отключены.',
+        'Read-only OAuth MCP-пилот и локальные MCP-инструменты передают совместимым AI-агентам ту же модель доказательств.',
+        'Изоляция tenants, SSRF-защита, квоты, очереди, журнал действий и явные разрешения защищают ресурсоёмкие и изменяющие операции.',
       ],
     },
     technicalNotes: {
       en: [
         'TypeScript monorepo with Next.js 16, Fastify 5, PostgreSQL, Prisma 7, Zod, next-intl, Tailwind CSS 4, and Vitest.',
-        'Better Auth uses HttpOnly sessions; provider-specific services remain isolated behind adapters and the private project is not approved for public deployment.',
+        'Better Auth uses HttpOnly sessions; the public product is deployed while its repository, credentials, tenant data, and operational services remain private.',
+        'The hosted MCP endpoint currently uses OAuth in read-only pilot mode; mutating and resource-intensive actions stay permission- and quota-gated.',
         'CI includes a Node 24 release gate covering type checks, tests, security checks, and production builds.',
       ],
       ru: [
         'TypeScript-монорепозиторий на Next.js 16, Fastify 5, PostgreSQL, Prisma 7, Zod, next-intl, Tailwind CSS 4 и Vitest.',
-        'Better Auth использует HttpOnly-сессии; провайдеры изолированы адаптерами, а приватный проект пока не допущен к публичному деплою.',
+        'Better Auth использует HttpOnly-сессии; публично развёрнут сам продукт, а репозиторий, секреты, tenant-данные и операционные сервисы остаются приватными.',
+        'Размещённая MCP-точка сейчас работает через OAuth в read-only пилоте; изменяющие и ресурсоёмкие действия ограничены разрешениями и квотами.',
         'CI включает release gate на Node 24 с проверками типов, тестами, security-проверками и production-сборкой.',
       ],
     },
     stack: ['Next.js 16', 'Fastify 5', 'TypeScript', 'PostgreSQL', 'Prisma 7', 'MCP', 'Vitest'],
     outcomes: {
       en: [
-        'Established an active private implementation with separate web, API, worker, database, UI, and documentation layers.',
-        'Completed the identity, tenancy, RBAC, analytics, and product-depth foundations needed for a SaaS-ready workflow.',
+        'Published the multilingual product and live preview on crawlvero.com while keeping the source repository private.',
+        'Delivered a shared, auditable evidence layer for the Web UI, reports, API, and compatible AI-agent workflows.',
       ],
       ru: [
-        'Создана активная приватная реализация с отдельными слоями web, API, worker, базы данных, интерфейса и документации.',
-        'Завершена базовая реализация identity, tenancy, RBAC, аналитики и углублённых продуктовых сценариев для SaaS-ready workflow.',
+        'Многоязычный продукт и рабочее превью опубликованы на crawlvero.com, при этом репозиторий исходников остаётся приватным.',
+        'Создан единый проверяемый слой доказательств для веб-интерфейса, отчётов, API и сценариев совместимых AI-агентов.',
       ],
     },
   },
