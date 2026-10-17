@@ -42,6 +42,8 @@ import nizamPortalRu3 from './assets/screenshots/nizam-portal-ru-3.png';
 import profitCalcImg from './assets/screenshots/profit-calc.png';
 import pocketRatesDesktop from './assets/screenshots/pocket-rates-desktop.webp';
 import pocketRatesMobile from './assets/screenshots/pocket-rates-mobile.webp';
+import pdfEditorDesktop from './assets/screenshots/pdf-editor-desktop.webp';
+import pdfEditorMobile from './assets/screenshots/pdf-editor-mobile.webp';
 import robloxAssetPipelineConcept from './assets/screenshots/roblox-asset-pipeline-concept.webp';
 import robloxSpace1 from './assets/screenshots/roblox-space-1.png';
 import robloxSpace2 from './assets/screenshots/roblox-space-2.png';
@@ -122,11 +124,11 @@ export const CATEGORIES: CategoryInfo[] = [
     id: 'mobile-apps',
     title: {
       en: 'Mobile & Productivity Systems',
-      ru: 'Мобильная разработка и трекеры',
+      ru: 'Мобильные и прикладные системы',
     },
     subtitle: {
-      en: 'Gamified habit trackers, Firebase real-time sync, reward economies, and Android apps',
-      ru: 'Геймифицированные трекеры привычек, Firebase Firestore и Android-приложения',
+      en: 'Cross-platform productivity tools, local-first desktop software, real-time sync, and Android apps',
+      ru: 'Кроссплатформенные инструменты, локальные desktop-приложения, синхронизация и Android-разработка',
     },
     icon: 'smartphone',
   },
@@ -1319,6 +1321,94 @@ export const projects: Project[] = [
       ],
       ru: [
         'Собран приватный 3D-фитнес MVP с переиспользуемыми комплексами, анимированными подсказками и адаптацией от мобильного экрана до ТВ.',
+      ],
+    },
+  },
+
+  {
+    slug: 'pdf-editor',
+    name: {
+      en: 'PDF Editor',
+      ru: 'PDF Editor (локальный редактор PDF)',
+    },
+    category: 'mobile-apps',
+    type: 'app',
+    visibility: 'public',
+    sourceVisibility: 'local-only',
+    demoStatus: 'live',
+    previewKind: 'actual',
+    thumbnail: {
+      en: pdfEditorDesktop,
+      ru: pdfEditorDesktop,
+    },
+    screenshots: {
+      en: [pdfEditorDesktop, pdfEditorMobile],
+      ru: [pdfEditorDesktop, pdfEditorMobile],
+    },
+    badge: {
+      en: 'Live Downloads · v1.0',
+      ru: 'Публичные сборки · v1.0',
+    },
+    siteUrl: 'https://pdf.crawlvero.com/',
+    companion: {
+      label: {
+        en: 'Crawlvero Product Family',
+        ru: 'Экосистема Crawlvero',
+      },
+      url: 'https://crawlvero.com/',
+      type: 'site',
+      note: {
+        en: 'A standalone local-first document tool with its own release channel and MCP server',
+        ru: 'Самостоятельный local-first инструмент с отдельными сборками и MCP-сервером',
+      },
+    },
+    summary: {
+      en: 'Offline-first PDF editor for Windows and Android with direct text-operator replacement, page tools, atomic saving, and a local MCP interface for authorized AI workflows.',
+      ru: 'Offline-first редактор PDF для Windows и Android с прямой заменой текстовых операторов, инструментами страниц, атомарным сохранением и локальным MCP-интерфейсом для разрешённых AI-сценариев.',
+    },
+    purpose: {
+      en: 'A compact document utility that keeps PDF processing on the user device instead of requiring uploads to a third-party cloud. The public site provides multilingual product information and direct release downloads; the implementation remains local-only.',
+      ru: 'Компактная утилита для обработки PDF на устройстве пользователя без обязательной загрузки документов в стороннее облако. Публичный многоязычный сайт предоставляет описание и прямые загрузки релизов, а исходная реализация остаётся локальной.',
+    },
+    features: {
+      en: [
+        'Direct replacement of PDF Tj/TJ text operators instead of placing opaque patches over the original content.',
+        'Font and glyph resolution through ToUnicode data with metrically compatible Liberation or DejaVu fallbacks.',
+        'Multi-page viewing, page rotation, insertion and removal, text-focused selection, and adaptive zoom controls.',
+        'Atomic save workflow that writes and validates a temporary copy before replacing the destination file.',
+        'Bundled local stdio MCP server for reading, searching, and editing documents through bounded two-phase revisions.',
+        'Published Windows installer, portable ZIP, MSIX, Android APK, and Android App Bundle; iOS remains planned.',
+      ],
+      ru: [
+        'Прямая замена текстовых операторов Tj/TJ вместо непрозрачных плашек поверх исходного содержимого.',
+        'Разрешение шрифтов и глифов через ToUnicode с метрически совместимыми fallback-шрифтами Liberation или DejaVu.',
+        'Многостраничный просмотр, поворот, добавление и удаление страниц, текстовое выделение и адаптивный масштаб.',
+        'Атомарное сохранение: сначала создаётся и проверяется временная копия, затем заменяется конечный файл.',
+        'Локальный stdio MCP-сервер для чтения, поиска и редактирования документов через ограниченные двухфазные ревизии.',
+        'Опубликованы установщик Windows, portable ZIP, MSIX, Android APK и Android App Bundle; версия iOS пока запланирована.',
+      ],
+    },
+    technicalNotes: {
+      en: [
+        'Flutter and Dart application with shared document-core packages, PDFium-based rendering, and native Windows and Android packaging.',
+        'The Astro landing site is public, while the application source has no public GitHub repository and is classified as local-only.',
+        'The public release page exposes SHA-256 checksums for downloadable builds; private documents are designed to stay on the local device.',
+      ],
+      ru: [
+        'Приложение на Flutter и Dart с общими document-core пакетами, рендерингом на базе PDFium и нативной упаковкой для Windows и Android.',
+        'Лендинг на Astro опубликован, но у исходников приложения нет публичного GitHub-репозитория — они отмечены как локальные.',
+        'На странице релиза опубликованы SHA-256 checksums сборок; пользовательские документы по архитектуре остаются на локальном устройстве.',
+      ],
+    },
+    stack: ['Flutter', 'Dart', 'PDFium', 'Windows', 'Android', 'MCP', 'Astro'],
+    outcomes: {
+      en: [
+        'Published a multilingual product site and downloadable Windows and Android release artifacts on pdf.crawlvero.com.',
+        'Kept the durable document engine and AI automation surface local-first instead of making private files depend on a hosted UI.',
+      ],
+      ru: [
+        'На pdf.crawlvero.com опубликованы многоязычный сайт и готовые релизные сборки для Windows и Android.',
+        'Документное ядро и поверхность AI-автоматизации оставлены local-first, чтобы приватные файлы не зависели от облачного интерфейса.',
       ],
     },
   },
