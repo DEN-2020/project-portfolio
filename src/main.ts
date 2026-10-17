@@ -671,7 +671,9 @@ const render = () => {
       <div class="hero__badge-row">
         <span class="hero__badge">
           <i data-lucide="cpu"></i>
-          ${t.heroEyebrow}
+          <span class="hero__specialties">
+            ${t.heroEyebrow.split(' · ').map((specialty) => `<span>${escapeHtml(specialty)}</span>`).join('')}
+          </span>
         </span>
       </div>
 
@@ -686,15 +688,17 @@ const render = () => {
       <div class="hero__actions">
         <a class="btn btn--primary" href="#contact">
           <i data-lucide="mail"></i>
-          ${t.contactBtn}
+          <span>${t.contactBtn}</span>
         </a>
-        <a class="btn btn--secondary" href="#workspace">
+        <a class="btn btn--secondary" href="#workspace" aria-label="${escapeHtml(t.exploreCatalogBtn)} (${visible.length})">
           <i data-lucide="layout-grid"></i>
-          ${t.exploreCatalogBtn} (${visible.length})
+          <span class="label--wide">${t.exploreCatalogBtn} (${visible.length})</span>
+          <span class="label--compact">${lang === 'ru' ? 'Каталог' : 'Catalog'} (${visible.length})</span>
         </a>
-        <a class="btn btn--secondary" href="https://github.com/DEN-2020?tab=repositories" target="_blank" rel="noreferrer">
+        <a class="btn btn--secondary" href="https://github.com/DEN-2020?tab=repositories" target="_blank" rel="noreferrer" aria-label="${escapeHtml(t.githubReposBtn)}">
           <i data-lucide="external-link"></i>
-          ${t.githubReposBtn}
+          <span class="label--wide">${t.githubReposBtn}</span>
+          <span class="label--compact">GitHub</span>
         </a>
       </div>
     </section>
@@ -747,16 +751,17 @@ const render = () => {
 
       <!-- Filter Tabs -->
       <nav class="filter-tabs" aria-label="Category filters">
-        <button class="filter-tab ${state.categoryFilter === 'all' ? 'filter-tab--active' : ''}" type="button" data-category="all">
+        <button class="filter-tab ${state.categoryFilter === 'all' ? 'filter-tab--active' : ''}" type="button" data-category="all" aria-pressed="${state.categoryFilter === 'all'}">
           <i data-lucide="layers"></i>
           <span>${t.allCategoriesTab}</span>
           <span class="filter-tab__count">${modeProjects.length}</span>
         </button>
         ${CATEGORIES.map(
           (cat) => `
-          <button class="filter-tab ${state.categoryFilter === cat.id ? 'filter-tab--active' : ''}" type="button" data-category="${cat.id}">
+          <button class="filter-tab ${state.categoryFilter === cat.id ? 'filter-tab--active' : ''}" type="button" data-category="${cat.id}" aria-label="${escapeHtml(cat.title[lang])}" aria-pressed="${state.categoryFilter === cat.id}">
             <i data-lucide="${cat.icon}"></i>
-            <span>${escapeHtml(cat.title[lang])}</span>
+            <span class="label--wide">${escapeHtml(cat.title[lang])}</span>
+            <span class="label--compact">${escapeHtml(cat.shortTitle[lang])}</span>
             <span class="filter-tab__count">${modeProjects.filter((p) => p.category === cat.id).length}</span>
           </button>
         `,
@@ -796,7 +801,7 @@ const render = () => {
         <div>
           <strong>${t.footerBrand}</strong> · Full-Stack, FinTech & Media Systems.
         </div>
-        <div style="display: flex; gap: 14px; align-items: center;">
+        <div class="site-footer__links">
           <span>${state.visibilityMode === 'all' ? t.footerModeDev : t.footerModePublic}</span>
           <span>·</span>
           <a href="https://github.com/DEN-2020" target="_blank" rel="noreferrer" style="color: var(--accent-primary);">

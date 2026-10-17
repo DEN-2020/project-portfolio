@@ -314,6 +314,25 @@ svg {
   color: #7dd3fc;
 }
 
+.hero__badge > svg {
+  width: 18px;
+  height: 18px;
+}
+
+.hero__specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.hero__specialties > span {
+  white-space: nowrap;
+}
+
+.label--compact {
+  display: none;
+}
+
 .hero__title {
   font-size: clamp(34px, 4.5vw, 52px);
   font-weight: 900;
@@ -1675,6 +1694,14 @@ svg {
   flex-wrap: wrap;
 }
 
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  min-width: 0;
+}
+
 /* ==========================================================================
    RESPONSIVE BREAKPOINTS
    ========================================================================== */
@@ -1694,6 +1721,14 @@ svg {
 }
 
 @media (max-width: 768px) {
+  .site-footer__links > span:first-child {
+    flex-basis: 100%;
+  }
+
+  .site-footer__links > span:not(:first-child) {
+    display: none;
+  }
+
   .topbar {
     flex-direction: column;
     align-items: stretch;
@@ -1717,6 +1752,99 @@ svg {
     padding: 36px 16px 24px;
   }
 
+  .hero__badge {
+    width: 100%;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    font-size: 11px;
+  }
+
+  .hero__specialties {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex: 1;
+    gap: 8px;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .hero__description {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .hero__actions .btn {
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .hero__actions .btn--primary {
+    grid-column: 1 / -1;
+  }
+
+  .label--wide {
+    display: none;
+  }
+
+  .label--compact {
+    display: inline;
+  }
+
+  .filter-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--bg-card-border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+  }
+
+  .filter-tab {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    gap: 8px;
+    min-width: 0;
+    height: 64px;
+    padding: 10px;
+    border: 0;
+    border-top: 1px solid var(--bg-card-border);
+    border-radius: 0;
+    background: transparent;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .filter-tab:nth-child(even) {
+    border-right: 1px solid var(--bg-card-border);
+  }
+
+  .filter-tab[data-category='all'] {
+    grid-column: 1 / -1;
+    height: 48px;
+    border-top: 0;
+  }
+
+  .filter-tab > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .filter-tab--active {
+    background: var(--accent-primary-bg);
+    box-shadow: inset 3px 0 var(--accent-primary);
+  }
+
   .main-workspace {
     padding: 0 16px 60px;
   }
@@ -1727,7 +1855,27 @@ svg {
   }
 
   .search-field {
+    min-width: 0;
     max-width: 100%;
+  }
+
+  .view-switches,
+  .segmented-control {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .segmented-control__btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 6px;
+  }
+
+  .segmented-control__btn svg {
+    width: 18px;
+    height: 18px;
   }
 
   .category-header {
@@ -1788,7 +1936,34 @@ svg {
 
 @media (max-width: 480px) {
   .stats-grid {
-    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .stat-box {
+    gap: 8px;
+    min-width: 0;
+    padding: 12px 10px;
+  }
+
+  .stat-box__icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .stat-box__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .stat-box__content {
+    min-width: 0;
+  }
+
+  .stat-box__label {
+    font-size: 10px;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
   }
 
   .project-card__actions {
@@ -1829,6 +2004,14 @@ svg {
   box-shadow: var(--shadow-lg);
   color: var(--ink-primary);
   font-size: 14px;
+}
+
+@media (max-width: 360px) {
+  .filter-tab {
+    gap: 6px;
+    padding: 8px;
+    font-size: 11px;
+  }
 }
 
 .analytics-consent__actions {

@@ -80,6 +80,7 @@ export type ProjectCategory =
 export interface CategoryInfo {
   id: ProjectCategory;
   title: Record<Language, string>;
+  shortTitle: Record<Language, string>;
   subtitle: Record<Language, string>;
   icon: string;
 }
@@ -87,6 +88,7 @@ export interface CategoryInfo {
 export const CATEGORIES: CategoryInfo[] = [
   {
     id: 'web-platforms',
+    shortTitle: { en: 'Web & SaaS', ru: 'Веб и SaaS' },
     title: {
       en: 'Web & SaaS Platforms',
       ru: 'Веб- и SaaS-платформы',
@@ -99,6 +101,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: 'calculators',
+    shortTitle: { en: 'Finance', ru: 'Финансы' },
     title: {
       en: 'FinTech & Analytics Calculators',
       ru: 'Финансовые и аналитические калькуляторы',
@@ -111,6 +114,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: 'audio-media',
+    shortTitle: { en: 'Audio & Video', ru: 'Аудио и видео' },
     title: {
       en: 'Audio, Video & Media Software',
       ru: 'Аудио, видео и медиа-инструменты',
@@ -123,6 +127,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: 'mobile-apps',
+    shortTitle: { en: 'Apps', ru: 'Приложения' },
     title: {
       en: 'Mobile & Productivity Systems',
       ru: 'Мобильные и прикладные системы',
@@ -135,6 +140,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: 'ai-3d-gamedev',
+    shortTitle: { en: 'CAD, 3D & Games', ru: 'CAD, 3D и игры' },
     title: {
       en: 'AI, CAD, 3D & Game Dev',
       ru: 'ИИ, CAD, 3D и разработка игр',
@@ -147,6 +153,7 @@ export const CATEGORIES: CategoryInfo[] = [
   },
   {
     id: 'research-infra',
+    shortTitle: { en: 'AI & Infra', ru: 'AI и системы' },
     title: {
       en: 'Research, AI Agents & Infrastructure',
       ru: 'Исследования, AI-агенты и сетевая инфраструктура',
