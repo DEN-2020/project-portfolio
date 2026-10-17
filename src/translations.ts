@@ -36,6 +36,7 @@ export interface TranslationDict {
   contactError: string;
   contactRateLimit: string;
   statTotalProjects: string;
+  projectFiltersLabel: string;
   statLiveReady: string;
   statWebPlatforms: string;
   statFintechTools: string;
@@ -122,7 +123,8 @@ export const translations: Record<Language, TranslationDict> = {
     contactError: 'Не удалось отправить. Проверьте поля и попробуйте ещё раз.',
     contactRateLimit: 'Слишком много попыток. Пожалуйста, попробуйте позже.',
     statTotalProjects: 'Всего проектов',
-    statLiveReady: 'Онлайн / Готово',
+    projectFiltersLabel: 'Фильтры проектов',
+    statLiveReady: 'Онлайн / MVP',
     statWebPlatforms: 'Веб-платформы',
     statFintechTools: 'Финтех-инструменты',
     statAudioVideo: 'Аудио и видео',
@@ -206,7 +208,8 @@ export const translations: Record<Language, TranslationDict> = {
     contactError: 'The message could not be sent. Check the fields and try again.',
     contactRateLimit: 'Too many attempts. Please try again later.',
     statTotalProjects: 'Total Projects',
-    statLiveReady: 'Live / Ready',
+    projectFiltersLabel: 'Project filters',
+    statLiveReady: 'Live / MVP',
     statWebPlatforms: 'Web Platforms',
     statFintechTools: 'FinTech Tools',
     statAudioVideo: 'Audio & Video',

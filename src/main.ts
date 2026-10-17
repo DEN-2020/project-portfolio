@@ -48,12 +48,13 @@ import { translations } from './translations';
 import { getTechIcon } from './tech-icons';
 import { initAnalytics } from './analytics';
 
+type ProjectFilter = 'all' | 'live-ready' | ProjectCategory;
+
 interface AppState {
   language: Language;
   viewMode: 'grouped' | 'grid';
   visibilityMode: 'all' | 'public';
-  categoryFilter: 'all' | ProjectCategory;
-  statusFilter: 'all' | DemoStatus;
+  projectFilter: ProjectFilter;
   query: string;
   lightboxSlug: string | null;
 }
@@ -64,8 +65,7 @@ const state: AppState = {
   language: savedLang === 'en' || savedLang === 'ru' ? savedLang : 'ru',
   viewMode: 'grouped',
   visibilityMode: 'public',
-  categoryFilter: 'all',
-  statusFilter: 'all',
+  projectFilter: 'all',
   query: '',
   lightboxSlug: null,
 };
@@ -145,12 +145,10 @@ const getVisibleProjects = (): Project[] => {
     if (state.visibilityMode === 'public' && p.visibility !== 'public') {
       return false;
     }
-    // Category filter
-    if (state.categoryFilter !== 'all' && p.category !== state.categoryFilter) {
+    if (state.projectFilter === 'live-ready' && p.demoStatus !== 'live' && p.demoStatus !== 'ready') {
       return false;
     }
-    // Status filter
-    if (state.statusFilter !== 'all' && p.demoStatus !== state.statusFilter) {
+    if (state.projectFilter !== 'all' && state.projectFilter !== 'live-ready' && p.category !== state.projectFilter) {
       return false;
     }
     // Search query
@@ -182,16 +180,16 @@ const getVisibleProjects = (): Project[] => {
   });
 };
 
-const renderStatBox = (num: number | string, label: string, icon: string, tone: string) => `
-  <div class="stat-box stat-box--${tone}">
-    <div class="stat-box__icon">
+const renderStatBox = (num: number, label: string, icon: string, tone: string, filter: ProjectFilter, fullLabel = label) => `
+  <button class="stat-box stat-box--${tone} ${state.projectFilter === filter ? 'stat-box--active' : ''}" type="button" data-project-filter="${filter}" aria-pressed="${state.projectFilter === filter}" aria-label="${escapeHtml(fullLabel)}: ${num}" aria-controls="projects-container">
+    <span class="stat-box__icon" aria-hidden="true">
       <i data-lucide="${icon}"></i>
-    </div>
-    <div class="stat-box__content">
+    </span>
+    <span class="stat-box__content">
       <span class="stat-box__num">${num}</span>
       <span class="stat-box__label">${label}</span>
-    </div>
-  </div>
+    </span>
+  </button>
 `;
 
 const renderCompanionStrip = (project: Project, lang: Language) => {
@@ -608,10 +606,12 @@ const render = () => {
   const visible = getVisibleProjects();
   const modeProjects = state.visibilityMode === 'public' ? projects.filter((p) => p.visibility === 'public') : projects;
   const liveCount = modeProjects.filter((p) => p.demoStatus === 'live' || p.demoStatus === 'ready').length;
-  const webPlatformsCount = modeProjects.filter((p) => p.category === 'web-platforms').length;
-  const calculatorsCount = modeProjects.filter((p) => p.category === 'calculators').length;
-  const audioMediaCount = modeProjects.filter((p) => p.category === 'audio-media').length;
-  const aiGameCount = modeProjects.filter((p) => p.category === 'ai-3d-gamedev' || p.category === 'mobile-apps').length;
+  const categoryTones = ['emerald', 'amber', 'indigo', 'cyan', 'purple', 'indigo'];
+  const filterLabel = state.projectFilter === 'all'
+    ? t.statTotalProjects
+    : state.projectFilter === 'live-ready'
+      ? t.statLiveReady
+      : CATEGORIES.find((category) => category.id === state.projectFilter)?.title[lang] ?? t.statTotalProjects;
 
   app.innerHTML = `
     <!-- Top Navigation -->
@@ -704,14 +704,14 @@ const render = () => {
     </section>
 
     <!-- Stats Bar -->
-    <section class="stats-grid" aria-label="Portfolio statistics">
-      ${renderStatBox(modeProjects.length, t.statTotalProjects, 'database', 'emerald')}
-      ${renderStatBox(liveCount, t.statLiveReady, 'globe', 'cyan')}
-      ${renderStatBox(webPlatformsCount, t.statWebPlatforms, 'layout-grid', 'emerald')}
-      ${renderStatBox(calculatorsCount, t.statFintechTools, 'calculator', 'amber')}
-      ${renderStatBox(audioMediaCount, t.statAudioVideo, 'volume-2', 'indigo')}
-      ${renderStatBox(aiGameCount, t.statAiGames, 'gamepad-2', 'purple')}
-    </section>
+    <nav class="stats-grid" aria-label="${t.projectFiltersLabel}">
+      ${renderStatBox(modeProjects.length, t.statTotalProjects, 'database', 'emerald', 'all')}
+      ${renderStatBox(liveCount, t.statLiveReady, 'globe', 'cyan', 'live-ready')}
+      ${CATEGORIES.map((category, index) => renderStatBox(
+        modeProjects.filter((project) => project.category === category.id).length,
+        category.shortTitle[lang], category.icon, categoryTones[index], category.id, category.title[lang],
+      )).join('')}
+    </nav>
 
     <!-- Main Workspace -->
     <main class="main-workspace" id="workspace">
@@ -749,24 +749,10 @@ const render = () => {
         </div>
       </div>
 
-      <!-- Filter Tabs -->
-      <nav class="filter-tabs" aria-label="Category filters">
-        <button class="filter-tab ${state.categoryFilter === 'all' ? 'filter-tab--active' : ''}" type="button" data-category="all" aria-pressed="${state.categoryFilter === 'all'}">
-          <i data-lucide="layers"></i>
-          <span>${t.allCategoriesTab}</span>
-          <span class="filter-tab__count">${modeProjects.length}</span>
-        </button>
-        ${CATEGORIES.map(
-          (cat) => `
-          <button class="filter-tab ${state.categoryFilter === cat.id ? 'filter-tab--active' : ''}" type="button" data-category="${cat.id}" aria-label="${escapeHtml(cat.title[lang])}" aria-pressed="${state.categoryFilter === cat.id}">
-            <i data-lucide="${cat.icon}"></i>
-            <span class="label--wide">${escapeHtml(cat.title[lang])}</span>
-            <span class="label--compact">${escapeHtml(cat.shortTitle[lang])}</span>
-            <span class="filter-tab__count">${modeProjects.filter((p) => p.category === cat.id).length}</span>
-          </button>
-        `,
-        ).join('')}
-      </nav>
+      <div class="catalog-summary" id="catalog-summary" tabindex="-1">
+        <p role="status" aria-live="polite"><strong>${escapeHtml(filterLabel)}</strong><span>${visible.length} ${t.projectsCount}</span></p>
+        ${state.projectFilter !== 'all' || state.query ? `<button type="button" class="catalog-summary__reset" data-project-filter="all">${t.resetFiltersBtn}</button>` : ''}
+      </div>
 
       <!-- Projects View -->
       <div id="projects-container">
@@ -782,7 +768,7 @@ const render = () => {
                 </button>
               </div>
             `
-            : state.viewMode === 'grouped' && state.categoryFilter === 'all'
+            : state.viewMode === 'grouped'
               ? CATEGORIES.map((cat) => renderCategorySection(cat, visible, lang)).join('')
               : `
               <div class="projects-grid">
@@ -821,7 +807,7 @@ const render = () => {
   const hydrationVersion = ++iconHydrationVersion;
   const iconRoots = Array.from(
     app.querySelectorAll<HTMLElement>(
-      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .filter-tabs, .category-header, .project-card, .empty-state, .contact-section, .site-footer, .lightbox-modal',
+      '.topbar, .portfolio-boundary-note, .hero, .stats-grid, .controls-bar, .category-header, .project-card, .empty-state, .contact-section, .site-footer, .lightbox-modal',
     ),
   );
   const hydrateNextIconRoot = () => {
@@ -911,8 +897,7 @@ const bindEvents = () => {
   // Reset Filters
   document.querySelector('#reset-filters-btn')?.addEventListener('click', () => {
     state.query = '';
-    state.categoryFilter = 'all';
-    state.statusFilter = 'all';
+    state.projectFilter = 'all';
     render();
   });
 
@@ -938,13 +923,17 @@ const bindEvents = () => {
     });
   });
 
-  // Category Filter Tabs
-  document.querySelectorAll<HTMLButtonElement>('[data-category]').forEach((btn) => {
+  // Unified statistics and category navigation.
+  document.querySelectorAll<HTMLButtonElement>('[data-project-filter]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const cat = btn.dataset.category as 'all' | ProjectCategory;
-      if (cat) {
-        state.categoryFilter = cat;
+      const filter = btn.dataset.projectFilter as ProjectFilter;
+      if (filter) {
+        state.projectFilter = filter;
+        state.query = '';
         render();
+        const summary = document.querySelector<HTMLElement>('#catalog-summary');
+        summary?.focus({ preventScroll: true });
+        summary?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
       }
     });
   });
